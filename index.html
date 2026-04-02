@@ -6,640 +6,239 @@
     <title>مُجمّع التقارير الجيوسياسية العالمية</title>
     <style>
         :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #111827;
-            --bg-card: #1a2236;
-            --bg-card-hover: #243049;
-            --text-primary: #e8edf5;
-            --text-secondary: #8b9cc0;
-            --text-muted: #5a6a8a;
-            --accent: #4f8fff;
-            --accent-hover: #3a7ae8;
-            --accent-glow: rgba(79,143,255,0.15);
-            --border: #1e2d4a;
-            --border-light: #2a3b5c;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --gold: #d4a053;
-            --gradient-main: linear-gradient(135deg, #4f8fff 0%, #7c5cfc 100%);
-            --gradient-warm: linear-gradient(135deg, #d4a053 0%, #e8c377 100%);
-            --shadow: 0 4px 20px rgba(0,0,0,0.4);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
-            --radius: 14px;
-            --radius-sm: 8px;
+            --bg-primary: #06090f;
+            --bg-secondary: #0d1320;
+            --bg-tertiary: #131b2e;
+            --bg-card: #141d30;
+            --bg-card-hover: #1a2740;
+            --text-primary: #dce4f0;
+            --text-secondary: #8899b8;
+            --text-muted: #4e5f80;
+            --accent: #4a90ff;
+            --accent-dim: rgba(74,144,255,0.12);
+            --border: #1a2540;
+            --border-light: #243050;
+            --success: #00c48f;
+            --warning: #ffb020;
+            --danger: #ff4060;
+            --gold: #d4a050;
+            --gradient-main: linear-gradient(135deg, #4a90ff, #7c5cfc);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+            --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+            --r: 12px;
+            --r-sm: 8px;
         }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.75;min-height:100vh}
+        a{text-decoration:none;color:inherit}
+        ::-webkit-scrollbar{width:5px}
+        ::-webkit-scrollbar-track{background:var(--bg-primary)}
+        ::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:3px}
 
-        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.75;
-            min-height: 100vh;
-            background-image:
-                radial-gradient(ellipse at 20% 50%, rgba(79,143,255,0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(124,92,252,0.03) 0%, transparent 50%);
-        }
-
-        a { text-decoration:none; color:inherit; }
+        /* ===== PROGRESS ===== */
+        #progressBar{position:fixed;top:0;left:0;height:3px;background:var(--gradient-main);z-index:999;transition:width .3s;box-shadow:0 0 12px rgba(74,144,255,.5);width:0}
 
         /* ===== HEADER ===== */
-        .header {
-            background: rgba(17,24,39,0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        .hdr{background:rgba(13,19,32,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        .hdr-top{max-width:1480px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+        .logo{display:flex;align-items:center;gap:12px}
+        .logo-i{width:46px;height:46px;background:var(--gradient-main);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 14px rgba(74,144,255,.3)}
+        .logo h1{font-size:1.25rem;font-weight:800;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .logo p{font-size:.72rem;color:var(--text-muted);margin-top:1px}
+        .hdr-r{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+        .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:.8rem;color:var(--text-secondary);border:1px solid var(--border)}
+        .chip .n{font-weight:700;color:var(--accent)}
+        .chip-live{border-color:rgba(0,196,143,.25);background:rgba(0,196,143,.06)}
+        .dot-live{width:7px;height:7px;background:var(--success);border-radius:50%;animation:blink 2s infinite}
+        @keyframes blink{0%,100%{box-shadow:0 0 0 0 rgba(0,196,143,.4)}50%{box-shadow:0 0 0 5px rgba(0,196,143,0)}}
+        .chip-timer{border-color:rgba(212,160,80,.2);background:rgba(212,160,80,.05)}
+        .chip-timer .t{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums;direction:ltr}
+        .chip-err{border-color:rgba(255,64,96,.2);background:rgba(255,64,96,.06);color:#ff8090;font-size:.72rem;cursor:pointer}
 
-        .header-top {
-            max-width: 1500px;
-            margin: 0 auto;
-            padding: 18px 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .logo { display:flex; align-items:center; gap:14px; }
-
-        .logo-icon {
-            width: 52px; height: 52px;
-            background: var(--gradient-main);
-            border-radius: var(--radius-sm);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 26px;
-            box-shadow: 0 4px 15px rgba(79,143,255,0.3);
-        }
-
-        .logo-text h1 {
-            font-size: 1.35rem;
-            font-weight: 800;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.3px;
-        }
-
-        .logo-text p {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(79,143,255,0.08);
-            border: 1px solid rgba(79,143,255,0.15);
-            padding: 7px 15px;
-            border-radius: 24px;
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-        }
-
-        .badge .num {
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .live-badge {
-            background: rgba(16,185,129,0.1);
-            border-color: rgba(16,185,129,0.2);
-        }
-
-        .live-dot {
-            width: 7px; height: 7px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: livePulse 2s infinite;
-        }
-
-        @keyframes livePulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
-            50% { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
-        }
-
-        .countdown-badge {
-            background: rgba(212,160,83,0.1);
-            border-color: rgba(212,160,83,0.2);
-        }
-
-        .countdown-badge .timer {
-            color: var(--gold);
-            font-weight: 700;
-            font-variant-numeric: tabular-nums;
-            direction: ltr;
-        }
-
-        /* ===== NAV CATEGORIES ===== */
-        .nav-bar {
-            background: rgba(10,14,26,0.6);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-inner {
-            max-width: 1500px;
-            margin: 0 auto;
-            padding: 0 28px;
-            display: flex;
-            align-items: center;
-            gap: 0;
-            overflow-x: auto;
-        }
-
-        .nav-inner::-webkit-scrollbar { height: 0; }
-
-        .nav-tab {
-            padding: 13px 22px;
-            font-size: 0.84rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            white-space: nowrap;
-            position: relative;
-            transition: all 0.25s;
-            font-family: inherit;
-            border-bottom: 2px solid transparent;
-        }
-
-        .nav-tab:hover { color: var(--text-secondary); }
-
-        .nav-tab.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-            background: rgba(79,143,255,0.05);
-        }
-
-        .nav-tab .tab-count {
-            font-size: 0.7rem;
-            background: var(--border);
-            padding: 1px 7px;
-            border-radius: 10px;
-            margin-right: 6px;
-            color: var(--text-muted);
-        }
-
-        .nav-tab.active .tab-count {
-            background: rgba(79,143,255,0.2);
-            color: var(--accent);
-        }
+        /* ===== NAV ===== */
+        .nav{background:rgba(6,9,15,.7);border-bottom:1px solid var(--border)}
+        .nav-in{max-width:1480px;margin:0 auto;padding:0 24px;display:flex;overflow-x:auto;gap:0}
+        .nav-in::-webkit-scrollbar{height:0}
+        .nt{padding:12px 18px;font-size:.82rem;font-weight:500;color:var(--text-muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:.2s;font-family:inherit}
+        .nt:hover{color:var(--text-secondary)}
+        .nt.on{color:var(--accent);border-bottom-color:var(--accent);background:rgba(74,144,255,.04)}
+        .nt .c{font-size:.68rem;background:var(--border);padding:1px 6px;border-radius:8px;margin-right:5px;color:var(--text-muted)}
+        .nt.on .c{background:var(--accent-dim);color:var(--accent)}
 
         /* ===== TOOLBAR ===== */
-        .toolbar {
-            max-width: 1500px;
-            margin: 20px auto 0;
-            padding: 0 28px;
-        }
-
-        .toolbar-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 9px 18px;
-            gap: 8px;
-            min-width: 320px;
-            transition: border-color 0.2s;
-        }
-
-        .search-wrapper:focus-within {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-
-        .search-wrapper input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            width: 100%;
-            font-family: inherit;
-        }
-
-        .search-wrapper input::placeholder { color: var(--text-muted); }
-
-        .sort-select {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 9px 16px;
-            border-radius: 24px;
-            font-size: 0.84rem;
-            font-family: inherit;
-            cursor: pointer;
-            outline: none;
-        }
-
-        .sort-select:focus {
-            border-color: var(--accent);
-        }
-
-        .source-filter {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 9px 16px;
-            border-radius: 24px;
-            font-size: 0.84rem;
-            font-family: inherit;
-            cursor: pointer;
-            outline: none;
-            max-width: 220px;
-        }
+        .tb{max-width:1480px;margin:18px auto 0;padding:0 24px}
+        .tb-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+        .search{display:flex;align-items:center;background:var(--bg-secondary);border:1px solid var(--border);border-radius:22px;padding:8px 16px;gap:8px;min-width:300px;transition:.2s}
+        .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
+        .search input{background:none;border:none;outline:none;color:var(--text-primary);font-size:.88rem;width:100%;font-family:inherit}
+        .search input::placeholder{color:var(--text-muted)}
+        .sel{background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-secondary);padding:8px 14px;border-radius:22px;font-size:.82rem;font-family:inherit;cursor:pointer;outline:none}
+        .sel:focus{border-color:var(--accent)}
 
         /* ===== MAIN ===== */
-        .main {
-            max-width: 1500px;
-            margin: 24px auto;
-            padding: 0 28px 60px;
-        }
+        .main{max-width:1480px;margin:20px auto;padding:0 24px 50px}
 
         /* ===== DATE SECTIONS ===== */
-        .date-section { margin-bottom: 40px; }
+        .ds{margin-bottom:36px}
+        .dh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+        .dh h2{font-size:1.05rem;font-weight:600;color:var(--text-secondary)}
+        .dh .cb{background:var(--accent);color:#fff;padding:3px 12px;border-radius:10px;font-size:.75rem;font-weight:700}
 
-        .date-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid var(--border);
-        }
+        /* ===== GRID ===== */
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px}
 
-        .date-header h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
+        /* ===== CARD ===== */
+        .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;display:flex;flex-direction:column;gap:11px;transition:.25s;position:relative;overflow:hidden}
+        .card::after{content:'';position:absolute;top:0;right:0;width:3px;height:100%;opacity:0;transition:.25s}
+        .card:hover{background:var(--bg-card-hover);border-color:var(--border-light);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+        .card:hover::after{opacity:1}
+        .card[data-cat=geopolitics]::after{background:linear-gradient(180deg,#ff4060,#f97316)}
+        .card[data-cat=diplomacy]::after{background:linear-gradient(180deg,#8b5cf6,#6366f1)}
+        .card[data-cat=politics]::after{background:linear-gradient(180deg,#4a90ff,#06b6d4)}
+        .card[data-cat=economy]::after{background:linear-gradient(180deg,#ffb020,#eab308)}
+        .card[data-cat="arab-world"]::after{background:linear-gradient(180deg,#00c48f,#14b8a6)}
+        .card[data-cat=africa]::after{background:linear-gradient(180deg,#d4a050,#f59e0b)}
+        .card[data-cat=defense]::after{background:linear-gradient(180deg,#64748b,#94a3b8)}
+        .card[data-cat=energy]::after{background:linear-gradient(180deg,#22c55e,#84cc16)}
+        .card[data-cat=analysis]::after{background:linear-gradient(180deg,#ec4899,#f43f5e)}
 
-        .date-header .count-badge {
-            background: var(--accent);
-            color: white;
-            padding: 3px 14px;
-            border-radius: 12px;
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
+        .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+        .src{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.03);border:1px solid var(--border);padding:3px 10px;border-radius:5px;font-size:.7rem;color:var(--text-muted);font-weight:600;white-space:nowrap}
+        .src img{width:14px;height:14px;border-radius:2px}
+        .lf{font-size:.67rem;padding:2px 5px;border-radius:3px;font-weight:700}
+        .lf.en{background:rgba(74,144,255,.12);color:#60a5fa}
+        .lf.fr{background:rgba(255,64,96,.12);color:#ff8090}
+        .ts{font-size:.7rem;color:var(--text-muted);white-space:nowrap;display:flex;align-items:center;gap:3px}
+        .ts.exp{color:var(--warning)}
+        .card-title{font-size:.98rem;font-weight:650;line-height:1.6}
+        .card-title a{transition:.2s}
+        .card-title a:hover{color:var(--accent)}
+        .card-desc{font-size:.83rem;color:var(--text-secondary);line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+        .card-bot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:11px;border-top:1px solid var(--border);gap:8px;flex-wrap:wrap}
+        .pill{padding:3px 9px;border-radius:5px;font-size:.68rem;font-weight:700;letter-spacing:.2px}
+        .pill.geopolitics{background:rgba(255,64,96,.1);color:#ff8090}
+        .pill.diplomacy{background:rgba(139,92,246,.1);color:#a78bfa}
+        .pill.politics{background:rgba(74,144,255,.1);color:#60a5fa}
+        .pill.economy{background:rgba(255,176,32,.1);color:#fbbf24}
+        .pill.arab-world{background:rgba(0,196,143,.1);color:#34d399}
+        .pill.africa{background:rgba(212,160,80,.1);color:#d4a050}
+        .pill.defense{background:rgba(100,116,139,.1);color:#94a3b8}
+        .pill.energy{background:rgba(34,197,94,.1);color:#4ade80}
+        .pill.analysis{background:rgba(236,72,153,.1);color:#f472b6}
+        .rlink{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-size:.78rem;font-weight:600;transition:gap .2s;white-space:nowrap}
+        .rlink:hover{gap:8px}
 
-        /* ===== ARTICLE CARDS ===== */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
-            gap: 18px;
-        }
+        /* ===== STATES ===== */
+        .state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 20px;gap:16px}
+        .spin{width:42px;height:42px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:sp .7s linear infinite}
+        @keyframes sp{to{transform:rotate(360deg)}}
+        .empty{text-align:center;padding:60px 20px;color:var(--text-muted)}
+        .empty .ic{font-size:42px;margin-bottom:12px}
 
-        .article-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 22px 24px;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .article-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 3px;
-            height: 100%;
-            border-radius: 0 0 0 3px;
-            transition: opacity 0.3s;
-            opacity: 0;
-        }
-
-        .article-card[data-category="geopolitics"]::after { background: linear-gradient(180deg,#ef4444,#f97316); }
-        .article-card[data-category="diplomacy"]::after { background: linear-gradient(180deg,#8b5cf6,#6366f1); }
-        .article-card[data-category="politics"]::after { background: linear-gradient(180deg,#3b82f6,#06b6d4); }
-        .article-card[data-category="economy"]::after { background: linear-gradient(180deg,#f59e0b,#eab308); }
-        .article-card[data-category="arab-world"]::after { background: linear-gradient(180deg,#10b981,#14b8a6); }
-        .article-card[data-category="africa"]::after { background: linear-gradient(180deg,#d4a053,#f59e0b); }
-        .article-card[data-category="defense"]::after { background: linear-gradient(180deg,#64748b,#94a3b8); }
-        .article-card[data-category="energy"]::after { background: linear-gradient(180deg,#22c55e,#84cc16); }
-        .article-card[data-category="analysis"]::after { background: linear-gradient(180deg,#ec4899,#f43f5e); }
-
-        .article-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border-light);
-            box-shadow: var(--shadow);
-            transform: translateY(-3px);
-        }
-
-        .article-card:hover::after { opacity: 1; }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .source-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border);
-            padding: 4px 11px;
-            border-radius: 6px;
-            font-size: 0.73rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .source-tag img {
-            width: 14px; height: 14px;
-            border-radius: 2px;
-        }
-
-        .lang-flag {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 700;
-        }
-
-        .lang-flag.en { background: rgba(59,130,246,0.15); color: #60a5fa; }
-        .lang-flag.fr { background: rgba(239,68,68,0.15); color: #f87171; }
-
-        .time-stamp {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .time-stamp.expiring { color: var(--warning); }
-
-        .article-title {
-            font-size: 1.02rem;
-            font-weight: 650;
-            line-height: 1.65;
-        }
-
-        .article-title a {
-            transition: color 0.2s;
-        }
-
-        .article-title a:hover { color: var(--accent); }
-
-        .article-excerpt {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.75;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            padding-top: 12px;
-            border-top: 1px solid var(--border);
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-
-        .cat-pill {
-            padding: 3px 10px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-        }
-
-        .cat-pill.geopolitics { background: rgba(239,68,68,0.12); color: #f87171; }
-        .cat-pill.diplomacy { background: rgba(139,92,246,0.12); color: #a78bfa; }
-        .cat-pill.politics { background: rgba(59,130,246,0.12); color: #60a5fa; }
-        .cat-pill.economy { background: rgba(245,158,11,0.12); color: #fbbf24; }
-        .cat-pill.arab-world { background: rgba(16,185,129,0.12); color: #34d399; }
-        .cat-pill.africa { background: rgba(212,160,83,0.12); color: #d4a053; }
-        .cat-pill.defense { background: rgba(100,116,139,0.12); color: #94a3b8; }
-        .cat-pill.energy { background: rgba(34,197,94,0.12); color: #4ade80; }
-        .cat-pill.analysis { background: rgba(236,72,153,0.12); color: #f472b6; }
-
-        .read-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--accent);
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: gap 0.2s;
-            white-space: nowrap;
-        }
-
-        .read-link:hover { gap: 9px; }
-
-        /* ===== LOADING / EMPTY ===== */
-        .state-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 20px;
-            gap: 18px;
-        }
-
-        .spinner {
-            width: 44px; height: 44px;
-            border: 3px solid var(--border);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-        }
-
-        .empty-state .icon { font-size: 44px; margin-bottom: 14px; }
-
-        /* ===== PROGRESS BAR ===== */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: var(--gradient-main);
-            z-index: 200;
-            transition: width 0.3s;
-            box-shadow: 0 0 10px rgba(79,143,255,0.5);
-        }
+        /* ===== LOG PANEL ===== */
+        .log-panel{position:fixed;bottom:0;left:0;right:0;background:rgba(13,19,32,.96);backdrop-filter:blur(8px);border-top:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .3s;z-index:90}
+        .log-panel.open{max-height:260px}
+        .log-header{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;border-bottom:1px solid var(--border)}
+        .log-header h3{font-size:.85rem;color:var(--text-secondary)}
+        .log-close{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;font-family:inherit}
+        .log-body{padding:10px 20px;overflow-y:auto;max-height:200px;font-family:'Consolas','Courier New',monospace;font-size:.72rem;line-height:1.8}
+        .log-body .ok{color:var(--success)}
+        .log-body .er{color:var(--danger)}
+        .log-body .wr{color:var(--warning)}
+        .log-body .inf{color:var(--text-muted)}
 
         /* ===== FOOTER ===== */
-        .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border);
-            text-align: center;
-            padding: 24px 20px;
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            line-height: 2;
-        }
-
-        .footer .sources-list {
-            max-width: 900px;
-            margin: 10px auto 0;
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            opacity: 0.6;
-        }
+        .footer{background:var(--bg-secondary);border-top:1px solid var(--border);text-align:center;padding:22px 20px;color:var(--text-muted);font-size:.75rem;line-height:2}
+        .footer .sl{max-width:900px;margin:8px auto 0;font-size:.68rem;opacity:.5}
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 900px) {
-            .header-top { flex-direction: column; text-align: center; }
-            .header-controls { justify-content: center; }
-            .articles-grid { grid-template-columns: 1fr; }
-            .toolbar-row { flex-direction: column; }
-            .search-wrapper { min-width: 100%; }
-            .nav-inner { padding: 0 12px; }
+        @media(max-width:900px){
+            .hdr-top{flex-direction:column;text-align:center}
+            .hdr-r{justify-content:center}
+            .grid{grid-template-columns:1fr}
+            .tb-row{flex-direction:column}
+            .search{min-width:100%}
+            .nav-in{padding:0 10px}
         }
-
-        @media (max-width: 500px) {
-            .header-top { padding: 14px 16px; }
-            .main { padding: 0 14px 40px; }
-            .article-card { padding: 16px; }
+        @media(max-width:500px){
+            .hdr-top{padding:12px 14px}
+            .main{padding:0 12px 40px}
+            .card{padding:15px}
+            .grid{gap:12px}
         }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
     </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
+<div id="progressBar"></div>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="header-top">
+<header class="hdr">
+    <div class="hdr-top">
         <div class="logo">
-            <div class="logo-icon">🌍</div>
-            <div class="logo-text">
+            <div class="logo-i">🌍</div>
+            <div>
                 <h1>Global Geopolitical Reports</h1>
-                <p>جيوبوليتيك · علاقات دولية · العالم العربي · أفريقيا — 50+ مصدر مرموق</p>
+                <p>جيوبوليتيك · علاقات دولية · سياسة · اقتصاد · العالم العربي · أفريقيا — تحديث كل 6 ساعات</p>
             </div>
         </div>
-        <div class="header-controls">
-            <div class="badge live-badge">
-                <span class="live-dot"></span> مباشر
-            </div>
-            <div class="badge">
-                📄 المقالات: <span class="num" id="totalCount">0</span>
-            </div>
-            <div class="badge">
-                🏛️ المصادر: <span class="num" id="sourceCount">0</span>
-            </div>
-            <div class="badge countdown-badge">
-                ⏱️ التحديث: <span class="timer" id="countdown">--:--:--</span>
-            </div>
+        <div class="hdr-r">
+            <div class="chip chip-live"><span class="dot-live"></span> مباشر</div>
+            <div class="chip">📄 <span class="n" id="cntAll">0</span></div>
+            <div class="chip">🏛️ <span class="n" id="cntSrc">0</span></div>
+            <div class="chip chip-timer">⏱️ <span class="t" id="cdTimer">--:--:--</span></div>
+            <div class="chip chip-err" id="errChip" style="display:none" onclick="toggleLog()">⚠️ <span id="errN">0</span> أخطاء</div>
         </div>
     </div>
-
-    <!-- NAV TABS -->
-    <nav class="nav-bar">
-        <div class="nav-inner" id="navTabs">
-            <button class="nav-tab active" data-filter="all">🌐 الكل<span class="tab-count" id="count-all">0</span></button>
-            <button class="nav-tab" data-filter="geopolitics">🔴 جيوبوليتيك<span class="tab-count" id="count-geopolitics">0</span></button>
-            <button class="nav-tab" data-filter="diplomacy">🟣 دبلوماسية<span class="tab-count" id="count-diplomacy">0</span></button>
-            <button class="nav-tab" data-filter="politics">🔵 سياسة<span class="tab-count" id="count-politics">0</span></button>
-            <button class="nav-tab" data-filter="economy">🟡 اقتصاد<span class="tab-count" id="count-economy">0</span></button>
-            <button class="nav-tab" data-filter="arab-world">🟢 العالم العربي<span class="tab-count" id="count-arab-world">0</span></button>
-            <button class="nav-tab" data-filter="africa">🟠 أفريقيا<span class="tab-count" id="count-africa">0</span></button>
-            <button class="nav-tab" data-filter="defense">⚪ دفاع وأمن<span class="tab-count" id="count-defense">0</span></button>
-            <button class="nav-tab" data-filter="energy">🟢 طاقة وموارد<span class="tab-count" id="count-energy">0</span></button>
-            <button class="nav-tab" data-filter="analysis">🩷 تحليلات<span class="tab-count" id="count-analysis">0</span></button>
+    <nav class="nav">
+        <div class="nav-in" id="navTabs">
+            <button class="nt on" data-f="all">🌐 الكل<span class="c" id="c-all">0</span></button>
+            <button class="nt" data-f="geopolitics">🔴 جيوبوليتيك<span class="c" id="c-geopolitics">0</span></button>
+            <button class="nt" data-f="diplomacy">🟣 دبلوماسية<span class="c" id="c-diplomacy">0</span></button>
+            <button class="nt" data-f="politics">🔵 سياسة<span class="c" id="c-politics">0</span></button>
+            <button class="nt" data-f="economy">🟡 اقتصاد<span class="c" id="c-economy">0</span></button>
+            <button class="nt" data-f="arab-world">🟢 العالم العربي<span class="c" id="c-arab-world">0</span></button>
+            <button class="nt" data-f="africa">🟠 أفريقيا<span class="c" id="c-africa">0</span></button>
+            <button class="nt" data-f="defense">⚪ دفاع وأمن<span class="c" id="c-defense">0</span></button>
+            <button class="nt" data-f="energy">🍀 طاقة<span class="c" id="c-energy">0</span></button>
+            <button class="nt" data-f="analysis">🩷 تحليلات<span class="c" id="c-analysis">0</span></button>
         </div>
     </nav>
 </header>
 
-<!-- TOOLBAR -->
-<div class="toolbar">
-    <div class="toolbar-row">
-        <div class="search-wrapper">
-            <span>🔍</span>
-            <input type="text" id="searchInput" placeholder="ابحث في العناوين والمصادر...">
-        </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <select class="source-filter" id="sourceFilter">
-                <option value="all">كل المصادر</option>
-            </select>
-            <select class="sort-select" id="sortSelect">
+<div class="tb">
+    <div class="tb-row">
+        <div class="search"><span>🔍</span><input id="searchIn" placeholder="ابحث في العناوين والمصادر..."></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <select class="sel" id="srcFilter"><option value="all">كل المصادر</option></select>
+            <select class="sel" id="sortSel">
                 <option value="newest">الأحدث أولاً</option>
                 <option value="oldest">الأقدم أولاً</option>
                 <option value="source">حسب المصدر</option>
             </select>
-            <select class="sort-select" id="langFilter">
+            <select class="sel" id="langSel">
                 <option value="all">كل اللغات</option>
-                <option value="en">🇬🇧 الإنجليزية</option>
-                <option value="fr">🇫🇷 الفرنسية</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="fr">🇫🇷 Français</option>
             </select>
         </div>
     </div>
 </div>
 
-<!-- MAIN -->
-<main class="main" id="mainContent">
-    <div class="state-container" id="loadingState">
-        <div class="spinner"></div>
-        <p style="color:var(--text-muted)">جاري جلب المقالات من 50+ مصدر عالمي مرموق...</p>
-    </div>
+<main class="main" id="mainBox">
+    <div class="state"><div class="spin"></div><p style="color:var(--text-muted)">جاري التحميل...</p></div>
 </main>
 
-<!-- FOOTER -->
+<!-- LOG PANEL -->
+<div class="log-panel" id="logPanel">
+    <div class="log-header"><h3>📋 سجل الجلب</h3><button class="log-close" onclick="toggleLog()">✕</button></div>
+    <div class="log-body" id="logBody"></div>
+</div>
+
 <footer class="footer">
-    <p>🌍 مُجمّع التقارير الجيوسياسية العالمية — تحديث تلقائي كل 6 ساعات — المقالات الأقدم من 7 أيام تُحذف تلقائياً</p>
-    <p>آخر تحديث: <span id="lastUpdate">—</span></p>
-    <div class="sources-list" id="sourcesList"></div>
+    <p>🌍 مُجمّع التقارير الجيوسياسية — تحديث تلقائي كل 6 ساعات — المقالات الأقدم من 7 أيام تُحذف تلقائياً</p>
+    <p>آخر تحديث: <span id="lastUpd">—</span></p>
+    <div class="sl" id="srcList"></div>
 </footer>
 
 <script>
@@ -649,371 +248,277 @@
 // ============================================================
 //  CONFIG
 // ============================================================
-const CFG = {
-    REFRESH_MS : 6 * 3600000,   // 6 h
-    MAX_AGE    : 7,             // days
-    PROXY      : 'https://api.allorigins.win/raw?url=',
-    STORE_DATA : 'geoReportsV3',
-    STORE_TIME : 'geoReportsV3_t',
+const C = {
+    REFRESH: 6*3600000,
+    MAX_DAYS: 7,
+    SK: 'geoRpt_v5',
+    TK: 'geoRpt_v5_t',
+    BATCH: 6,
+    TIMEOUT: 14000,
 };
 
 // ============================================================
-//  50+ PRESTIGIOUS SOURCES — EN + FR
-//  Focus: Geopolitics, IR, Politics, Economy, Arab World, Africa
+//  MULTI-PROXY FALLBACK SYSTEM
+//  Tries multiple proxies per feed for maximum reliability
 // ============================================================
-const SOURCES = [
-
-    // ──────────── ENGLISH — Major Newspapers ────────────
-    { id:'nyt-world',      name:'The New York Times',       lang:'en', cat:'politics',    url:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml' },
-    { id:'nyt-mideast',    name:'NYT Middle East',          lang:'en', cat:'arab-world',  url:'https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml' },
-    { id:'nyt-africa',     name:'NYT Africa',               lang:'en', cat:'africa',      url:'https://rss.nytimes.com/services/xml/rss/nyt/Africa.xml' },
-    { id:'nyt-politics',   name:'NYT Politics',             lang:'en', cat:'politics',    url:'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml' },
-    { id:'guardian-world',  name:'The Guardian',             lang:'en', cat:'geopolitics', url:'https://www.theguardian.com/world/rss' },
-    { id:'guardian-africa', name:'Guardian Africa',          lang:'en', cat:'africa',      url:'https://www.theguardian.com/world/africa/rss' },
-    { id:'guardian-mideast',name:'Guardian Middle East',     lang:'en', cat:'arab-world',  url:'https://www.theguardian.com/world/middleeast/rss' },
-    { id:'ft',             name:'Financial Times',           lang:'en', cat:'economy',     url:'https://www.ft.com/rss/home' },
-    { id:'wsj',            name:'Wall Street Journal',       lang:'en', cat:'economy',     url:'https://feeds.a.dj.com/rss/RSSWorldNews.xml' },
-    { id:'wapo',           name:'Washington Post',           lang:'en', cat:'politics',    url:'https://feeds.washingtonpost.com/rss/world' },
-    { id:'telegraph',      name:'The Telegraph',             lang:'en', cat:'politics',    url:'https://www.telegraph.co.uk/rss.xml' },
-    { id:'independent',    name:'The Independent',           lang:'en', cat:'politics',    url:'https://www.independent.co.uk/news/world/rss' },
-
-    // ──────────── ENGLISH — Wire Services ────────────
-    { id:'reuters',        name:'Reuters',                   lang:'en', cat:'geopolitics', url:'https://www.reutersagency.com/feed/' },
-    { id:'ap',             name:'Associated Press',          lang:'en', cat:'geopolitics', url:'https://rsshub.app/apnews/topics/world-news' },
-    { id:'bbc-world',      name:'BBC World',                 lang:'en', cat:'geopolitics', url:'https://feeds.bbci.co.uk/news/world/rss.xml' },
-    { id:'bbc-mideast',    name:'BBC Middle East',           lang:'en', cat:'arab-world',  url:'https://feeds.bbci.co.uk/news/world/middle_east/rss.xml' },
-    { id:'bbc-africa',     name:'BBC Africa',                lang:'en', cat:'africa',      url:'https://feeds.bbci.co.uk/news/world/africa/rss.xml' },
-    { id:'cnn',            name:'CNN World',                 lang:'en', cat:'geopolitics', url:'http://rss.cnn.com/rss/edition_world.rss' },
-
-    // ──────────── ENGLISH — Magazines & Analysis ────────────
-    { id:'economist',      name:'The Economist',             lang:'en', cat:'economy',     url:'https://www.economist.com/international/rss.xml' },
-    { id:'economist-me',   name:'Economist Middle East',     lang:'en', cat:'arab-world',  url:'https://www.economist.com/middle-east-and-africa/rss.xml' },
-    { id:'foreign-affairs', name:'Foreign Affairs',          lang:'en', cat:'geopolitics', url:'https://www.foreignaffairs.com/rss.xml' },
-    { id:'foreign-policy', name:'Foreign Policy',            lang:'en', cat:'geopolitics', url:'https://foreignpolicy.com/feed/' },
-    { id:'atlantic',       name:'The Atlantic',              lang:'en', cat:'analysis',    url:'https://www.theatlantic.com/feed/all/' },
-    { id:'newyorker',      name:'The New Yorker',            lang:'en', cat:'analysis',    url:'https://www.newyorker.com/feed/news' },
-    { id:'time',           name:'TIME Magazine',             lang:'en', cat:'geopolitics', url:'https://time.com/feed/' },
-    { id:'newsweek',       name:'Newsweek',                  lang:'en', cat:'politics',    url:'https://www.newsweek.com/rss' },
-    { id:'politico',       name:'Politico',                  lang:'en', cat:'politics',    url:'https://rss.politico.com/politics-news.xml' },
-    { id:'nat-interest',   name:'The National Interest',     lang:'en', cat:'geopolitics', url:'https://nationalinterest.org/feed' },
-    { id:'diplomat',       name:'The Diplomat',              lang:'en', cat:'diplomacy',   url:'https://thediplomat.com/feed/' },
-
-    // ──────────── ENGLISH — Think Tanks ────────────
-    { id:'brookings',      name:'Brookings Institution',     lang:'en', cat:'analysis',    url:'https://www.brookings.edu/feed/' },
-    { id:'carnegie',       name:'Carnegie Endowment',        lang:'en', cat:'analysis',    url:'https://carnegieendowment.org/rss/solr/?lang=en' },
-    { id:'cfr',            name:'Council on Foreign Relations',lang:'en',cat:'diplomacy',  url:'https://www.cfr.org/rss.xml' },
-    { id:'chatham',        name:'Chatham House',             lang:'en', cat:'diplomacy',   url:'https://www.chathamhouse.org/rss.xml' },
-    { id:'icg',            name:'Crisis Group',              lang:'en', cat:'geopolitics', url:'https://www.crisisgroup.org/rss.xml' },
-    { id:'rand',           name:'RAND Corporation',          lang:'en', cat:'defense',     url:'https://www.rand.org/news/press.xml' },
-    { id:'csis',           name:'CSIS',                      lang:'en', cat:'defense',     url:'https://www.csis.org/rss.xml' },
-    { id:'iiss',           name:'IISS',                      lang:'en', cat:'defense',     url:'https://www.iiss.org/rss' },
-    { id:'stimson',        name:'Stimson Center',            lang:'en', cat:'diplomacy',   url:'https://www.stimson.org/feed/' },
-
-    // ──────────── ENGLISH — Middle East & Africa Specialists ────────────
-    { id:'aje',            name:'Al Jazeera English',        lang:'en', cat:'arab-world',  url:'https://www.aljazeera.com/xml/rss/all.xml' },
-    { id:'mee',            name:'Middle East Eye',           lang:'en', cat:'arab-world',  url:'https://www.middleeasteye.net/rss' },
-    { id:'al-monitor',     name:'Al-Monitor',                lang:'en', cat:'arab-world',  url:'https://www.al-monitor.com/rss' },
-    { id:'african-args',   name:'African Arguments',         lang:'en', cat:'africa',      url:'https://africanarguments.org/feed/' },
-    { id:'africa-report',  name:'The Africa Report',         lang:'en', cat:'africa',      url:'https://www.theafricareport.com/feed/' },
-    { id:'africa-confid',  name:'Africa Confidential',       lang:'en', cat:'africa',      url:'https://www.africa-confidential.com/rss' },
-
-    // ──────────── ENGLISH — Economy & Energy ────────────
-    { id:'bloomberg',      name:'Bloomberg',                 lang:'en', cat:'economy',     url:'https://feeds.bloomberg.com/markets/news.rss' },
-    { id:'cnbc',           name:'CNBC World',                lang:'en', cat:'economy',     url:'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362' },
-    { id:'oilprice',       name:'OilPrice.com',              lang:'en', cat:'energy',      url:'https://oilprice.com/rss/main' },
-
-    // ──────────── ENGLISH — Defense & Security ────────────
-    { id:'def-news',       name:'Defense News',              lang:'en', cat:'defense',     url:'https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml' },
-    { id:'janes',          name:'Janes',                     lang:'en', cat:'defense',     url:'https://www.janes.com/feeds/news' },
-    { id:'war-on-rocks',   name:'War on the Rocks',          lang:'en', cat:'defense',     url:'https://warontherocks.com/feed/' },
-
-    // ──────────── FRENCH — Major Newspapers ────────────
-    { id:'lemonde',        name:'Le Monde',                  lang:'fr', cat:'geopolitics', url:'https://www.lemonde.fr/international/rss_full.xml' },
-    { id:'lemonde-afr',    name:'Le Monde Afrique',          lang:'fr', cat:'africa',      url:'https://www.lemonde.fr/afrique/rss_full.xml' },
-    { id:'lemonde-eco',    name:'Le Monde Économie',         lang:'fr', cat:'economy',     url:'https://www.lemonde.fr/economie/rss_full.xml' },
-    { id:'lemonde-diplo',  name:'Le Monde Diplomatique',     lang:'fr', cat:'geopolitics', url:'https://www.monde-diplomatique.fr/recents.xml' },
-    { id:'figaro',         name:'Le Figaro',                 lang:'fr', cat:'politics',    url:'https://www.lefigaro.fr/rss/figaro_international.xml' },
-    { id:'figaro-eco',     name:'Le Figaro Économie',        lang:'fr', cat:'economy',     url:'https://www.lefigaro.fr/rss/figaro_economie.xml' },
-    { id:'liberation',     name:'Libération',                lang:'fr', cat:'politics',    url:'https://www.liberation.fr/arc/outboundfeeds/rss/?outputType=xml' },
-    { id:'lesechos',       name:'Les Échos',                 lang:'fr', cat:'economy',     url:'https://www.lesechos.fr/rss/rss_monde.xml' },
-    { id:'latribune',      name:'La Tribune',                lang:'fr', cat:'economy',     url:'https://www.latribune.fr/rss/rubriques/economie.html' },
-    { id:'lopinion',       name:"L'Opinion",                 lang:'fr', cat:'politics',    url:'https://www.lopinion.fr/rss.xml' },
-
-    // ──────────── FRENCH — Broadcast & Wire ────────────
-    { id:'france24',       name:'France 24',                 lang:'fr', cat:'geopolitics', url:'https://www.france24.com/fr/rss' },
-    { id:'france24-afr',   name:'France 24 Afrique',         lang:'fr', cat:'africa',      url:'https://www.france24.com/fr/afrique/rss' },
-    { id:'france24-me',    name:'France 24 Moyen-Orient',    lang:'fr', cat:'arab-world',  url:'https://www.france24.com/fr/moyen-orient/rss' },
-    { id:'rfi',            name:'RFI',                       lang:'fr', cat:'geopolitics', url:'https://www.rfi.fr/fr/rss' },
-    { id:'rfi-afr',        name:'RFI Afrique',               lang:'fr', cat:'africa',      url:'https://www.rfi.fr/fr/afrique/rss' },
-    { id:'tv5monde',       name:'TV5Monde',                  lang:'fr', cat:'geopolitics', url:'https://information.tv5monde.com/rss.xml' },
-    { id:'franceinfo',     name:'France Info',               lang:'fr', cat:'politics',    url:'https://www.francetvinfo.fr/monde.rss' },
-    { id:'arte',           name:'ARTE Info',                 lang:'fr', cat:'analysis',    url:'https://www.arte.tv/fr/videos/RC-014036/arte-journal/rss' },
-
-    // ──────────── FRENCH — Magazines ────────────
-    { id:'courrier-intl',  name:'Courrier International',    lang:'fr', cat:'geopolitics', url:'https://www.courrierinternational.com/feed/all/rss.xml' },
-    { id:'lexpress',       name:"L'Express",                 lang:'fr', cat:'politics',    url:'https://www.lexpress.fr/rss/monde.xml' },
-    { id:'lepoint',        name:'Le Point',                  lang:'fr', cat:'politics',    url:'https://www.lepoint.fr/24h-infos/rss.xml' },
-    { id:'obs',            name:"L'Obs",                     lang:'fr', cat:'analysis',    url:'https://www.nouvelobs.com/rss.xml' },
-    { id:'slate-fr',       name:'Slate.fr',                  lang:'fr', cat:'analysis',    url:'https://www.slate.fr/rss.xml' },
-    { id:'revue-deux',     name:'Revue des Deux Mondes',     lang:'fr', cat:'analysis',    url:'https://www.revuedesdeuxmondes.fr/feed/' },
-    { id:'orient-xxi',     name:'Orient XXI',                lang:'fr', cat:'arab-world',  url:'https://orientxxi.info/spip.php?page=backend' },
-    { id:'conflits',       name:'Revue Conflits',            lang:'fr', cat:'geopolitics', url:'https://www.revueconflits.com/feed/' },
-
-    // ──────────── FRENCH — Africa Specialists ────────────
-    { id:'jeune-afr',      name:'Jeune Afrique',             lang:'fr', cat:'africa',      url:'https://www.jeuneafrique.com/feed/' },
-    { id:'afrik',          name:'Afrik.com',                 lang:'fr', cat:'africa',      url:'https://www.afrik.com/feed' },
-    { id:'le360-afr',      name:'Le360 Afrique',             lang:'fr', cat:'africa',      url:'https://afrique.le360.ma/rss' },
-
-    // ──────────── FRENCH — Middle East ────────────
-    { id:'lorient-jour',   name:"L'Orient Le Jour",          lang:'fr', cat:'arab-world',  url:'https://www.lorientlejour.com/rss' },
+const PROXIES = [
+    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+    url => `https://corsproxy.org/?url=${encodeURIComponent(url)}`,
+    url => `https://cors-proxy.htmldriven.com/?url=${encodeURIComponent(url)}`,
+    url => `https://thingproxy.freeboard.io/fetch/${url}`,
 ];
 
 // ============================================================
-//  CATEGORY DETECTION KEYWORDS
+//  55+ SOURCES — EN + FR — Geopolitics, IR, Arab World, Africa
 // ============================================================
-const CAT_RULES = {
-    'geopolitics': [
-        'geopolit','cold war','world order','superpower','hegemony','multipolar','unipolar',
-        'great power','power rivalry','sphere of influence','proxy war','escalation','deterrence',
-        'nuclear','missile','sanctions regime','containment','bloc','axis','alliance shift',
-        'géopolit','ordre mondial','puissance','rivalité','dissuasion','multipolaire','hégémonie',
-        'guerre froide','confrontation'
-    ],
-    'diplomacy': [
-        'diplomac','diplomat','treaty','accord','summit','negotiat','ambassador','bilateral',
-        'multilateral','united nations','un security','g7','g20','nato','eu summit','ceasefire',
-        'peace talk','peace deal','foreign minister','secretary of state',
-        'diplomat','traité','sommet','négociat','ambassad','bilatéral','multilatéral',
-        'nations unies','cessez-le-feu','pourparlers','accord de paix','ministre des affaires'
-    ],
-    'arab-world': [
-        'middle east','arab','saudi','emirates','uae','qatar','bahrain','oman','kuwait',
-        'iraq','syria','yemen','lebanon','jordan','palestin','israel','gaza','west bank',
-        'iran','tehran','houthi','hezbollah','hamas','abraham accords',
-        'moyen-orient','arabe','arabie','émirats','liban','syrie','yémen','irak',
-        'palestine','israël','jordanie','golfe persique','maghreb','mashreq',
-        'egypt','egypte','tunisia','tunisie','libya','libye','algeria','algérie','morocco','maroc',
-        'soudan','sudan'
-    ],
-    'africa': [
-        'africa','african','sahel','sahara','sub-saharan','west africa','east africa',
-        'south africa','nigeria','kenya','ethiopia','congo','senegal','mali','burkina',
-        'niger','chad','cameroon','ivory coast','ghana','tanzania','uganda','mozambique',
-        'somalia','african union','ecowas','wagner africa','coup d\'état',
-        'afrique','africain','sahélien','afrique de l\'ouest','afrique de l\'est',
-        'nigéria','éthiopie','sénégal','tchad','cameroun','côte d\'ivoire',
-        'union africaine','cedeao','françafrique','franc cfa','coup d\'état'
-    ],
-    'defense': [
-        'defense','defence','military','army','navy','air force','weapon','arms deal',
-        'arms sale','pentagon','warfare','security','intelligence','espionage','cyber attack',
-        'drone strike','special forces','war crime',
-        'défense','militaire','armée','armement','vente d\'armes','renseignement',
-        'cybersécurité','forces spéciales','crime de guerre'
-    ],
-    'economy': [
-        'econom','economy','trade war','tariff','gdp','inflation','recession','central bank',
-        'imf','world bank','debt crisis','currency','stock market','oil price','opec','brics',
-        'investment','supply chain',
-        'économi','commerce','tarif douanier','pib','inflation','récession','banque centrale',
-        'fmi','banque mondiale','dette','monnaie','bourse','prix du pétrole','opep',
-        'investissement','chaîne d\'approvisionnement'
-    ],
-    'energy': [
-        'energy','oil','gas','petroleum','lng','pipeline','renewable','solar','wind power',
-        'nuclear energy','opec','energy crisis','energy transition','carbon','climate',
-        'énergie','pétrole','gaz','gazoduc','oléoduc','renouvelable','solaire','éolien',
-        'transition énergétique','carbone','climat'
-    ],
-    'politics': [
-        'politic','election','president','parliament','congress','senate','prime minister',
-        'government','opposition','referendum','constitutional','democrat','republican','party',
-        'politique','élection','président','parlement','congrès','sénat','premier ministre',
-        'gouvernement','opposition','référendum','constitutionnel'
-    ],
-    'analysis': [
-        'analysis','opinion','editorial','commentary','perspective','essay','in-depth',
-        'long read','review','think tank','report',
-        'analyse','éditorial','commentaire','perspective','essai','décryptage','tribune'
-    ],
+const FEEDS = [
+    // ── EN: Major Newspapers (World/Politics) ──
+    {id:'nyt-w',     n:'The New York Times',        l:'en',cat:'politics',    u:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'},
+    {id:'nyt-me',    n:'NYT Middle East',            l:'en',cat:'arab-world',  u:'https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml'},
+    {id:'nyt-af',    n:'NYT Africa',                 l:'en',cat:'africa',      u:'https://rss.nytimes.com/services/xml/rss/nyt/Africa.xml'},
+    {id:'nyt-pol',   n:'NYT Politics',               l:'en',cat:'politics',    u:'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml'},
+    {id:'gdn-w',     n:'The Guardian World',         l:'en',cat:'geopolitics', u:'https://www.theguardian.com/world/rss'},
+    {id:'gdn-me',    n:'Guardian Middle East',       l:'en',cat:'arab-world',  u:'https://www.theguardian.com/world/middleeast/rss'},
+    {id:'gdn-af',    n:'Guardian Africa',            l:'en',cat:'africa',      u:'https://www.theguardian.com/world/africa/rss'},
+    {id:'wapo',      n:'Washington Post World',      l:'en',cat:'politics',    u:'https://feeds.washingtonpost.com/rss/world'},
+    {id:'wsj',       n:'Wall Street Journal',        l:'en',cat:'economy',     u:'https://feeds.a.dj.com/rss/RSSWorldNews.xml'},
+    {id:'tele',      n:'The Telegraph',              l:'en',cat:'politics',    u:'https://www.telegraph.co.uk/rss.xml'},
+    {id:'indie',     n:'The Independent',            l:'en',cat:'politics',    u:'https://www.independent.co.uk/news/world/rss'},
+    {id:'times-uk',  n:'The Times UK',               l:'en',cat:'politics',    u:'https://www.thetimes.co.uk/rss'},
+
+    // ── EN: Wire Services ──
+    {id:'reuters',   n:'Reuters',                    l:'en',cat:'geopolitics', u:'https://www.reutersagency.com/feed/'},
+    {id:'bbc-w',     n:'BBC World',                  l:'en',cat:'geopolitics', u:'https://feeds.bbci.co.uk/news/world/rss.xml'},
+    {id:'bbc-me',    n:'BBC Middle East',            l:'en',cat:'arab-world',  u:'https://feeds.bbci.co.uk/news/world/middle_east/rss.xml'},
+    {id:'bbc-af',    n:'BBC Africa',                 l:'en',cat:'africa',      u:'https://feeds.bbci.co.uk/news/world/africa/rss.xml'},
+    {id:'cnn',       n:'CNN World',                  l:'en',cat:'geopolitics', u:'http://rss.cnn.com/rss/edition_world.rss'},
+    {id:'npr',       n:'NPR World',                  l:'en',cat:'politics',    u:'https://feeds.npr.org/1004/rss.xml'},
+    {id:'dw',        n:'DW News',                    l:'en',cat:'geopolitics', u:'https://rss.dw.com/rdf/rss-en-world'},
+
+    // ── EN: Top Magazines & Analysis ──
+    {id:'faffairs',  n:'Foreign Affairs',            l:'en',cat:'geopolitics', u:'https://www.foreignaffairs.com/rss.xml'},
+    {id:'fpolicy',   n:'Foreign Policy',             l:'en',cat:'geopolitics', u:'https://foreignpolicy.com/feed/'},
+    {id:'economist', n:'The Economist',              l:'en',cat:'economy',     u:'https://www.economist.com/international/rss.xml'},
+    {id:'eco-mea',   n:'Economist ME & Africa',      l:'en',cat:'arab-world',  u:'https://www.economist.com/middle-east-and-africa/rss.xml'},
+    {id:'atlantic',  n:'The Atlantic',               l:'en',cat:'analysis',    u:'https://www.theatlantic.com/feed/all/'},
+    {id:'newyorker', n:'The New Yorker',             l:'en',cat:'analysis',    u:'https://www.newyorker.com/feed/news'},
+    {id:'time-mag',  n:'TIME',                       l:'en',cat:'geopolitics', u:'https://time.com/feed/'},
+    {id:'newsweek',  n:'Newsweek',                   l:'en',cat:'politics',    u:'https://www.newsweek.com/rss'},
+    {id:'politico',  n:'Politico',                   l:'en',cat:'politics',    u:'https://rss.politico.com/politics-news.xml'},
+    {id:'natint',    n:'The National Interest',      l:'en',cat:'geopolitics', u:'https://nationalinterest.org/feed'},
+    {id:'diplomat',  n:'The Diplomat',               l:'en',cat:'diplomacy',   u:'https://thediplomat.com/feed/'},
+    {id:'prospect',  n:'Prospect Magazine',          l:'en',cat:'analysis',    u:'https://www.prospectmagazine.co.uk/feed'},
+    {id:'spectator', n:'The Spectator',              l:'en',cat:'analysis',    u:'https://www.spectator.co.uk/feed'},
+
+    // ── EN: Think Tanks ──
+    {id:'brookings', n:'Brookings',                  l:'en',cat:'analysis',    u:'https://www.brookings.edu/feed/'},
+    {id:'carnegie',  n:'Carnegie Endowment',         l:'en',cat:'analysis',    u:'https://carnegieendowment.org/rss/solr/?lang=en'},
+    {id:'cfr',       n:'Council on Foreign Relations',l:'en',cat:'diplomacy',  u:'https://www.cfr.org/rss.xml'},
+    {id:'chatham',   n:'Chatham House',              l:'en',cat:'diplomacy',   u:'https://www.chathamhouse.org/rss.xml'},
+    {id:'icg',       n:'Crisis Group',               l:'en',cat:'geopolitics', u:'https://www.crisisgroup.org/rss.xml'},
+    {id:'csis',      n:'CSIS',                       l:'en',cat:'defense',     u:'https://www.csis.org/rss.xml'},
+    {id:'rand',      n:'RAND Corp.',                 l:'en',cat:'defense',     u:'https://www.rand.org/news/press.xml'},
+    {id:'stimson',   n:'Stimson Center',             l:'en',cat:'diplomacy',   u:'https://www.stimson.org/feed/'},
+    {id:'wotr',      n:'War on the Rocks',           l:'en',cat:'defense',     u:'https://warontherocks.com/feed/'},
+
+    // ── EN: Middle East Specialists ──
+    {id:'aje',       n:'Al Jazeera English',         l:'en',cat:'arab-world',  u:'https://www.aljazeera.com/xml/rss/all.xml'},
+    {id:'mee',       n:'Middle East Eye',            l:'en',cat:'arab-world',  u:'https://www.middleeasteye.net/rss'},
+    {id:'almonitor', n:'Al-Monitor',                 l:'en',cat:'arab-world',  u:'https://www.al-monitor.com/rss'},
+
+    // ── EN: Africa Specialists ──
+    {id:'afr-args',  n:'African Arguments',          l:'en',cat:'africa',      u:'https://africanarguments.org/feed/'},
+    {id:'afr-rpt',   n:'The Africa Report',          l:'en',cat:'africa',      u:'https://www.theafricareport.com/feed/'},
+
+    // ── EN: Economy & Energy ──
+    {id:'bloom',     n:'Bloomberg',                  l:'en',cat:'economy',     u:'https://feeds.bloomberg.com/markets/news.rss'},
+    {id:'cnbc',      n:'CNBC World',                 l:'en',cat:'economy',     u:'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362'},
+    {id:'oilprice',  n:'OilPrice.com',               l:'en',cat:'energy',      u:'https://oilprice.com/rss/main'},
+
+    // ── EN: Defense ──
+    {id:'defnews',   n:'Defense News',               l:'en',cat:'defense',     u:'https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml'},
+
+    // ── FR: Major Newspapers ──
+    {id:'lm-intl',   n:'Le Monde International',     l:'fr',cat:'geopolitics', u:'https://www.lemonde.fr/international/rss_full.xml'},
+    {id:'lm-afr',    n:'Le Monde Afrique',           l:'fr',cat:'africa',      u:'https://www.lemonde.fr/afrique/rss_full.xml'},
+    {id:'lm-eco',    n:'Le Monde Économie',          l:'fr',cat:'economy',     u:'https://www.lemonde.fr/economie/rss_full.xml'},
+    {id:'lm-diplo',  n:'Le Monde Diplomatique',      l:'fr',cat:'geopolitics', u:'https://www.monde-diplomatique.fr/recents.xml'},
+    {id:'fig-intl',  n:'Le Figaro International',    l:'fr',cat:'politics',    u:'https://www.lefigaro.fr/rss/figaro_international.xml'},
+    {id:'fig-eco',   n:'Le Figaro Économie',         l:'fr',cat:'economy',     u:'https://www.lefigaro.fr/rss/figaro_economie.xml'},
+    {id:'libe',      n:'Libération',                 l:'fr',cat:'politics',    u:'https://www.liberation.fr/arc/outboundfeeds/rss/?outputType=xml'},
+    {id:'echos',     n:'Les Échos',                  l:'fr',cat:'economy',     u:'https://www.lesechos.fr/rss/rss_monde.xml'},
+    {id:'latrib',    n:'La Tribune',                 l:'fr',cat:'economy',     u:'https://www.latribune.fr/rss/rubriques/economie.html'},
+    {id:'lopinion',  n:"L'Opinion",                  l:'fr',cat:'politics',    u:'https://www.lopinion.fr/rss.xml'},
+
+    // ── FR: Broadcast ──
+    {id:'f24',       n:'France 24',                  l:'fr',cat:'geopolitics', u:'https://www.france24.com/fr/rss'},
+    {id:'f24-afr',   n:'France 24 Afrique',          l:'fr',cat:'africa',      u:'https://www.france24.com/fr/afrique/rss'},
+    {id:'f24-mo',    n:'France 24 Moyen-Orient',     l:'fr',cat:'arab-world',  u:'https://www.france24.com/fr/moyen-orient/rss'},
+    {id:'rfi',       n:'RFI',                        l:'fr',cat:'geopolitics', u:'https://www.rfi.fr/fr/rss'},
+    {id:'rfi-afr',   n:'RFI Afrique',                l:'fr',cat:'africa',      u:'https://www.rfi.fr/fr/afrique/rss'},
+    {id:'tv5',       n:'TV5Monde',                   l:'fr',cat:'geopolitics', u:'https://information.tv5monde.com/rss.xml'},
+    {id:'finfo',     n:'France Info Monde',          l:'fr',cat:'politics',    u:'https://www.francetvinfo.fr/monde.rss'},
+
+    // ── FR: Magazines ──
+    {id:'courrier',  n:'Courrier International',     l:'fr',cat:'geopolitics', u:'https://www.courrierinternational.com/feed/all/rss.xml'},
+    {id:'lexpress',  n:"L'Express",                  l:'fr',cat:'politics',    u:'https://www.lexpress.fr/rss/monde.xml'},
+    {id:'lepoint',   n:'Le Point',                   l:'fr',cat:'politics',    u:'https://www.lepoint.fr/24h-infos/rss.xml'},
+    {id:'lobs',      n:"L'Obs",                      l:'fr',cat:'analysis',    u:'https://www.nouvelobs.com/rss.xml'},
+    {id:'slate-fr',  n:'Slate.fr',                   l:'fr',cat:'analysis',    u:'https://www.slate.fr/rss.xml'},
+    {id:'conflits',  n:'Revue Conflits',             l:'fr',cat:'geopolitics', u:'https://www.revueconflits.com/feed/'},
+    {id:'orientxxi', n:'Orient XXI',                 l:'fr',cat:'arab-world',  u:'https://orientxxi.info/spip.php?page=backend'},
+
+    // ── FR: Africa Specialists ──
+    {id:'jafrique',  n:'Jeune Afrique',              l:'fr',cat:'africa',      u:'https://www.jeuneafrique.com/feed/'},
+    {id:'le360af',   n:'Le360 Afrique',              l:'fr',cat:'africa',      u:'https://afrique.le360.ma/rss'},
+
+    // ── FR: Middle East ──
+    {id:'lorient',   n:"L'Orient Le Jour",           l:'fr',cat:'arab-world',  u:'https://www.lorientlejour.com/rss'},
+];
+
+// ============================================================
+//  CATEGORY KEYWORDS
+// ============================================================
+const CK = {
+    'arab-world':['middle east','arab','saudi','emirates','uae','qatar','bahrain','oman','kuwait','iraq','syria','yemen','lebanon','jordan','palestin','israel','gaza','west bank','iran','tehran','houthi','hezbollah','hamas','moyen-orient','arabe','arabie','émirats','liban','syrie','yémen','irak','jordanie','golfe','maghreb','egypt','egypte','tunisia','tunisie','libya','libye','algeria','algérie','morocco','maroc','soudan','sudan'],
+    'africa':['africa','african','sahel','sahara','sub-saharan','nigeria','kenya','ethiopia','congo','senegal','mali','burkina','niger','chad','cameroon','ghana','tanzania','uganda','mozambique','somalia','ecowas','afrique','africain','sahélien','nigéria','éthiopie','sénégal','tchad','cameroun','côte d\'ivoire','cedeao','franc cfa','union africaine','françafrique'],
+    'geopolitics':['geopolit','cold war','world order','superpower','hegemony','multipolar','great power','proxy war','escalation','deterrence','nuclear','sanctions','containment','géopolit','ordre mondial','puissance','rivalité','dissuasion','multipolaire','hégémonie','confrontation','guerre froide','brics','g7 ','g20 ','nato','otan'],
+    'diplomacy':['diplomac','diplomat','treaty','accord','summit','negotiat','ambassador','bilateral','multilateral','united nations','un security','ceasefire','peace talk','peace deal','foreign minister','secretary of state','diplomat','traité','sommet','négociat','ambassad','nations unies','cessez-le-feu','pourparlers','ministre des affaires'],
+    'defense':['defense','defence','military','army','navy','weapon','arms deal','pentagon','warfare','intelligence','espionage','drone strike','special forces','défense','militaire','armée','armement','renseignement','forces spéciales','cybersécurité'],
+    'economy':['econom','trade war','tariff','gdp','inflation','recession','central bank','imf','world bank','debt','currency','stock market','oil price','opec','investment','supply chain','économi','commerce','pib','banque centrale','fmi','banque mondiale','dette','monnaie','bourse','investissement'],
+    'energy':['energy','oil','gas','petroleum','lng','pipeline','renewable','solar','nuclear energy','opec','energy crisis','energy transition','carbon','climate','énergie','pétrole','gaz','gazoduc','renouvelable','transition énergétique','carbone','climat'],
+    'politics':['politic','election','president','parliament','congress','senate','prime minister','government','referendum','constitutional','politique','élection','président','parlement','premier ministre','gouvernement','référendum'],
+    'analysis':['analysis','opinion','editorial','commentary','perspective','essay','in-depth','long read','think tank','analyse','éditorial','commentaire','décryptage','tribune'],
 };
 
 // ============================================================
 //  STATE
 // ============================================================
-let allArticles  = [];
-let activeFilter = 'all';
-let searchQuery  = '';
-let sortMode     = 'newest';
-let langFilter   = 'all';
-let sourceFilter = 'all';
-let fetchedCount = 0;
+let articles=[], filter='all', query='', sort='newest', lang='all', srcF='all';
+let logs=[], errCount=0;
 
 // ============================================================
-//  UTILITIES
+//  UTILS
 // ============================================================
-const strip = html => { const d=document.createElement('div'); d.innerHTML=html||''; return d.textContent||''; };
+const strip=h=>{const d=document.createElement('div');d.innerHTML=h||'';return d.textContent||''};
+const fav=d=>`https://www.google.com/s2/favicons?sz=32&domain=${d}`;
+const expired=d=>(Date.now()-new Date(d).getTime())>C.MAX_DAYS*864e5;
+const expiring=d=>(Date.now()-new Date(d).getTime())>6*864e5;
+const dk=d=>new Date(d).toISOString().split('T')[0];
+const uid=(t,s)=>btoa(unescape(encodeURIComponent((t+s).slice(0,80)))).slice(0,26);
 
-const favicon = domain => `https://www.google.com/s2/favicons?sz=32&domain=${domain}`;
-
-function timeAgo(iso){
-    const ms = Date.now() - new Date(iso).getTime();
-    const m = Math.floor(ms/60000), h = Math.floor(ms/3600000), d = Math.floor(ms/86400000);
-    if(m < 60) return `منذ ${m} د`;
-    if(h < 24) return `منذ ${h} س`;
-    return `منذ ${d} يوم`;
+function ago(d){
+    const ms=Date.now()-new Date(d).getTime();
+    const m=ms/6e4|0, h=ms/36e5|0, dy=ms/864e5|0;
+    if(m<60)return`منذ ${m} د`;
+    if(h<24)return`منذ ${h} س`;
+    return`منذ ${dy} يوم`;
 }
-
-function isExpired(iso){ return (Date.now()-new Date(iso).getTime()) > CFG.MAX_AGE*86400000; }
-function isExpiring(iso){ return (Date.now()-new Date(iso).getTime()) > 6*86400000; }
-
-function detectCat(title, desc, fallback){
-    const txt = ((title||'')+ ' ' +(desc||'')).toLowerCase();
-    // Priority order matters — more specific first
-    const priority = ['arab-world','africa','energy','defense','geopolitics','diplomacy','economy','politics','analysis'];
-    for(const cat of priority){
-        if(CAT_RULES[cat]?.some(kw => txt.includes(kw))) return cat;
+function fmtDate(d){return new Date(d).toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}
+function detect(title,desc,fb){
+    const t=((title||'')+' '+(desc||'')).toLowerCase();
+    for(const c of ['arab-world','africa','energy','defense','geopolitics','diplomacy','economy','politics','analysis']){
+        if(CK[c]?.some(k=>t.includes(k)))return c;
     }
-    return fallback || 'politics';
+    return fb||'politics';
 }
 
-function formatDate(iso){
-    return new Date(iso).toLocaleDateString('ar-EG',{ weekday:'long', year:'numeric', month:'long', day:'numeric' });
-}
+const DOM_MAP={};
+FEEDS.forEach(f=>{
+    try{const u=new URL(f.u);DOM_MAP[f.n]=u.hostname;}catch(e){DOM_MAP[f.n]='google.com';}
+});
 
-function dateKey(iso){ return new Date(iso).toISOString().split('T')[0]; }
-
-function uid(title,src){ return btoa(unescape(encodeURIComponent((title+src).slice(0,80)))).slice(0,28); }
-
-function domainOf(src){
-    const map = {
-        'The New York Times':'nytimes.com','NYT Middle East':'nytimes.com','NYT Africa':'nytimes.com','NYT Politics':'nytimes.com',
-        'The Guardian':'theguardian.com','Guardian Africa':'theguardian.com','Guardian Middle East':'theguardian.com',
-        'Financial Times':'ft.com','Wall Street Journal':'wsj.com','Washington Post':'washingtonpost.com',
-        'The Telegraph':'telegraph.co.uk','The Independent':'independent.co.uk',
-        'Reuters':'reuters.com','Associated Press':'apnews.com',
-        'BBC World':'bbc.com','BBC Middle East':'bbc.com','BBC Africa':'bbc.com',
-        'CNN World':'cnn.com','The Economist':'economist.com','Economist Middle East':'economist.com',
-        'Foreign Affairs':'foreignaffairs.com','Foreign Policy':'foreignpolicy.com',
-        'The Atlantic':'theatlantic.com','The New Yorker':'newyorker.com',
-        'TIME Magazine':'time.com','Newsweek':'newsweek.com','Politico':'politico.com',
-        'The National Interest':'nationalinterest.org','The Diplomat':'thediplomat.com',
-        'Brookings Institution':'brookings.edu','Carnegie Endowment':'carnegieendowment.org',
-        'Council on Foreign Relations':'cfr.org','Chatham House':'chathamhouse.org',
-        'Crisis Group':'crisisgroup.org','RAND Corporation':'rand.org','CSIS':'csis.org',
-        'IISS':'iiss.org','Stimson Center':'stimson.org',
-        'Al Jazeera English':'aljazeera.com','Middle East Eye':'middleeasteye.net',
-        'Al-Monitor':'al-monitor.com','African Arguments':'africanarguments.org',
-        'The Africa Report':'theafricareport.com','Africa Confidential':'africa-confidential.com',
-        'Bloomberg':'bloomberg.com','CNBC World':'cnbc.com','OilPrice.com':'oilprice.com',
-        'Defense News':'defensenews.com','Janes':'janes.com','War on the Rocks':'warontherocks.com',
-        'Le Monde':'lemonde.fr','Le Monde Afrique':'lemonde.fr','Le Monde Économie':'lemonde.fr',
-        'Le Monde Diplomatique':'monde-diplomatique.fr',
-        'Le Figaro':'lefigaro.fr','Le Figaro Économie':'lefigaro.fr',
-        'Libération':'liberation.fr','Les Échos':'lesechos.fr','La Tribune':'latribune.fr',
-        "L'Opinion":'lopinion.fr',
-        'France 24':'france24.com','France 24 Afrique':'france24.com','France 24 Moyen-Orient':'france24.com',
-        'RFI':'rfi.fr','RFI Afrique':'rfi.fr','TV5Monde':'tv5monde.com',
-        'France Info':'francetvinfo.fr','ARTE Info':'arte.tv',
-        'Courrier International':'courrierinternational.com',"L'Express":'lexpress.fr',
-        'Le Point':'lepoint.fr',"L'Obs":'nouvelobs.com','Slate.fr':'slate.fr',
-        'Revue des Deux Mondes':'revuedesdeuxmondes.fr','Orient XXI':'orientxxi.info',
-        'Revue Conflits':'revueconflits.com',
-        'Jeune Afrique':'jeuneafrique.com','Afrik.com':'afrik.com','Le360 Afrique':'le360.ma',
-        "L'Orient Le Jour":'lorientlejour.com',
-    };
-    return map[src] || 'google.com';
+function addLog(type,msg){
+    logs.push({type,msg,time:new Date().toLocaleTimeString('ar-EG')});
+    if(type==='er')errCount++;
 }
 
 // ============================================================
-//  RSS PARSER
+//  RSS PARSE
 // ============================================================
-function parseRSS(xml, src){
-    const arts = [];
+function parse(xml,src){
+    const out=[];
     try{
-        const doc = new DOMParser().parseFromString(xml,'text/xml');
-        if(doc.querySelector('parsererror')) return arts;
-        let items = doc.querySelectorAll('item');
-        if(!items.length) items = doc.querySelectorAll('entry');
-        items.forEach(el => {
-            const title = el.querySelector('title')?.textContent?.trim() || '';
-            if(!title) return;
-            let link = el.querySelector('link')?.textContent?.trim()
-                     || el.querySelector('link')?.getAttribute('href') || '';
-            const pubRaw = el.querySelector('pubDate')?.textContent
-                        || el.querySelector('published')?.textContent
-                        || el.querySelector('updated')?.textContent
-                        || el.querySelector('dc\\:date')?.textContent || '';
-            const pd = new Date(pubRaw);
-            if(isNaN(pd.getTime())) return;
-            if(isExpired(pd.toISOString())) return;
-
-            const descRaw = el.querySelector('description')?.textContent
-                         || el.querySelector('summary')?.textContent
-                         || el.querySelector('content')?.textContent || '';
-            const desc = strip(descRaw).slice(0,350);
-            const cat = detectCat(title, desc, src.cat);
-
-            arts.push({
-                id: uid(title, src.name),
-                title, link,
-                pubDate: pd.toISOString(),
-                description: desc,
-                source: src.name,
-                sourceDomain: domainOf(src.name),
-                category: cat,
-                lang: src.lang,
+        const doc=new DOMParser().parseFromString(xml,'text/xml');
+        if(doc.querySelector('parsererror'))return out;
+        let items=doc.querySelectorAll('item');
+        if(!items.length)items=doc.querySelectorAll('entry');
+        items.forEach(el=>{
+            const title=el.querySelector('title')?.textContent?.trim()||'';
+            if(!title)return;
+            let link=el.querySelector('link')?.textContent?.trim()||el.querySelector('link')?.getAttribute('href')||'';
+            const raw=el.querySelector('pubDate')?.textContent||el.querySelector('published')?.textContent||el.querySelector('updated')?.textContent||el.querySelector('dc\\:date')?.textContent||'';
+            const pd=new Date(raw);
+            if(isNaN(pd))return;
+            if(expired(pd.toISOString()))return;
+            const desc=strip(el.querySelector('description')?.textContent||el.querySelector('summary')?.textContent||el.querySelector('content')?.textContent||'').slice(0,350);
+            out.push({
+                id:uid(title,src.n),title,link,
+                pubDate:pd.toISOString(),description:desc,
+                source:src.n,domain:DOM_MAP[src.n]||'google.com',
+                category:detect(title,desc,src.cat),lang:src.l
             });
         });
-    } catch(e){ console.warn('Parse error',src.name,e); }
-    return arts;
+    }catch(e){}
+    return out;
 }
 
 // ============================================================
-//  FETCH
+//  FETCH WITH MULTI-PROXY FALLBACK
 // ============================================================
-async function fetchOne(src){
-    try{
-        const r = await fetch(CFG.PROXY + encodeURIComponent(src.url), { signal: AbortSignal.timeout(12000) });
-        if(!r.ok) throw new Error(r.status);
-        return parseRSS(await r.text(), src);
-    }catch(e){
-        console.warn(`✗ ${src.name}:`, e.message);
-        return [];
+async function grab(src){
+    for(let i=0;i<PROXIES.length;i++){
+        try{
+            const url=PROXIES[i](src.u);
+            const r=await fetch(url,{signal:AbortSignal.timeout(C.TIMEOUT)});
+            if(!r.ok)throw new Error(`HTTP ${r.status}`);
+            const txt=await r.text();
+            if(!txt||txt.length<100)throw new Error('Empty response');
+            const arts=parse(txt,src);
+            if(arts.length>0){
+                addLog('ok',`✓ ${src.n} → ${arts.length} مقال (proxy ${i+1})`);
+                return arts;
+            }
+            // parsed 0 articles — might be wrong content, try next proxy
+            if(i<PROXIES.length-1)continue;
+            addLog('wr',`⚠ ${src.n} → 0 مقال`);
+            return [];
+        }catch(e){
+            if(i===PROXIES.length-1){
+                addLog('er',`✗ ${src.n}: ${e.message}`);
+                return [];
+            }
+            // try next proxy silently
+        }
     }
+    return [];
 }
 
 async function fetchAll(){
     showLoading();
-    fetchedCount = 0;
-    const bar = document.getElementById('progressBar');
-    const total = SOURCES.length;
+    logs=[]; errCount=0;
+    const bar=document.getElementById('progressBar');
+    const total=FEEDS.length;
+    let done=0, all=[];
 
-    // Fetch in batches of 8 to avoid overwhelming the proxy
-    let all = [];
-    const batch = 8;
-    for(let i=0; i<total; i+=batch){
-        const chunk = SOURCES.slice(i, i+batch);
-        const results = await Promise.allSettled(chunk.map(s => fetchOne(s)));
-        results.forEach(r => { if(r.status==='fulfilled') all = all.concat(r.value); });
-        fetchedCount += chunk.length;
-        bar.style.width = Math.round(fetchedCount/total*100)+'%';
+    for(let i=0;i<total;i+=C.BATCH){
+        const chunk=FEEDS.slice(i,i+C.BATCH);
+        const res=await Promise.allSettled(chunk.map(s=>grab(s)));
+        res.forEach(r=>{if(r.status==='fulfilled')all=all.concat(r.value);});
+        done+=chunk.length;
+        bar.style.width=Math.round(done/total*100)+'%';
     }
 
     // Deduplicate
-    const seen = new Set();
-    all = all.filter(a => { if(seen.has(a.id)) return false; seen.add(a.id); return true; });
+    const seen=new Set();
+    all=all.filter(a=>{if(seen.has(a.id))return false;seen.add(a.id);return true});
+    all.sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate));
 
-    // Sort newest
-    all.sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate));
-
-    allArticles = all;
-    save();
-    render();
-    updateCounts();
-    updateFooter();
-
-    setTimeout(() => { bar.style.width = '0%'; }, 1200);
+    articles=all;
+    save();render();counts();footer();renderLog();
+    setTimeout(()=>{bar.style.width='0%'},1500);
 }
 
 // ============================================================
@@ -1021,20 +526,17 @@ async function fetchAll(){
 // ============================================================
 function save(){
     try{
-        localStorage.setItem(CFG.STORE_DATA, JSON.stringify(allArticles));
-        localStorage.setItem(CFG.STORE_TIME, Date.now().toString());
+        localStorage.setItem(C.SK,JSON.stringify(articles));
+        localStorage.setItem(C.TK,Date.now()+'');
     }catch(e){}
 }
-
 function loadCache(){
     try{
-        const d = localStorage.getItem(CFG.STORE_DATA);
-        const t = parseInt(localStorage.getItem(CFG.STORE_TIME)||'0');
-        if(d && (Date.now()-t) < CFG.REFRESH_MS){
-            allArticles = JSON.parse(d).filter(a => !isExpired(a.pubDate));
-            render();
-            updateCounts();
-            updateFooter();
+        const d=localStorage.getItem(C.SK);
+        const t=+(localStorage.getItem(C.TK)||0);
+        if(d&&Date.now()-t<C.REFRESH){
+            articles=JSON.parse(d).filter(a=>!expired(a.pubDate));
+            render();counts();footer();
             return true;
         }
     }catch(e){}
@@ -1044,205 +546,143 @@ function loadCache(){
 // ============================================================
 //  RENDER
 // ============================================================
+const catL={geopolitics:'جيوبوليتيك',diplomacy:'دبلوماسية',politics:'سياسة',economy:'اقتصاد','arab-world':'العالم العربي',africa:'أفريقيا',defense:'دفاع وأمن',energy:'طاقة',analysis:'تحليل'};
+
 function render(){
-    const main = document.getElementById('mainContent');
-    let list = [...allArticles];
+    const box=document.getElementById('mainBox');
+    let list=[...articles];
+    if(filter!=='all') list=list.filter(a=>a.category===filter);
+    if(lang!=='all')   list=list.filter(a=>a.lang===lang);
+    if(srcF!=='all')   list=list.filter(a=>a.source===srcF);
+    if(query){const q=query.toLowerCase();list=list.filter(a=>a.title.toLowerCase().includes(q)||a.description.toLowerCase().includes(q)||a.source.toLowerCase().includes(q));}
+    if(sort==='oldest') list.sort((a,b)=>new Date(a.pubDate)-new Date(b.pubDate));
+    if(sort==='source') list.sort((a,b)=>a.source.localeCompare(b.source));
 
-    // Filters
-    if(activeFilter !== 'all')  list = list.filter(a => a.category === activeFilter);
-    if(langFilter   !== 'all')  list = list.filter(a => a.lang === langFilter);
-    if(sourceFilter !== 'all')  list = list.filter(a => a.source === sourceFilter);
-    if(searchQuery){
-        const q = searchQuery.toLowerCase();
-        list = list.filter(a => a.title.toLowerCase().includes(q) || a.description.toLowerCase().includes(q) || a.source.toLowerCase().includes(q));
-    }
+    if(!list.length){box.innerHTML='<div class="empty"><div class="ic">🔍</div><h3>لا توجد مقالات مطابقة</h3><p style="color:var(--text-muted)">جرّب تغيير الفلاتر</p></div>';return}
 
-    // Sort
-    if(sortMode==='oldest')  list.sort((a,b) => new Date(a.pubDate)-new Date(b.pubDate));
-    if(sortMode==='source')  list.sort((a,b) => a.source.localeCompare(b.source));
+    const g={};
+    list.forEach(a=>{const k=dk(a.pubDate);(g[k]=g[k]||[]).push(a)});
+    const keys=Object.keys(g).sort((a,b)=>b.localeCompare(a));
 
-    if(!list.length){
-        main.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><h3>لا توجد مقالات مطابقة</h3><p style="color:var(--text-muted)">جرّب تغيير الفلاتر أو مصطلح البحث</p></div>`;
-        return;
-    }
-
-    // Group by date
-    const groups = {};
-    list.forEach(a => { const k=dateKey(a.pubDate); (groups[k]=groups[k]||[]).push(a); });
-    const keys = Object.keys(groups).sort((a,b)=>b.localeCompare(a));
-
-    const catLabels = {
-        geopolitics:'جيوبوليتيك', diplomacy:'دبلوماسية', politics:'سياسة',
-        economy:'اقتصاد', 'arab-world':'العالم العربي', africa:'أفريقيا',
-        defense:'دفاع وأمن', energy:'طاقة', analysis:'تحليل',
-    };
-
-    let html = '';
-    keys.forEach(dk => {
-        const arts = groups[dk];
-        html += `<section class="date-section">
-            <div class="date-header">
-                <h2>📅 ${formatDate(dk+'T12:00:00')}</h2>
-                <span class="count-badge">${arts.length} مقال</span>
-            </div>
-            <div class="articles-grid">`;
-        arts.forEach(a => {
-            const exp = isExpiring(a.pubDate);
-            html += `
-            <article class="article-card" data-category="${a.category}">
-                <div class="card-header">
-                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                        <span class="source-tag">
-                            <img src="${favicon(a.sourceDomain)}" alt="" onerror="this.style.display='none'">
-                            ${a.source}
-                        </span>
-                        <span class="lang-flag ${a.lang}">${a.lang==='fr'?'FR':'EN'}</span>
+    let h='';
+    keys.forEach(k=>{
+        const arts=g[k];
+        h+=`<section class="ds"><div class="dh"><h2>📅 ${fmtDate(k+'T12:00:00')}</h2><span class="cb">${arts.length} مقال</span></div><div class="grid">`;
+        arts.forEach(a=>{
+            const ex=expiring(a.pubDate);
+            h+=`<article class="card" data-cat="${a.category}">
+                <div class="card-top">
+                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                        <span class="src"><img src="${fav(a.domain)}" alt="" onerror="this.style.display='none'">${a.source}</span>
+                        <span class="lf ${a.lang}">${a.lang==='fr'?'FR':'EN'}</span>
                     </div>
-                    <span class="time-stamp ${exp?'expiring':''}">
-                        ${exp?'⚠️ ':''}${timeAgo(a.pubDate)}
-                    </span>
+                    <span class="ts${ex?' exp':''}">${ex?'⚠️ ':''}${ago(a.pubDate)}</span>
                 </div>
-                <h3 class="article-title"><a href="${a.link}" target="_blank" rel="noopener">${a.title}</a></h3>
-                ${a.description ? `<p class="article-excerpt">${a.description}</p>` : ''}
-                <div class="card-bottom">
-                    <div class="card-tags">
-                        <span class="cat-pill ${a.category}">${catLabels[a.category]||a.category}</span>
-                    </div>
-                    <a href="${a.link}" target="_blank" rel="noopener" class="read-link">اقرأ المقال ←</a>
+                <h3 class="card-title"><a href="${a.link}" target="_blank" rel="noopener">${a.title}</a></h3>
+                ${a.description?`<p class="card-desc">${a.description}</p>`:''}
+                <div class="card-bot">
+                    <span class="pill ${a.category}">${catL[a.category]||a.category}</span>
+                    <a href="${a.link}" target="_blank" rel="noopener" class="rlink">اقرأ المقال ←</a>
                 </div>
             </article>`;
         });
-        html += `</div></section>`;
+        h+=`</div></section>`;
     });
-    main.innerHTML = html;
+    box.innerHTML=h;
 }
 
 function showLoading(){
-    document.getElementById('mainContent').innerHTML = `
-        <div class="state-container">
-            <div class="spinner"></div>
-            <p style="color:var(--text-muted)">جاري جلب المقالات من ${SOURCES.length} مصدر عالمي مرموق...</p>
-            <p style="color:var(--text-muted);font-size:0.8rem" id="fetchProgress"></p>
-        </div>`;
+    document.getElementById('mainBox').innerHTML=`<div class="state"><div class="spin"></div><p style="color:var(--text-muted)">جاري جلب المقالات من ${FEEDS.length} مصدر عالمي مرموق...</p></div>`;
 }
 
 // ============================================================
-//  COUNTS & STATS
+//  COUNTS
 // ============================================================
-function updateCounts(){
-    document.getElementById('totalCount').textContent = allArticles.length;
-    const srcs = new Set(allArticles.map(a=>a.source));
-    document.getElementById('sourceCount').textContent = srcs.size;
+function counts(){
+    document.getElementById('cntAll').textContent=articles.length;
+    const s=new Set(articles.map(a=>a.source));
+    document.getElementById('cntSrc').textContent=s.size;
 
-    // Tab counts
-    const cats = {};
-    allArticles.forEach(a => { cats[a.category] = (cats[a.category]||0)+1; });
-    document.getElementById('count-all').textContent = allArticles.length;
-    ['geopolitics','diplomacy','politics','economy','arab-world','africa','defense','energy','analysis'].forEach(c => {
-        const el = document.getElementById('count-'+c);
-        if(el) el.textContent = cats[c]||0;
+    const m={};
+    articles.forEach(a=>{m[a.category]=(m[a.category]||0)+1});
+    document.getElementById('c-all').textContent=articles.length;
+    ['geopolitics','diplomacy','politics','economy','arab-world','africa','defense','energy','analysis'].forEach(c=>{
+        const el=document.getElementById('c-'+c);if(el)el.textContent=m[c]||0;
     });
 
-    // Populate source filter dropdown
-    const sel = document.getElementById('sourceFilter');
-    const current = sel.value;
-    sel.innerHTML = '<option value="all">كل المصادر (' + srcs.size + ')</option>';
-    [...srcs].sort().forEach(s => {
-        sel.innerHTML += `<option value="${s}">${s}</option>`;
-    });
-    sel.value = current;
+    // Source dropdown
+    const sel=document.getElementById('srcFilter');
+    const cur=sel.value;
+    sel.innerHTML=`<option value="all">كل المصادر (${s.size})</option>`;
+    [...s].sort().forEach(n=>{sel.innerHTML+=`<option value="${n}">${n}</option>`});
+    sel.value=cur;
 }
 
-function updateFooter(){
-    const t = parseInt(localStorage.getItem(CFG.STORE_TIME)||Date.now());
-    document.getElementById('lastUpdate').textContent = new Date(t).toLocaleString('ar-EG');
-    const names = [...new Set(allArticles.map(a=>a.source))].sort().join(' · ');
-    document.getElementById('sourcesList').textContent = names;
+function footer(){
+    const t=+(localStorage.getItem(C.TK)||Date.now());
+    document.getElementById('lastUpd').textContent=new Date(t).toLocaleString('ar-EG');
+    document.getElementById('srcList').textContent=[...new Set(articles.map(a=>a.source))].sort().join(' · ');
 }
+
+// ============================================================
+//  LOG PANEL
+// ============================================================
+function renderLog(){
+    const el=document.getElementById('logBody');
+    el.innerHTML=logs.map(l=>`<div class="${l.type}"><span style="opacity:.5">[${l.time}]</span> ${l.msg}</div>`).join('');
+    const ec=document.getElementById('errChip');
+    const en=document.getElementById('errN');
+    if(errCount>0){ec.style.display='inline-flex';en.textContent=errCount;}
+    else{ec.style.display='none'}
+}
+window.toggleLog=function(){document.getElementById('logPanel').classList.toggle('open')};
 
 // ============================================================
 //  COUNTDOWN
 // ============================================================
-function tickCountdown(){
-    const last = parseInt(localStorage.getItem(CFG.STORE_TIME)||Date.now());
-    const rem = (last + CFG.REFRESH_MS) - Date.now();
-    if(rem <= 0){
-        document.getElementById('countdown').textContent = 'يُحدَّث الآن…';
-        fetchAll();
-        return;
-    }
-    const h=Math.floor(rem/3600000), m=Math.floor(rem%3600000/60000), s=Math.floor(rem%60000/1000);
-    document.getElementById('countdown').textContent =
-        `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+function tick(){
+    const last=+(localStorage.getItem(C.TK)||Date.now());
+    const rem=last+C.REFRESH-Date.now();
+    if(rem<=0){document.getElementById('cdTimer').textContent='يُحدَّث…';fetchAll();return}
+    const h=rem/36e5|0, m=rem%36e5/6e4|0, s=rem%6e4/1e3|0;
+    document.getElementById('cdTimer').textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
 
 // ============================================================
-//  EVENT LISTENERS
+//  EVENTS
 // ============================================================
-function bindEvents(){
-    // Nav tabs
-    document.getElementById('navTabs').addEventListener('click', e => {
-        const tab = e.target.closest('.nav-tab');
-        if(!tab) return;
-        document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-        tab.classList.add('active');
-        activeFilter = tab.dataset.filter;
-        render();
+function bind(){
+    document.getElementById('navTabs').addEventListener('click',e=>{
+        const t=e.target.closest('.nt');if(!t)return;
+        document.querySelectorAll('.nt').forEach(x=>x.classList.remove('on'));
+        t.classList.add('on');filter=t.dataset.f;render();
     });
-
-    // Search
-    let debounce;
-    document.getElementById('searchInput').addEventListener('input', e => {
-        clearTimeout(debounce);
-        debounce = setTimeout(()=>{ searchQuery=e.target.value.trim(); render(); }, 250);
-    });
-
-    // Sort
-    document.getElementById('sortSelect').addEventListener('change', e => {
-        sortMode = e.target.value; render();
-    });
-
-    // Language filter
-    document.getElementById('langFilter').addEventListener('change', e => {
-        langFilter = e.target.value; render();
-    });
-
-    // Source filter
-    document.getElementById('sourceFilter').addEventListener('change', e => {
-        sourceFilter = e.target.value; render();
-    });
-}
-
-// ============================================================
-//  CLEANUP
-// ============================================================
-function cleanup(){
-    const before = allArticles.length;
-    allArticles = allArticles.filter(a => !isExpired(a.pubDate));
-    if(allArticles.length !== before){ save(); render(); updateCounts(); }
+    let db;
+    document.getElementById('searchIn').addEventListener('input',e=>{clearTimeout(db);db=setTimeout(()=>{query=e.target.value.trim();render()},250)});
+    document.getElementById('sortSel').addEventListener('change',e=>{sort=e.target.value;render()});
+    document.getElementById('langSel').addEventListener('change',e=>{lang=e.target.value;render()});
+    document.getElementById('srcFilter').addEventListener('change',e=>{srcF=e.target.value;render()});
 }
 
 // ============================================================
 //  INIT
 // ============================================================
 async function init(){
-    bindEvents();
-
-    if(!loadCache()){
-        await fetchAll();
-    }
-
-    setInterval(tickCountdown, 1000);
-    tickCountdown();
-    setInterval(cleanup, 3600000);
+    bind();
+    if(!loadCache()) await fetchAll();
+    setInterval(tick,1000);tick();
     setInterval(()=>{
-        const t = parseInt(localStorage.getItem(CFG.STORE_TIME)||'0');
-        if(Date.now()-t >= CFG.REFRESH_MS) fetchAll();
-    }, 60000);
+        const b=articles.length;
+        articles=articles.filter(a=>!expired(a.pubDate));
+        if(articles.length!==b){save();render();counts()}
+    },36e5);
+    setInterval(()=>{
+        const t=+(localStorage.getItem(C.TK)||0);
+        if(Date.now()-t>=C.REFRESH)fetchAll();
+    },6e4);
 }
 
-document.readyState==='loading' ? document.addEventListener('DOMContentLoaded',init) : init();
-
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
 </script>
 </body>

@@ -1,689 +1,1484 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مُجمّع التقارير الجيوسياسية العالمية</title>
-    <style>
-        :root {
-            --bg-primary: #06090f;
-            --bg-secondary: #0d1320;
-            --bg-tertiary: #131b2e;
-            --bg-card: #141d30;
-            --bg-card-hover: #1a2740;
-            --text-primary: #dce4f0;
-            --text-secondary: #8899b8;
-            --text-muted: #4e5f80;
-            --accent: #4a90ff;
-            --accent-dim: rgba(74,144,255,0.12);
-            --border: #1a2540;
-            --border-light: #243050;
-            --success: #00c48f;
-            --warning: #ffb020;
-            --danger: #ff4060;
-            --gold: #d4a050;
-            --gradient-main: linear-gradient(135deg, #4a90ff, #7c5cfc);
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-            --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
-            --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
-            --r: 12px;
-            --r-sm: 8px;
-        }
-        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.75;min-height:100vh}
-        a{text-decoration:none;color:inherit}
-        ::-webkit-scrollbar{width:5px}
-        ::-webkit-scrollbar-track{background:var(--bg-primary)}
-        ::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:3px}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مرصد التحاليل الجيوسياسية | Geopolitical Intelligence Observatory</title>
+<meta name="description" content="مرصد يومي للتحاليل الجيوسياسية حول العالم العربي وأفريقيا">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cairo:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-        /* ===== PROGRESS ===== */
-        #progressBar{position:fixed;top:0;left:0;height:3px;background:var(--gradient-main);z-index:999;transition:width .3s;box-shadow:0 0 12px rgba(74,144,255,.5);width:0}
+:root{
+  --bg:#060911;
+  --bg2:#0b0e17;
+  --card:#0f1420;
+  --card2:#141926;
+  --border:#1e2535;
+  --border2:#262f42;
+  --text:#d8d4c8;
+  --text2:#7a8296;
+  --text3:#4a5168;
+  --gold:#c8953a;
+  --gold2:#e8b05a;
+  --teal:#0f9b82;
+  --teal2:#13b898;
+  --red:#c04242;
+  --blue:#3a7fc8;
+  --purple:#7a5fc8;
+  --ar-color:#0f9b82;
+  --fr-color:#3a7fc8;
+  --en-color:#7a5fc8;
+  --shadow:0 4px 40px rgba(0,0,0,.7);
+  --radius:14px;
+  --font-h:'Playfair Display',serif;
+  --font-ui:'Cairo',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
 
-        /* ===== HEADER ===== */
-        .hdr{background:rgba(13,19,32,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-        .hdr-top{max-width:1480px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-        .logo{display:flex;align-items:center;gap:12px}
-        .logo-i{width:46px;height:46px;background:var(--gradient-main);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 14px rgba(74,144,255,.3)}
-        .logo h1{font-size:1.25rem;font-weight:800;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .logo p{font-size:.72rem;color:var(--text-muted);margin-top:1px}
-        .hdr-r{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-        .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:.8rem;color:var(--text-secondary);border:1px solid var(--border)}
-        .chip .n{font-weight:700;color:var(--accent)}
-        .chip-live{border-color:rgba(0,196,143,.25);background:rgba(0,196,143,.06)}
-        .dot-live{width:7px;height:7px;background:var(--success);border-radius:50%;animation:blink 2s infinite}
-        @keyframes blink{0%,100%{box-shadow:0 0 0 0 rgba(0,196,143,.4)}50%{box-shadow:0 0 0 5px rgba(0,196,143,0)}}
-        .chip-timer{border-color:rgba(212,160,80,.2);background:rgba(212,160,80,.05)}
-        .chip-timer .t{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums;direction:ltr}
-        .chip-err{border-color:rgba(255,64,96,.2);background:rgba(255,64,96,.06);color:#ff8090;font-size:.72rem;cursor:pointer}
+body{
+  font-family:var(--font-ui);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  min-height:100vh;
+  overflow-x:hidden;
+}
 
-        /* ===== NAV ===== */
-        .nav{background:rgba(6,9,15,.7);border-bottom:1px solid var(--border)}
-        .nav-in{max-width:1480px;margin:0 auto;padding:0 24px;display:flex;overflow-x:auto;gap:0}
-        .nav-in::-webkit-scrollbar{height:0}
-        .nt{padding:12px 18px;font-size:.82rem;font-weight:500;color:var(--text-muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:.2s;font-family:inherit}
-        .nt:hover{color:var(--text-secondary)}
-        .nt.on{color:var(--accent);border-bottom-color:var(--accent);background:rgba(74,144,255,.04)}
-        .nt .c{font-size:.68rem;background:var(--border);padding:1px 6px;border-radius:8px;margin-right:5px;color:var(--text-muted)}
-        .nt.on .c{background:var(--accent-dim);color:var(--accent)}
+/* ═══ SCANLINE EFFECT ═══ */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
+  pointer-events:none;z-index:999;
+}
 
-        /* ===== TOOLBAR ===== */
-        .tb{max-width:1480px;margin:18px auto 0;padding:0 24px}
-        .tb-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-        .search{display:flex;align-items:center;background:var(--bg-secondary);border:1px solid var(--border);border-radius:22px;padding:8px 16px;gap:8px;min-width:300px;transition:.2s}
-        .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
-        .search input{background:none;border:none;outline:none;color:var(--text-primary);font-size:.88rem;width:100%;font-family:inherit}
-        .search input::placeholder{color:var(--text-muted)}
-        .sel{background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-secondary);padding:8px 14px;border-radius:22px;font-size:.82rem;font-family:inherit;cursor:pointer;outline:none}
-        .sel:focus{border-color:var(--accent)}
+/* ═══ HERO ═══ */
+.hero{
+  position:relative;
+  background:var(--bg);
+  padding:60px 20px 90px;
+  text-align:center;
+  overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
 
-        /* ===== MAIN ===== */
-        .main{max-width:1480px;margin:20px auto;padding:0 24px 50px}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% -10%,rgba(200,149,58,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 60%,rgba(15,155,130,.04) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 60%,rgba(58,127,200,.04) 0%,transparent 55%);
+  pointer-events:none;
+}
 
-        /* ===== DATE SECTIONS ===== */
-        .ds{margin-bottom:36px}
-        .dh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-        .dh h2{font-size:1.05rem;font-weight:600;color:var(--text-secondary)}
-        .dh .cb{background:var(--accent);color:#fff;padding:3px 12px;border-radius:10px;font-size:.75rem;font-weight:700}
+/* animated grid */
+.hero-grid{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;
+}
+.hero-grid::before{
+  content:'';position:absolute;inset:-50%;
+  background-image:
+    linear-gradient(rgba(200,149,58,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,149,58,.025) 1px,transparent 1px);
+  background-size:80px 80px;
+  animation:gridFloat 20s linear infinite;
+}
+@keyframes gridFloat{to{transform:translateY(80px)}}
 
-        /* ===== GRID ===== */
-        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px}
+.hero-c{position:relative;z-index:2;max-width:900px;margin:0 auto}
 
-        /* ===== CARD ===== */
-        .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;display:flex;flex-direction:column;gap:11px;transition:.25s;position:relative;overflow:hidden}
-        .card::after{content:'';position:absolute;top:0;right:0;width:3px;height:100%;opacity:0;transition:.25s}
-        .card:hover{background:var(--bg-card-hover);border-color:var(--border-light);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-        .card:hover::after{opacity:1}
-        .card[data-cat=geopolitics]::after{background:linear-gradient(180deg,#ff4060,#f97316)}
-        .card[data-cat=diplomacy]::after{background:linear-gradient(180deg,#8b5cf6,#6366f1)}
-        .card[data-cat=politics]::after{background:linear-gradient(180deg,#4a90ff,#06b6d4)}
-        .card[data-cat=economy]::after{background:linear-gradient(180deg,#ffb020,#eab308)}
-        .card[data-cat="arab-world"]::after{background:linear-gradient(180deg,#00c48f,#14b8a6)}
-        .card[data-cat=africa]::after{background:linear-gradient(180deg,#d4a050,#f59e0b)}
-        .card[data-cat=defense]::after{background:linear-gradient(180deg,#64748b,#94a3b8)}
-        .card[data-cat=energy]::after{background:linear-gradient(180deg,#22c55e,#84cc16)}
-        .card[data-cat=analysis]::after{background:linear-gradient(180deg,#ec4899,#f43f5e)}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:.7em;letter-spacing:.2em;
+  color:var(--gold);text-transform:uppercase;
+  border:1px solid rgba(200,149,58,.25);
+  padding:5px 16px;border-radius:4px;margin-bottom:24px;
+  background:rgba(200,149,58,.05);
+}
+.kicker-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
-        .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-        .src{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.03);border:1px solid var(--border);padding:3px 10px;border-radius:5px;font-size:.7rem;color:var(--text-muted);font-weight:600;white-space:nowrap}
-        .src img{width:14px;height:14px;border-radius:2px}
-        .lf{font-size:.67rem;padding:2px 5px;border-radius:3px;font-weight:700}
-        .lf.en{background:rgba(74,144,255,.12);color:#60a5fa}
-        .lf.fr{background:rgba(255,64,96,.12);color:#ff8090}
-        .ts{font-size:.7rem;color:var(--text-muted);white-space:nowrap;display:flex;align-items:center;gap:3px}
-        .ts.exp{color:var(--warning)}
-        .card-title{font-size:.98rem;font-weight:650;line-height:1.6}
-        .card-title a{transition:.2s}
-        .card-title a:hover{color:var(--accent)}
-        .card-desc{font-size:.83rem;color:var(--text-secondary);line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-        .card-bot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:11px;border-top:1px solid var(--border);gap:8px;flex-wrap:wrap}
-        .pill{padding:3px 9px;border-radius:5px;font-size:.68rem;font-weight:700;letter-spacing:.2px}
-        .pill.geopolitics{background:rgba(255,64,96,.1);color:#ff8090}
-        .pill.diplomacy{background:rgba(139,92,246,.1);color:#a78bfa}
-        .pill.politics{background:rgba(74,144,255,.1);color:#60a5fa}
-        .pill.economy{background:rgba(255,176,32,.1);color:#fbbf24}
-        .pill.arab-world{background:rgba(0,196,143,.1);color:#34d399}
-        .pill.africa{background:rgba(212,160,80,.1);color:#d4a050}
-        .pill.defense{background:rgba(100,116,139,.1);color:#94a3b8}
-        .pill.energy{background:rgba(34,197,94,.1);color:#4ade80}
-        .pill.analysis{background:rgba(236,72,153,.1);color:#f472b6}
-        .rlink{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-size:.78rem;font-weight:600;transition:gap .2s;white-space:nowrap}
-        .rlink:hover{gap:8px}
+.hero h1{
+  font-family:var(--font-h);
+  font-size:2.8em;font-weight:900;
+  color:#fff;line-height:1.15;
+  margin-bottom:10px;
+  text-shadow:0 0 60px rgba(200,149,58,.2);
+}
+.hero h1 em{font-style:italic;color:var(--gold)}
 
-        /* ===== STATES ===== */
-        .state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 20px;gap:16px}
-        .spin{width:42px;height:42px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:sp .7s linear infinite}
-        @keyframes sp{to{transform:rotate(360deg)}}
-        .empty{text-align:center;padding:60px 20px;color:var(--text-muted)}
-        .empty .ic{font-size:42px;margin-bottom:12px}
+.hero-en{
+  font-family:var(--font-mono);font-size:.75em;
+  color:var(--text2);letter-spacing:.25em;text-transform:uppercase;
+  margin-bottom:24px;display:block;
+}
 
-        /* ===== LOG PANEL ===== */
-        .log-panel{position:fixed;bottom:0;left:0;right:0;background:rgba(13,19,32,.96);backdrop-filter:blur(8px);border-top:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .3s;z-index:90}
-        .log-panel.open{max-height:260px}
-        .log-header{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;border-bottom:1px solid var(--border)}
-        .log-header h3{font-size:.85rem;color:var(--text-secondary)}
-        .log-close{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;font-family:inherit}
-        .log-body{padding:10px 20px;overflow-y:auto;max-height:200px;font-family:'Consolas','Courier New',monospace;font-size:.72rem;line-height:1.8}
-        .log-body .ok{color:var(--success)}
-        .log-body .er{color:var(--danger)}
-        .log-body .wr{color:var(--warning)}
-        .log-body .inf{color:var(--text-muted)}
+.hero-rule{
+  display:flex;align-items:center;gap:16px;
+  justify-content:center;margin:0 auto 24px;max-width:500px;
+}
+.hero-rule-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
+.hero-rule-icon{font-size:1.2em;color:var(--gold)}
 
-        /* ===== FOOTER ===== */
-        .footer{background:var(--bg-secondary);border-top:1px solid var(--border);text-align:center;padding:22px 20px;color:var(--text-muted);font-size:.75rem;line-height:2}
-        .footer .sl{max-width:900px;margin:8px auto 0;font-size:.68rem;opacity:.5}
+.hero-desc{
+  font-size:.95em;color:rgba(216,212,200,.7);
+  line-height:2;max-width:700px;margin:0 auto 24px;
+}
 
-        /* ===== RESPONSIVE ===== */
-        @media(max-width:900px){
-            .hdr-top{flex-direction:column;text-align:center}
-            .hdr-r{justify-content:center}
-            .grid{grid-template-columns:1fr}
-            .tb-row{flex-direction:column}
-            .search{min-width:100%}
-            .nav-in{padding:0 10px}
-        }
-        @media(max-width:500px){
-            .hdr-top{padding:12px 14px}
-            .main{padding:0 12px 40px}
-            .card{padding:15px}
-            .grid{gap:12px}
-        }
-    </style>
+.week-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(15,155,130,.1);border:1px solid rgba(15,155,130,.25);
+  color:var(--teal);padding:8px 20px;border-radius:50px;
+  font-size:.85em;font-weight:700;
+}
+.week-badge i{font-style:normal;font-size:.9em;opacity:.8}
+
+/* ═══ FRESHNESS COUNTER ═══ */
+.freshness-bar{
+  max-width:1400px;margin:0 auto 0;padding:16px 24px;
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:.72em;color:var(--text3);
+  border-bottom:1px solid var(--border);
+}
+.day-marker{
+  display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:4px;
+  border:1px solid var(--border);cursor:pointer;transition:all .2s;font-weight:600;
+}
+.day-marker:hover,.day-marker.active{border-color:var(--gold);color:var(--gold);background:rgba(200,149,58,.06)}
+.day-marker.today{border-color:var(--teal);color:var(--teal);background:rgba(15,155,130,.06)}
+.day-sep{color:var(--border2)}
+
+/* ═══ STATS BAR ═══ */
+.stats-bar{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:1px;background:var(--border);
+  border-bottom:1px solid var(--border);
+  max-width:100%;
+}
+.stat-card{
+  background:var(--bg2);padding:20px 16px;text-align:center;
+  transition:background .2s;
+}
+.stat-card:hover{background:var(--card)}
+.stat-card .icon{font-size:1.4em;margin-bottom:6px;display:block}
+.stat-card .num{
+  font-family:var(--font-mono);font-size:1.8em;font-weight:600;
+  color:var(--gold);line-height:1;
+}
+.stat-card .lbl{font-size:.72em;color:var(--text2);margin-top:6px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+
+/* ═══ CONTROLS ═══ */
+.controls{max-width:1400px;margin:0 auto;padding:20px 24px}
+
+.search-wrap{position:relative;margin-bottom:16px}
+.search-box{
+  width:100%;padding:14px 56px 14px 24px;
+  border-radius:8px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);
+  font-size:.95em;font-family:var(--font-ui);
+  outline:none;transition:all .25s;direction:rtl;
+}
+.search-box::placeholder{color:var(--text3)}
+.search-box:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,149,58,.08)}
+.search-icon{
+  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  color:var(--text3);font-size:1.1em;pointer-events:none;
+  font-family:var(--font-mono);font-weight:600;
+}
+
+.filter-strip{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:12px 0;border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.filter-grp{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.filter-sep{width:1px;height:22px;background:var(--border);flex-shrink:0}
+
+.flbl{
+  font-family:var(--font-mono);font-size:.65em;
+  font-weight:600;color:var(--text3);
+  letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
+}
+
+.fbtn{
+  padding:6px 16px;border-radius:4px;
+  border:1px solid var(--border);
+  background:transparent;color:var(--text2);
+  cursor:pointer;font-size:.8em;font-weight:700;
+  font-family:var(--font-ui);transition:all .2s;
+}
+.fbtn:hover{border-color:var(--gold);color:var(--gold)}
+.fbtn.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.fbtn.a-ar{background:var(--ar-color);color:#fff;border-color:var(--ar-color)}
+.fbtn.a-fr{background:var(--fr-color);color:#fff;border-color:var(--fr-color)}
+.fbtn.a-en{background:var(--en-color);color:#fff;border-color:var(--en-color)}
+
+.fsel{
+  padding:6px 14px;border-radius:4px;
+  border:1px solid var(--border);
+  background:var(--bg);color:var(--text2);
+  font-size:.8em;font-weight:600;font-family:var(--font-ui);
+  cursor:pointer;outline:none;transition:border-color .2s;
+}
+.fsel:focus{border-color:var(--gold)}
+
+/* ═══ UPDATE BAR ═══ */
+.update-bar{
+  max-width:1400px;margin:0 auto;padding:10px 24px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+  border-bottom:1px solid var(--border);
+}
+.live-wrap{display:flex;align-items:center;gap:8px}
+.pulse{width:7px;height:7px;background:var(--teal);border-radius:50%;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.6)}}
+.live-txt{font-family:var(--font-mono);font-size:.7em;color:var(--teal);font-weight:600;letter-spacing:.05em}
+.last-up{font-family:var(--font-mono);font-size:.68em;color:var(--text3)}
+.rbtn{
+  padding:7px 18px;border-radius:4px;
+  border:1px solid var(--border);
+  background:transparent;color:var(--text2);
+  cursor:pointer;font-size:.78em;font-weight:700;font-family:var(--font-ui);
+  transition:all .2s;
+}
+.rbtn:hover{border-color:var(--teal);color:var(--teal)}
+.rbtn:disabled{opacity:.35;cursor:not-allowed}
+
+/* ═══ PROGRESS ═══ */
+.pbar{max-width:1400px;margin:0 auto;padding:0 24px;display:none}
+.ptrack{height:2px;background:var(--border)}
+.pfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--teal));width:0;transition:width .3s}
+.ptxt{
+  font-family:var(--font-mono);font-size:.65em;color:var(--text3);
+  padding:6px 0;text-align:center;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* ═══ RESULTS INFO ═══ */
+.results-info{
+  max-width:1400px;margin:0 auto;padding:10px 24px;
+  font-family:var(--font-mono);font-size:.7em;color:var(--text3);
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--border);
+}
+.results-info span{color:var(--gold)}
+
+/* ═══ GRID ═══ */
+.articles-grid{
+  max-width:1400px;margin:0 auto;padding:20px 24px 60px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(380px,1fr));
+  gap:16px;
+}
+
+/* ═══ ARTICLE CARD ═══ */
+.art-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);
+  display:flex;flex-direction:column;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.art-card::before{
+  content:'';position:absolute;top:0;right:0;left:0;height:2px;
+  background:var(--card-accent,var(--border));
+  transition:background .25s;
+}
+.art-card:hover{
+  border-color:var(--border2);
+  transform:translateY(-4px);
+  box-shadow:0 16px 50px rgba(0,0,0,.5);
+}
+.art-card:hover::before{background:var(--gold)}
+
+/* Source type color coding */
+.art-card.src-think::before{background:var(--blue)}
+.art-card.src-media::before{background:var(--teal)}
+.art-card.src-indie::before{background:var(--purple)}
+.art-card.src-inst::before{background:var(--gold)}
+
+/* Card image strip */
+.art-img{
+  width:100%;height:160px;object-fit:cover;
+  display:block;opacity:.85;
+  filter:brightness(.85) saturate(.9);
+  transition:opacity .3s,filter .3s;
+}
+.art-card:hover .art-img{opacity:1;filter:brightness(.95) saturate(1)}
+.art-img-placeholder{
+  width:100%;height:60px;
+  background:linear-gradient(135deg,var(--card2),var(--card));
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text3);font-size:.7em;font-family:var(--font-mono);
+  letter-spacing:.1em;
+}
+
+.art-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px 0;gap:8px;flex-wrap:wrap;
+}
+.art-source{
+  font-family:var(--font-mono);font-size:.65em;font-weight:600;
+  color:var(--text2);letter-spacing:.06em;text-transform:uppercase;
+  display:flex;align-items:center;gap:6px;
+}
+.src-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.src-dot.think{background:var(--blue)}
+.src-dot.media{background:var(--teal)}
+.src-dot.indie{background:var(--purple)}
+.src-dot.inst{background:var(--gold)}
+
+.art-freshness{
+  font-family:var(--font-mono);font-size:.65em;font-weight:600;
+  padding:3px 10px;border-radius:4px;
+  white-space:nowrap;
+}
+.fresh-0{background:rgba(15,155,130,.12);color:var(--teal2);border:1px solid rgba(15,155,130,.2)}
+.fresh-1{background:rgba(200,149,58,.1);color:var(--gold2);border:1px solid rgba(200,149,58,.2)}
+.fresh-2{background:rgba(200,149,58,.06);color:var(--gold);border:1px solid rgba(200,149,58,.12)}
+.fresh-old{background:rgba(74,81,104,.1);color:var(--text3);border:1px solid var(--border)}
+
+.lang-badge{
+  padding:2px 10px;border-radius:3px;
+  font-family:var(--font-mono);font-size:.6em;font-weight:700;
+  letter-spacing:.06em;color:#fff;
+}
+.l-ar{background:var(--ar-color)}.l-fr{background:var(--fr-color)}.l-en{background:var(--en-color)}
+
+.art-body{padding:12px 16px 14px;flex:1;display:flex;flex-direction:column}
+
+.art-title{
+  font-family:var(--font-h);
+  font-size:1.05em;font-weight:700;
+  line-height:1.45;color:var(--text);
+  margin-bottom:8px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  transition:color .2s;
+}
+.art-card:hover .art-title{color:#fff}
+
+.art-desc{
+  font-size:.82em;color:var(--text2);line-height:1.65;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  margin-bottom:12px;
+  font-family:var(--font-ui);
+}
+
+.art-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.tag{
+  padding:2px 10px;border-radius:3px;font-size:.68em;
+  font-weight:700;letter-spacing:.04em;white-space:nowrap;
+}
+.tag-geo{background:rgba(15,155,130,.1);color:var(--teal);border:1px solid rgba(15,155,130,.15)}
+.tag-topic{background:rgba(74,81,104,.12);color:var(--text2);border:1px solid var(--border)}
+.tag-hot{background:rgba(192,66,66,.1);color:var(--red);border:1px solid rgba(192,66,66,.15)}
+.tag-type{background:rgba(58,127,200,.1);color:var(--blue);border:1px solid rgba(58,127,200,.15)}
+
+.art-footer{
+  margin-top:auto;padding-top:12px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.art-link{
+  flex:1;text-align:center;
+  padding:9px 16px;border-radius:6px;
+  background:rgba(200,149,58,.08);border:1px solid rgba(200,149,58,.2);
+  color:var(--gold);font-weight:700;font-size:.8em;
+  text-decoration:none;transition:all .25s;font-family:var(--font-ui);
+}
+.art-link:hover{background:var(--gold);color:var(--bg)}
+.art-gdelt{
+  padding:9px 12px;border-radius:6px;border:1px solid var(--border);
+  background:transparent;color:var(--text3);font-size:.75em;
+  text-decoration:none;transition:all .2s;font-family:var(--font-mono);
+  white-space:nowrap;
+}
+.art-gdelt:hover{border-color:var(--border2);color:var(--text2)}
+
+/* ═══ LOADER ═══ */
+.loader{text-align:center;padding:80px 20px;grid-column:1/-1}
+.spinner-ring{
+  display:inline-block;width:50px;height:50px;margin-bottom:20px;
+  border:2px solid var(--border);border-top-color:var(--gold);
+  border-right-color:var(--teal);border-radius:50%;
+  animation:spin 1.5s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader p{font-family:var(--font-mono);font-size:.82em;color:var(--text2)}
+.loader small{font-size:.78em;color:var(--text3);display:block;margin-top:6px}
+
+.no-res{text-align:center;padding:80px 20px;grid-column:1/-1;color:var(--text3)}
+.no-res .big{font-size:3em;display:block;margin-bottom:12px}
+.no-res p{font-size:.9em}
+
+/* ═══ NOTIFICATION ═══ */
+.notif{
+  position:fixed;bottom:20px;right:20px;
+  background:var(--card2);border:1px solid var(--teal);
+  color:var(--teal);padding:12px 20px;border-radius:8px;
+  font-size:.82em;font-weight:700;font-family:var(--font-mono);
+  box-shadow:var(--shadow);z-index:2000;
+  display:none;animation:slideUp .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* ═══ LEGEND ═══ */
+.legend{
+  max-width:1400px;margin:0 auto;padding:12px 24px;
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+  border-bottom:1px solid var(--border);
+  font-family:var(--font-mono);font-size:.65em;color:var(--text3);
+}
+.legend-item{display:flex;align-items:center;gap:6px}
+.legend-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* ═══ FOOTER ═══ */
+footer{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:40px 24px;text-align:center;
+}
+.footer-title{
+  font-family:var(--font-h);font-size:1.4em;color:var(--gold);
+  margin-bottom:8px;font-weight:700;
+}
+footer p{font-size:.78em;color:var(--text3);margin-bottom:5px;line-height:1.8}
+.footer-sources{
+  display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+  margin:16px auto;max-width:900px;
+}
+.f-src{
+  font-family:var(--font-mono);font-size:.62em;font-weight:600;
+  padding:4px 12px;border-radius:3px;
+  border:1px solid var(--border);color:var(--text3);
+}
+.f-src.think{border-color:rgba(58,127,200,.3);color:var(--blue)}
+.f-src.media{border-color:rgba(15,155,130,.3);color:var(--teal)}
+.f-src.indie{border-color:rgba(122,95,200,.3);color:var(--purple)}
+.github-note{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(200,149,58,.07);border:1px solid rgba(200,149,58,.2);
+  color:var(--gold);padding:8px 20px;border-radius:6px;
+  font-family:var(--font-mono);font-size:.7em;font-weight:600;
+  margin-top:20px;text-decoration:none;transition:all .25s;
+}
+.github-note:hover{background:rgba(200,149,58,.12)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .hero h1{font-size:2em}
+  .articles-grid{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:repeat(3,1fr)}
+  .filter-sep{display:none}
+}
+@media(max-width:600px){
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:1.65em}
+  .freshness-bar{display:none}
+}
+</style>
 </head>
 <body>
 
-<div id="progressBar"></div>
-
-<header class="hdr">
-    <div class="hdr-top">
-        <div class="logo">
-            <div class="logo-i">🌍</div>
-            <div>
-                <h1>Global Geopolitical Reports</h1>
-                <p>جيوبوليتيك · علاقات دولية · سياسة · اقتصاد · العالم العربي · أفريقيا — تحديث كل 6 ساعات</p>
-            </div>
-        </div>
-        <div class="hdr-r">
-            <div class="chip chip-live"><span class="dot-live"></span> مباشر</div>
-            <div class="chip">📄 <span class="n" id="cntAll">0</span></div>
-            <div class="chip">🏛️ <span class="n" id="cntSrc">0</span></div>
-            <div class="chip chip-timer">⏱️ <span class="t" id="cdTimer">--:--:--</span></div>
-            <div class="chip chip-err" id="errChip" style="display:none" onclick="toggleLog()">⚠️ <span id="errN">0</span> أخطاء</div>
-        </div>
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-c">
+    <div class="hero-kicker">
+      <span class="kicker-dot"></span>
+      INTELLIGENCE · BRIEFING · DAILY
     </div>
-    <nav class="nav">
-        <div class="nav-in" id="navTabs">
-            <button class="nt on" data-f="all">🌐 الكل<span class="c" id="c-all">0</span></button>
-            <button class="nt" data-f="geopolitics">🔴 جيوبوليتيك<span class="c" id="c-geopolitics">0</span></button>
-            <button class="nt" data-f="diplomacy">🟣 دبلوماسية<span class="c" id="c-diplomacy">0</span></button>
-            <button class="nt" data-f="politics">🔵 سياسة<span class="c" id="c-politics">0</span></button>
-            <button class="nt" data-f="economy">🟡 اقتصاد<span class="c" id="c-economy">0</span></button>
-            <button class="nt" data-f="arab-world">🟢 العالم العربي<span class="c" id="c-arab-world">0</span></button>
-            <button class="nt" data-f="africa">🟠 أفريقيا<span class="c" id="c-africa">0</span></button>
-            <button class="nt" data-f="defense">⚪ دفاع وأمن<span class="c" id="c-defense">0</span></button>
-            <button class="nt" data-f="energy">🍀 طاقة<span class="c" id="c-energy">0</span></button>
-            <button class="nt" data-f="analysis">🩷 تحليلات<span class="c" id="c-analysis">0</span></button>
-        </div>
-    </nav>
-</header>
-
-<div class="tb">
-    <div class="tb-row">
-        <div class="search"><span>🔍</span><input id="searchIn" placeholder="ابحث في العناوين والمصادر..."></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <select class="sel" id="srcFilter"><option value="all">كل المصادر</option></select>
-            <select class="sel" id="sortSel">
-                <option value="newest">الأحدث أولاً</option>
-                <option value="oldest">الأقدم أولاً</option>
-                <option value="source">حسب المصدر</option>
-            </select>
-            <select class="sel" id="langSel">
-                <option value="all">كل اللغات</option>
-                <option value="en">🇬🇧 English</option>
-                <option value="fr">🇫🇷 Français</option>
-            </select>
-        </div>
+    <h1>مرصد <em>التحاليل</em> الجيوسياسية</h1>
+    <span class="hero-en">Geopolitical Intelligence Observatory</span>
+    <div class="hero-rule">
+      <div class="hero-rule-line"></div>
+      <div class="hero-rule-icon">◆</div>
+      <div class="hero-rule-line"></div>
     </div>
+    <p class="hero-desc">
+      يجمع يومياً التحاليل الجيوسياسية عميقة الأثر حول العالم العربي وأفريقيا<br>
+      من مراكز البحث ومنابر التحليل الاستراتيجي • بالعربية والإنجليزية والفرنسية<br>
+      <strong style="color:var(--text)">يُستبعد الخبر اليومي — التحليل فقط</strong>
+    </p>
+    <div class="week-badge">
+      📅 <span>نافذة أسبوع دائمة الحداثة</span>
+      <i>— تُحذف المقالات بعد 7 أيام تلقائياً</i>
+    </div>
+  </div>
 </div>
 
-<main class="main" id="mainBox">
-    <div class="state"><div class="spin"></div><p style="color:var(--text-muted)">جاري التحميل...</p></div>
-</main>
-
-<!-- LOG PANEL -->
-<div class="log-panel" id="logPanel">
-    <div class="log-header"><h3>📋 سجل الجلب</h3><button class="log-close" onclick="toggleLog()">✕</button></div>
-    <div class="log-body" id="logBody"></div>
+<!-- ══════════ FRESHNESS BAR ══════════ -->
+<div class="freshness-bar" id="freshnessBar">
+  <span style="color:var(--text2);margin-left:12px">المحتوى المتاح:</span>
+  <div class="day-marker today active" onclick="setDayFilter(0,this)">اليوم</div>
+  <span class="day-sep">·</span>
+  <div class="day-marker" onclick="setDayFilter(1,this)">أمس</div>
+  <span class="day-sep">·</span>
+  <div class="day-marker" onclick="setDayFilter(2,this)">منذ يومين</div>
+  <span class="day-sep">·</span>
+  <div class="day-marker" onclick="setDayFilter(3,this)">3 أيام</div>
+  <span class="day-sep">·</span>
+  <div class="day-marker" onclick="setDayFilter(4,this)">4 أيام</div>
+  <span class="day-sep">·</span>
+  <div class="day-marker" onclick="setDayFilter(null,this)">الكل (7 أيام)</div>
+  <span style="margin-right:auto;color:var(--text3)" id="weekCount"></span>
 </div>
 
-<footer class="footer">
-    <p>🌍 مُجمّع التقارير الجيوسياسية — تحديث تلقائي كل 6 ساعات — المقالات الأقدم من 7 أيام تُحذف تلقائياً</p>
-    <p>آخر تحديث: <span id="lastUpd">—</span></p>
-    <div class="sl" id="srcList"></div>
+<!-- ══════════ STATS BAR ══════════ -->
+<div class="stats-bar">
+  <div class="stat-card"><span class="icon">📡</span><div class="num" id="sTotal">-</div><div class="lbl">إجمالي التحاليل</div></div>
+  <div class="stat-card"><span class="icon">🇸🇦</span><div class="num" id="sAr">-</div><div class="lbl">عربي</div></div>
+  <div class="stat-card"><span class="icon">🇬🇧</span><div class="num" id="sEn">-</div><div class="lbl">English</div></div>
+  <div class="stat-card"><span class="icon">🇫🇷</span><div class="num" id="sFr">-</div><div class="lbl">Français</div></div>
+  <div class="stat-card"><span class="icon">🌍</span><div class="num" id="sArab">-</div><div class="lbl">العالم العربي</div></div>
+  <div class="stat-card"><span class="icon">🌍</span><div class="num" id="sAfri">-</div><div class="lbl">أفريقيا</div></div>
+  <div class="stat-card"><span class="icon">🏛️</span><div class="num" id="sSrc">-</div><div class="lbl">مصدر نشط</div></div>
+</div>
+
+<!-- ══════════ SOURCE LEGEND ══════════ -->
+<div class="legend">
+  <span style="color:var(--text2);font-weight:600">مفتاح المصادر:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>مراكز الأبحاث</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>منابر تحليلية</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>صحافة مستقلة</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>مؤسسات أكاديمية</div>
+  <span style="margin-right:auto">
+    <span style="color:var(--teal2)">■</span> اليوم &nbsp;
+    <span style="color:var(--gold2)">■</span> أمس–يومان &nbsp;
+    <span style="color:var(--text3)">■</span> 3–7 أيام
+  </span>
+</div>
+
+<!-- ══════════ CONTROLS ══════════ -->
+<div class="controls">
+  <div class="search-wrap">
+    <input type="text" class="search-box" id="searchInput"
+      placeholder="ابحث في العناوين والمصادر والمواضيع..."
+      oninput="filterArticles()">
+    <span class="search-icon">⌕</span>
+  </div>
+  <div class="filter-strip">
+    <div class="filter-grp">
+      <span class="flbl">اللغة</span>
+      <button class="fbtn active" onclick="setLang('all',this)">الكل</button>
+      <button class="fbtn" onclick="setLang('ar',this)">عربي</button>
+      <button class="fbtn" onclick="setLang('en',this)">English</button>
+      <button class="fbtn" onclick="setLang('fr',this)">Français</button>
+    </div>
+    <div class="filter-sep"></div>
+    <div class="filter-grp">
+      <span class="flbl">المنطقة</span>
+      <select class="fsel" id="regionSel" onchange="filterArticles()">
+        <option value="">الكل</option>
+        <option value="Arab">العالم العربي 🌍</option>
+        <option value="Africa">أفريقيا 🌍</option>
+        <option value="Maghreb">المغرب العربي</option>
+        <option value="Gulf">الخليج العربي</option>
+        <option value="Levant">المشرق العربي</option>
+        <option value="Sahel">الساحل الأفريقي</option>
+        <option value="Horn">القرن الأفريقي</option>
+        <option value="North Africa">شمال أفريقيا</option>
+        <option value="West Africa">غرب أفريقيا</option>
+      </select>
+    </div>
+    <div class="filter-sep"></div>
+    <div class="filter-grp">
+      <span class="flbl">الموضوع</span>
+      <select class="fsel" id="topicSel" onchange="filterArticles()">
+        <option value="">كل المواضيع</option>
+        <option value="Security">الأمن والصراع</option>
+        <option value="Diplomacy">الدبلوماسية</option>
+        <option value="Elections">الانتخابات</option>
+        <option value="Economy">الاقتصاد السياسي</option>
+        <option value="Energy">الطاقة والموارد</option>
+        <option value="Migration">الهجرة واللاجئون</option>
+        <option value="Democracy">الديمقراطية والحوكمة</option>
+        <option value="Islamism">الإسلام السياسي</option>
+        <option value="Human Rights">حقوق الإنسان</option>
+        <option value="Climate">المناخ والبيئة</option>
+        <option value="Russia">روسيا وأفريقيا</option>
+        <option value="China">الصين والمنطقة</option>
+        <option value="US">الولايات المتحدة</option>
+      </select>
+    </div>
+    <div class="filter-sep"></div>
+    <div class="filter-grp">
+      <span class="flbl">الترتيب</span>
+      <select class="fsel" id="sortSel" onchange="filterArticles()">
+        <option value="newest">الأحدث أولاً</option>
+        <option value="oldest">الأقدم أولاً</option>
+        <option value="quality">الأعلى جودةً</option>
+        <option value="source">المصدر</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ UPDATE BAR ══════════ -->
+<div class="update-bar">
+  <div class="live-wrap">
+    <div class="pulse"></div>
+    <span class="live-txt">تحديث يومي تلقائي — 7 أيام فقط</span>
+  </div>
+  <span class="last-up" id="lastUp">جاري التحميل...</span>
+  <button class="rbtn" id="rBtn" onclick="manualRefresh()">↺ تحديث الآن</button>
+</div>
+
+<!-- ══════════ PROGRESS ══════════ -->
+<div class="pbar" id="pbar">
+  <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+  <div class="ptxt" id="ptxt">جاري الجلب...</div>
+</div>
+
+<!-- ══════════ RESULTS ══════════ -->
+<div class="results-info" id="resultsInfo"></div>
+
+<!-- ══════════ GRID ══════════ -->
+<div class="articles-grid" id="grid">
+  <div class="loader">
+    <div class="spinner-ring"></div>
+    <p>جاري جلب التحاليل الجيوسياسية...</p>
+    <small>نبحث في مراكز الأبحاث ومنابر التحليل الاستراتيجي</small>
+  </div>
+</div>
+
+<!-- ══════════ NOTIF ══════════ -->
+<div class="notif" id="notif"></div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-title">مرصد التحاليل الجيوسياسية</div>
+  <p style="color:var(--text2);font-size:.82em;margin-bottom:16px">Geopolitical Intelligence Observatory</p>
+  <p>يجمع تحاليل جيوسياسية عميقة الأثر يومياً — نافذة أسبوع متجددة تلقائياً</p>
+  <p>مناسب للنشر مباشرةً على GitHub Pages (ملف HTML واحد — بدون خادم)</p>
+  <div class="footer-sources">
+    <span class="f-src think">Crisis Group</span>
+    <span class="f-src think">Chatham House</span>
+    <span class="f-src think">Carnegie MEC</span>
+    <span class="f-src think">IFRI</span>
+    <span class="f-src think">Brookings</span>
+    <span class="f-src media">Middle East Eye</span>
+    <span class="f-src media">Al-Monitor</span>
+    <span class="f-src media">The Africa Report</span>
+    <span class="f-src media">African Arguments</span>
+    <span class="f-src media">War on the Rocks</span>
+    <span class="f-src indie">Orient XXI</span>
+    <span class="f-src indie">Mada Masr</span>
+    <span class="f-src indie">حبر 7iber</span>
+    <span class="f-src indie">MERIP</span>
+    <span class="f-src inst">Al Jazeera</span>
+    <span class="f-src inst">BBC Arabic</span>
+    <span class="f-src inst">Le Monde</span>
+    <span class="f-src inst">Jeune Afrique</span>
+    <span class="f-src inst">GDELT</span>
+  </div>
+  <a class="github-note" href="https://pages.github.com" target="_blank" rel="noopener">
+    ⬡ للنشر: ضع الملف في مستودع GitHub وفعّل GitHub Pages
+  </a>
+  <p style="font-size:.65em;margin-top:20px;opacity:.4;font-family:var(--font-mono)">
+    Geopolitical Intelligence Observatory © 2026 — Open Source / GitHub Pages
+  </p>
 </footer>
 
 <script>
-(function(){
-'use strict';
+// ══════════════════════════════════════════════════════════════
+// مرصد التحاليل الجيوسياسية — Geopolitical Intelligence Observatory
+// GitHub Pages Compatible — Single HTML File — No Backend
+// نافذة 7 أيام متجددة | تحديث يومي تلقائي
+// ══════════════════════════════════════════════════════════════
 
-// ============================================================
-//  CONFIG
-// ============================================================
-const C = {
-    REFRESH: 6*3600000,
-    MAX_DAYS: 7,
-    SK: 'geoRpt_v5',
-    TK: 'geoRpt_v5_t',
-    BATCH: 6,
-    TIMEOUT: 14000,
+// ═══ CONFIG ═══
+const CFG = {
+  cacheKey: 'geopol_obs_v3',
+  maxAgeDays: 7,
+  maxAgeMs: 7 * 24 * 60 * 60 * 1000,
+  dailyMs: 24 * 60 * 60 * 1000,
+  minQuality: 0,        // minimum quality score to include
+  minDescLen: 60,       // minimum description chars
 };
 
-// ============================================================
-//  MULTI-PROXY FALLBACK SYSTEM
-//  Tries multiple proxies per feed for maximum reliability
-// ============================================================
-const PROXIES = [
-    url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
-    url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-    url => `https://corsproxy.org/?url=${encodeURIComponent(url)}`,
-    url => `https://cors-proxy.htmldriven.com/?url=${encodeURIComponent(url)}`,
-    url => `https://thingproxy.freeboard.io/fetch/${url}`,
+// ═══ STATE ═══
+let ALL_ARTICLES = [];
+let currentLang = 'all';
+let currentDayFilter = null;
+let isUpdating = false;
+let activeSources = new Set();
+
+// ═══ SOURCE CATALOG ═══
+const SOURCES = [
+  // ── English: Think Tanks ──
+  { name: 'Crisis Group',        url: 'https://www.crisisgroup.org/rss.xml',                           lang: 'en', type: 'think', score: 3, geo: ['Arab','Africa','Global'] },
+  { name: 'Chatham House',       url: 'https://www.chathamhouse.org/rss.xml',                          lang: 'en', type: 'think', score: 3, geo: ['Arab','Africa','Global'] },
+  { name: 'Carnegie MEC',        url: 'https://carnegie-mec.org/rss/publications',                     lang: 'en', type: 'think', score: 3, geo: ['Arab'] },
+  { name: 'Brookings',           url: 'https://www.brookings.edu/topic/middle-east/feed/',             lang: 'en', type: 'think', score: 3, geo: ['Arab'] },
+  { name: 'CSIS Africa',         url: 'https://www.csis.org/programs/africa-program/feed',             lang: 'en', type: 'think', score: 3, geo: ['Africa'] },
+  { name: 'Wilson Center',       url: 'https://www.wilsoncenter.org/rss.xml',                         lang: 'en', type: 'inst',  score: 2, geo: ['Global'] },
+  // ── English: Analysis Media ──
+  { name: 'Middle East Eye',     url: 'https://www.middleeasteye.net/rss',                            lang: 'en', type: 'media', score: 3, geo: ['Arab'] },
+  { name: 'Al-Monitor',          url: 'https://www.al-monitor.com/rss',                               lang: 'en', type: 'media', score: 3, geo: ['Arab'] },
+  { name: 'African Arguments',   url: 'https://africanarguments.org/feed/',                           lang: 'en', type: 'media', score: 3, geo: ['Africa'] },
+  { name: 'The Africa Report',   url: 'https://www.theafricareport.com/feed/',                        lang: 'en', type: 'media', score: 2, geo: ['Africa'] },
+  { name: 'War on the Rocks',    url: 'https://warontherocks.com/feed/',                              lang: 'en', type: 'media', score: 3, geo: ['Global'] },
+  { name: 'Just Security',       url: 'https://www.justsecurity.org/feed/',                           lang: 'en', type: 'media', score: 2, geo: ['Global'] },
+  { name: 'Responsible SC',      url: 'https://responsiblestatecraft.org/feed/',                      lang: 'en', type: 'media', score: 2, geo: ['Global'] },
+  { name: 'MERIP',               url: 'https://merip.org/feed/',                                      lang: 'en', type: 'indie', score: 3, geo: ['Arab'] },
+  { name: 'Jadaliyya',           url: 'https://www.jadaliyya.com/rss',                               lang: 'en', type: 'indie', score: 3, geo: ['Arab'] },
+  { name: 'Mada Masr (EN)',      url: 'https://madamasr.com/en/feed/',                               lang: 'en', type: 'indie', score: 3, geo: ['Arab'] },
+  { name: 'ISS Africa',          url: 'https://issafrica.org/rss.xml',                               lang: 'en', type: 'think', score: 3, geo: ['Africa'] },
+  { name: 'Foreign Policy',      url: 'https://foreignpolicy.com/feed/',                             lang: 'en', type: 'media', score: 3, geo: ['Global'] },
+  // ── French: Analysis ──
+  { name: 'Orient XXI',          url: 'https://orientxxi.info/rss.xml',                              lang: 'fr', type: 'indie', score: 3, geo: ['Arab'] },
+  { name: 'Jeune Afrique',       url: 'https://www.jeuneafrique.com/feed/',                          lang: 'fr', type: 'media', score: 2, geo: ['Africa'] },
+  { name: 'Le Monde Afrique',    url: 'https://www.lemonde.fr/afrique/rss_full.xml',                 lang: 'fr', type: 'inst',  score: 2, geo: ['Africa'] },
+  { name: 'Le Monde M-O',        url: 'https://www.lemonde.fr/moyen-orient/rss_full.xml',            lang: 'fr', type: 'inst',  score: 2, geo: ['Arab'] },
+  { name: 'RFI Afrique',         url: 'https://www.rfi.fr/fr/afrique/rss',                          lang: 'fr', type: 'inst',  score: 2, geo: ['Africa'] },
+  { name: 'IFRI',                url: 'https://www.ifri.org/fr/rss',                                 lang: 'fr', type: 'think', score: 3, geo: ['Global'] },
+  { name: 'Le Monde Diplo',      url: 'https://www.monde-diplomatique.fr/rss/full',                  lang: 'fr', type: 'indie', score: 3, geo: ['Global'] },
+  { name: 'Slate Afrique',       url: 'https://www.slateafrique.com/rss.xml',                        lang: 'fr', type: 'media', score: 2, geo: ['Africa'] },
+  // ── Arabic: Analysis ──
+  { name: 'الجزيرة تحليل',       url: 'https://www.aljazeera.net/xml/rss/all.xml',                   lang: 'ar', type: 'inst',  score: 2, geo: ['Arab'] },
+  { name: 'BBC عربي',            url: 'https://feeds.bbci.co.uk/arabic/rss.xml',                     lang: 'ar', type: 'inst',  score: 2, geo: ['Arab'] },
+  { name: 'العربي الجديد',        url: 'https://www.alaraby.co.uk/rss',                              lang: 'ar', type: 'media', score: 2, geo: ['Arab'] },
+  { name: 'القدس العربي',         url: 'https://www.alquds.co.uk/feed/',                             lang: 'ar', type: 'media', score: 2, geo: ['Arab'] },
+  { name: 'مدى مصر',             url: 'https://madamasr.com/ar/feed/',                              lang: 'ar', type: 'indie', score: 3, geo: ['Arab'] },
+  { name: 'حبر',                 url: 'https://www.7iber.com/feed/',                                lang: 'ar', type: 'indie', score: 3, geo: ['Arab'] },
+  { name: 'المجلة',              url: 'https://arb.majalla.com/feed/',                              lang: 'ar', type: 'media', score: 2, geo: ['Arab'] },
+  { name: 'الشرق الأوسط',        url: 'https://aawsat.com/rss',                                     lang: 'ar', type: 'media', score: 2, geo: ['Arab'] },
 ];
 
-// ============================================================
-//  55+ SOURCES — EN + FR — Geopolitics, IR, Arab World, Africa
-// ============================================================
-const FEEDS = [
-    // ── EN: Major Newspapers (World/Politics) ──
-    {id:'nyt-w',     n:'The New York Times',        l:'en',cat:'politics',    u:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'},
-    {id:'nyt-me',    n:'NYT Middle East',            l:'en',cat:'arab-world',  u:'https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml'},
-    {id:'nyt-af',    n:'NYT Africa',                 l:'en',cat:'africa',      u:'https://rss.nytimes.com/services/xml/rss/nyt/Africa.xml'},
-    {id:'nyt-pol',   n:'NYT Politics',               l:'en',cat:'politics',    u:'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml'},
-    {id:'gdn-w',     n:'The Guardian World',         l:'en',cat:'geopolitics', u:'https://www.theguardian.com/world/rss'},
-    {id:'gdn-me',    n:'Guardian Middle East',       l:'en',cat:'arab-world',  u:'https://www.theguardian.com/world/middleeast/rss'},
-    {id:'gdn-af',    n:'Guardian Africa',            l:'en',cat:'africa',      u:'https://www.theguardian.com/world/africa/rss'},
-    {id:'wapo',      n:'Washington Post World',      l:'en',cat:'politics',    u:'https://feeds.washingtonpost.com/rss/world'},
-    {id:'wsj',       n:'Wall Street Journal',        l:'en',cat:'economy',     u:'https://feeds.a.dj.com/rss/RSSWorldNews.xml'},
-    {id:'tele',      n:'The Telegraph',              l:'en',cat:'politics',    u:'https://www.telegraph.co.uk/rss.xml'},
-    {id:'indie',     n:'The Independent',            l:'en',cat:'politics',    u:'https://www.independent.co.uk/news/world/rss'},
-    {id:'times-uk',  n:'The Times UK',               l:'en',cat:'politics',    u:'https://www.thetimes.co.uk/rss'},
+// Quality domains for GDELT filtering
+const QUALITY_DOMAINS = new Set([
+  'middleeasteye.net','al-monitor.com','almonitor.com',
+  'crisisgroup.org','chathamhouse.org','carnegie-mec.org','carnegieendowment.org',
+  'brookings.edu','wilsoncenter.org','csis.org','issafrica.org',
+  'foreignpolicy.com','foreignaffairs.com',
+  'warontherocks.com','merip.org','justsecurity.org','responsiblestatecraft.org',
+  'africanarguments.org','theafricareport.com','africaconfidential.com',
+  'orientxxi.info','monde-diplomatique.fr','ifri.org',
+  'jeuneafrique.com','slateafrique.com',
+  'madamasr.com','7iber.com','jadaliyya.com',
+  'aljazeera.net','bbc.co.uk','bbc.com','lemonde.fr','rfi.fr',
+  'alaraby.co.uk','alquds.co.uk','majalla.com','aawsat.com',
+]);
 
-    // ── EN: Wire Services ──
-    {id:'reuters',   n:'Reuters',                    l:'en',cat:'geopolitics', u:'https://www.reutersagency.com/feed/'},
-    {id:'bbc-w',     n:'BBC World',                  l:'en',cat:'geopolitics', u:'https://feeds.bbci.co.uk/news/world/rss.xml'},
-    {id:'bbc-me',    n:'BBC Middle East',            l:'en',cat:'arab-world',  u:'https://feeds.bbci.co.uk/news/world/middle_east/rss.xml'},
-    {id:'bbc-af',    n:'BBC Africa',                 l:'en',cat:'africa',      u:'https://feeds.bbci.co.uk/news/world/africa/rss.xml'},
-    {id:'cnn',       n:'CNN World',                  l:'en',cat:'geopolitics', u:'http://rss.cnn.com/rss/edition_world.rss'},
-    {id:'npr',       n:'NPR World',                  l:'en',cat:'politics',    u:'https://feeds.npr.org/1004/rss.xml'},
-    {id:'dw',        n:'DW News',                    l:'en',cat:'geopolitics', u:'https://rss.dw.com/rdf/rss-en-world'},
-
-    // ── EN: Top Magazines & Analysis ──
-    {id:'faffairs',  n:'Foreign Affairs',            l:'en',cat:'geopolitics', u:'https://www.foreignaffairs.com/rss.xml'},
-    {id:'fpolicy',   n:'Foreign Policy',             l:'en',cat:'geopolitics', u:'https://foreignpolicy.com/feed/'},
-    {id:'economist', n:'The Economist',              l:'en',cat:'economy',     u:'https://www.economist.com/international/rss.xml'},
-    {id:'eco-mea',   n:'Economist ME & Africa',      l:'en',cat:'arab-world',  u:'https://www.economist.com/middle-east-and-africa/rss.xml'},
-    {id:'atlantic',  n:'The Atlantic',               l:'en',cat:'analysis',    u:'https://www.theatlantic.com/feed/all/'},
-    {id:'newyorker', n:'The New Yorker',             l:'en',cat:'analysis',    u:'https://www.newyorker.com/feed/news'},
-    {id:'time-mag',  n:'TIME',                       l:'en',cat:'geopolitics', u:'https://time.com/feed/'},
-    {id:'newsweek',  n:'Newsweek',                   l:'en',cat:'politics',    u:'https://www.newsweek.com/rss'},
-    {id:'politico',  n:'Politico',                   l:'en',cat:'politics',    u:'https://rss.politico.com/politics-news.xml'},
-    {id:'natint',    n:'The National Interest',      l:'en',cat:'geopolitics', u:'https://nationalinterest.org/feed'},
-    {id:'diplomat',  n:'The Diplomat',               l:'en',cat:'diplomacy',   u:'https://thediplomat.com/feed/'},
-    {id:'prospect',  n:'Prospect Magazine',          l:'en',cat:'analysis',    u:'https://www.prospectmagazine.co.uk/feed'},
-    {id:'spectator', n:'The Spectator',              l:'en',cat:'analysis',    u:'https://www.spectator.co.uk/feed'},
-
-    // ── EN: Think Tanks ──
-    {id:'brookings', n:'Brookings',                  l:'en',cat:'analysis',    u:'https://www.brookings.edu/feed/'},
-    {id:'carnegie',  n:'Carnegie Endowment',         l:'en',cat:'analysis',    u:'https://carnegieendowment.org/rss/solr/?lang=en'},
-    {id:'cfr',       n:'Council on Foreign Relations',l:'en',cat:'diplomacy',  u:'https://www.cfr.org/rss.xml'},
-    {id:'chatham',   n:'Chatham House',              l:'en',cat:'diplomacy',   u:'https://www.chathamhouse.org/rss.xml'},
-    {id:'icg',       n:'Crisis Group',               l:'en',cat:'geopolitics', u:'https://www.crisisgroup.org/rss.xml'},
-    {id:'csis',      n:'CSIS',                       l:'en',cat:'defense',     u:'https://www.csis.org/rss.xml'},
-    {id:'rand',      n:'RAND Corp.',                 l:'en',cat:'defense',     u:'https://www.rand.org/news/press.xml'},
-    {id:'stimson',   n:'Stimson Center',             l:'en',cat:'diplomacy',   u:'https://www.stimson.org/feed/'},
-    {id:'wotr',      n:'War on the Rocks',           l:'en',cat:'defense',     u:'https://warontherocks.com/feed/'},
-
-    // ── EN: Middle East Specialists ──
-    {id:'aje',       n:'Al Jazeera English',         l:'en',cat:'arab-world',  u:'https://www.aljazeera.com/xml/rss/all.xml'},
-    {id:'mee',       n:'Middle East Eye',            l:'en',cat:'arab-world',  u:'https://www.middleeasteye.net/rss'},
-    {id:'almonitor', n:'Al-Monitor',                 l:'en',cat:'arab-world',  u:'https://www.al-monitor.com/rss'},
-
-    // ── EN: Africa Specialists ──
-    {id:'afr-args',  n:'African Arguments',          l:'en',cat:'africa',      u:'https://africanarguments.org/feed/'},
-    {id:'afr-rpt',   n:'The Africa Report',          l:'en',cat:'africa',      u:'https://www.theafricareport.com/feed/'},
-
-    // ── EN: Economy & Energy ──
-    {id:'bloom',     n:'Bloomberg',                  l:'en',cat:'economy',     u:'https://feeds.bloomberg.com/markets/news.rss'},
-    {id:'cnbc',      n:'CNBC World',                 l:'en',cat:'economy',     u:'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362'},
-    {id:'oilprice',  n:'OilPrice.com',               l:'en',cat:'energy',      u:'https://oilprice.com/rss/main'},
-
-    // ── EN: Defense ──
-    {id:'defnews',   n:'Defense News',               l:'en',cat:'defense',     u:'https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml'},
-
-    // ── FR: Major Newspapers ──
-    {id:'lm-intl',   n:'Le Monde International',     l:'fr',cat:'geopolitics', u:'https://www.lemonde.fr/international/rss_full.xml'},
-    {id:'lm-afr',    n:'Le Monde Afrique',           l:'fr',cat:'africa',      u:'https://www.lemonde.fr/afrique/rss_full.xml'},
-    {id:'lm-eco',    n:'Le Monde Économie',          l:'fr',cat:'economy',     u:'https://www.lemonde.fr/economie/rss_full.xml'},
-    {id:'lm-diplo',  n:'Le Monde Diplomatique',      l:'fr',cat:'geopolitics', u:'https://www.monde-diplomatique.fr/recents.xml'},
-    {id:'fig-intl',  n:'Le Figaro International',    l:'fr',cat:'politics',    u:'https://www.lefigaro.fr/rss/figaro_international.xml'},
-    {id:'fig-eco',   n:'Le Figaro Économie',         l:'fr',cat:'economy',     u:'https://www.lefigaro.fr/rss/figaro_economie.xml'},
-    {id:'libe',      n:'Libération',                 l:'fr',cat:'politics',    u:'https://www.liberation.fr/arc/outboundfeeds/rss/?outputType=xml'},
-    {id:'echos',     n:'Les Échos',                  l:'fr',cat:'economy',     u:'https://www.lesechos.fr/rss/rss_monde.xml'},
-    {id:'latrib',    n:'La Tribune',                 l:'fr',cat:'economy',     u:'https://www.latribune.fr/rss/rubriques/economie.html'},
-    {id:'lopinion',  n:"L'Opinion",                  l:'fr',cat:'politics',    u:'https://www.lopinion.fr/rss.xml'},
-
-    // ── FR: Broadcast ──
-    {id:'f24',       n:'France 24',                  l:'fr',cat:'geopolitics', u:'https://www.france24.com/fr/rss'},
-    {id:'f24-afr',   n:'France 24 Afrique',          l:'fr',cat:'africa',      u:'https://www.france24.com/fr/afrique/rss'},
-    {id:'f24-mo',    n:'France 24 Moyen-Orient',     l:'fr',cat:'arab-world',  u:'https://www.france24.com/fr/moyen-orient/rss'},
-    {id:'rfi',       n:'RFI',                        l:'fr',cat:'geopolitics', u:'https://www.rfi.fr/fr/rss'},
-    {id:'rfi-afr',   n:'RFI Afrique',                l:'fr',cat:'africa',      u:'https://www.rfi.fr/fr/afrique/rss'},
-    {id:'tv5',       n:'TV5Monde',                   l:'fr',cat:'geopolitics', u:'https://information.tv5monde.com/rss.xml'},
-    {id:'finfo',     n:'France Info Monde',          l:'fr',cat:'politics',    u:'https://www.francetvinfo.fr/monde.rss'},
-
-    // ── FR: Magazines ──
-    {id:'courrier',  n:'Courrier International',     l:'fr',cat:'geopolitics', u:'https://www.courrierinternational.com/feed/all/rss.xml'},
-    {id:'lexpress',  n:"L'Express",                  l:'fr',cat:'politics',    u:'https://www.lexpress.fr/rss/monde.xml'},
-    {id:'lepoint',   n:'Le Point',                   l:'fr',cat:'politics',    u:'https://www.lepoint.fr/24h-infos/rss.xml'},
-    {id:'lobs',      n:"L'Obs",                      l:'fr',cat:'analysis',    u:'https://www.nouvelobs.com/rss.xml'},
-    {id:'slate-fr',  n:'Slate.fr',                   l:'fr',cat:'analysis',    u:'https://www.slate.fr/rss.xml'},
-    {id:'conflits',  n:'Revue Conflits',             l:'fr',cat:'geopolitics', u:'https://www.revueconflits.com/feed/'},
-    {id:'orientxxi', n:'Orient XXI',                 l:'fr',cat:'arab-world',  u:'https://orientxxi.info/spip.php?page=backend'},
-
-    // ── FR: Africa Specialists ──
-    {id:'jafrique',  n:'Jeune Afrique',              l:'fr',cat:'africa',      u:'https://www.jeuneafrique.com/feed/'},
-    {id:'le360af',   n:'Le360 Afrique',              l:'fr',cat:'africa',      u:'https://afrique.le360.ma/rss'},
-
-    // ── FR: Middle East ──
-    {id:'lorient',   n:"L'Orient Le Jour",           l:'fr',cat:'arab-world',  u:'https://www.lorientlejour.com/rss'},
+// GDELT queries (English + French — Arabic needs proxy, GDELT handles it via sourcelang)
+const GDELT_QUERIES = [
+  { q: 'arab world geopolitics analysis security',        lang: 'en', geo: ['Arab'] },
+  { q: 'middle east diplomacy foreign policy analysis',   lang: 'en', geo: ['Arab'] },
+  { q: 'africa geopolitics security analysis',            lang: 'en', geo: ['Africa'] },
+  { q: 'sahel conflict security france russia',           lang: 'en', geo: ['Africa','Sahel'] },
+  { q: 'north africa egypt algeria morocco politics',     lang: 'en', geo: ['Arab','North Africa'] },
+  { q: 'gulf states saudi arabia qatar diplomacy',        lang: 'en', geo: ['Arab','Gulf'] },
+  { q: 'horn of africa ethiopia somalia sudan conflict',  lang: 'en', geo: ['Africa','Horn'] },
+  { q: 'west africa coup military nigeria ghana',         lang: 'en', geo: ['Africa','West Africa'] },
+  { q: 'afrique géopolitique analyse sécurité',          lang: 'fr', geo: ['Africa'] },
+  { q: 'monde arabe géopolitique diplomatie analyse',     lang: 'fr', geo: ['Arab'] },
+  { q: 'sahel france russie wagner analyse',              lang: 'fr', geo: ['Africa','Sahel'] },
+  { q: 'maghreb maroc algérie tunisie politique analyse', lang: 'fr', geo: ['Arab','Maghreb'] },
 ];
 
-// ============================================================
-//  CATEGORY KEYWORDS
-// ============================================================
-const CK = {
-    'arab-world':['middle east','arab','saudi','emirates','uae','qatar','bahrain','oman','kuwait','iraq','syria','yemen','lebanon','jordan','palestin','israel','gaza','west bank','iran','tehran','houthi','hezbollah','hamas','moyen-orient','arabe','arabie','émirats','liban','syrie','yémen','irak','jordanie','golfe','maghreb','egypt','egypte','tunisia','tunisie','libya','libye','algeria','algérie','morocco','maroc','soudan','sudan'],
-    'africa':['africa','african','sahel','sahara','sub-saharan','nigeria','kenya','ethiopia','congo','senegal','mali','burkina','niger','chad','cameroon','ghana','tanzania','uganda','mozambique','somalia','ecowas','afrique','africain','sahélien','nigéria','éthiopie','sénégal','tchad','cameroun','côte d\'ivoire','cedeao','franc cfa','union africaine','françafrique'],
-    'geopolitics':['geopolit','cold war','world order','superpower','hegemony','multipolar','great power','proxy war','escalation','deterrence','nuclear','sanctions','containment','géopolit','ordre mondial','puissance','rivalité','dissuasion','multipolaire','hégémonie','confrontation','guerre froide','brics','g7 ','g20 ','nato','otan'],
-    'diplomacy':['diplomac','diplomat','treaty','accord','summit','negotiat','ambassador','bilateral','multilateral','united nations','un security','ceasefire','peace talk','peace deal','foreign minister','secretary of state','diplomat','traité','sommet','négociat','ambassad','nations unies','cessez-le-feu','pourparlers','ministre des affaires'],
-    'defense':['defense','defence','military','army','navy','weapon','arms deal','pentagon','warfare','intelligence','espionage','drone strike','special forces','défense','militaire','armée','armement','renseignement','forces spéciales','cybersécurité'],
-    'economy':['econom','trade war','tariff','gdp','inflation','recession','central bank','imf','world bank','debt','currency','stock market','oil price','opec','investment','supply chain','économi','commerce','pib','banque centrale','fmi','banque mondiale','dette','monnaie','bourse','investissement'],
-    'energy':['energy','oil','gas','petroleum','lng','pipeline','renewable','solar','nuclear energy','opec','energy crisis','energy transition','carbon','climate','énergie','pétrole','gaz','gazoduc','renouvelable','transition énergétique','carbone','climat'],
-    'politics':['politic','election','president','parliament','congress','senate','prime minister','government','referendum','constitutional','politique','élection','président','parlement','premier ministre','gouvernement','référendum'],
-    'analysis':['analysis','opinion','editorial','commentary','perspective','essay','in-depth','long read','think tank','analyse','éditorial','commentaire','décryptage','tribune'],
+// ═══ QUALITY SIGNALS ═══
+const ANALYSIS_SIGNALS_EN = ['analysis','opinion','explainer','in-depth','deep dive','long read','feature','report','policy brief','geopolit','strategy','strategic','diplomatic','intelligence','assessment','perspective','review','commentary','essay'];
+const ANALYSIS_SIGNALS_FR = ['analyse','opinion','décryptage','grand angle','reportage','géopolitique','stratégie','diplomatique','perspective','commentaire','éditorial','enquête','dossier'];
+const ANALYSIS_SIGNALS_AR = ['تحليل','رأي','تقرير','دراسة','مقال','استراتيج','دبلوماسي','قراءة','تقييم','موقف','منظور','وجهة نظر','عمق','مطول','قراءة معمقة'];
+const NEWS_SIGNALS = ['breaking','عاجل','urgent','live','مباشر','آخر لحظة','last minute','flash','بث مباشر','just in','developing'];
+const EXCLUDE_SIGNALS = ['sport','رياضة','football','كرة','weather','météo','horoscope','celebrity','نجوم','music','موسيقى','entertainment','ترفيه'];
+
+// ═══ GEOGRAPHIC KEYWORDS ═══
+const GEO_MAP = {
+  Arab:        ['arab','عرب','مصر','egypt','algeri','الجزائر','maroc','morocco','المغرب','tunisi','تونس','liby','ليبيا','saudi','السعودية','iraq','العراق','syria','سوريا','yemen','اليمن','jordan','الأردن','lebanon','لبنان','sudan','السودان','palestine','فلسطين','kuwait','قطر','qatar','uae','إمارات','bahrain','البحرين','oman','عُمان','mauritania','موريتانيا','somalia','الصومال','djibouti','middle east','moyen.orient','شرق أوسط','mena','خليج','gulf','mashreq','levant','maghreb','مشرق','لبنان'],
+  Africa:      ['afric','أفريق','nigeria','نيجيريا','kenya','كينيا','ethiopia','إثيوبيا','ghana','ghana','tanzania','تنزانيا','congo','الكونغو','angola','أنغولا','mozambique','mozambic','zimbabwe','senegal','السنغال','mali','مالي','cameroon','كاميرون','south afric','جنوب أفريقيا','rwanda','rwanda','uganda','أوغندا','zambia','zambia','burkina','بوركينا','niger','نيجر','chad','تشاد','guinea','غينيا','ivory coast','côte d\'ivoire','liberia'],
+  Maghreb:     ['maroc','morocco','algeria','algérie','algeri','الجزائر','المغرب','tunisi','تونس','liby','ليبيا','mauritania','موريتانيا','maghreb','مغرب'],
+  Gulf:        ['saudi','السعودية','qatar','قطر','uae','الإمارات','kuwait','الكويت','bahrain','البحرين','oman','عُمان','gulf','خليج'],
+  Levant:      ['syria','سوريا','lebanon','لبنان','jordan','الأردن','palestine','فلسطين','iraq','العراق','levant','مشرق'],
+  Sahel:       ['sahel','ساحل','mali','مالي','burkina','بوركينا','niger','نيجر','chad','تشاد','mauritania','موريتانيا','nigeria','نيجيريا'],
+  Horn:        ['ethiopia','إثيوبيا','somalia','الصومال','eritrea','إريتريا','djibouti','جيبوتي','south sudan','جنوب السودان','sudan','السودان','horn of africa','القرن الأفريقي'],
+  'North Africa': ['egypt','مصر','libya','ليبيا','tunisia','تونس','algeria','الجزائر','morocco','المغرب','north afric','شمال أفريقيا'],
+  'West Africa': ['nigeria','نيجيريا','ghana','ghana','senegal','السنغال','mali','مالي','ivory coast','burkina','côte d\'ivoire','west afric','غرب أفريقيا','guinea','غينيا','liberia'],
 };
 
-// ============================================================
-//  STATE
-// ============================================================
-let articles=[], filter='all', query='', sort='newest', lang='all', srcF='all';
-let logs=[], errCount=0;
+// ═══ TOPIC DETECTION ═══
+const TOPIC_MAP = [
+  [/secur|conflict|war|armed|militia|جيش|حرب|صراع|أمن|guerre|conflit|armé/i, 'Security'],
+  [/diplomacy|diplomat|negoti|talks|peace|treaty|دبلوماس|مفاوض|سلام|معاهد|diplomatie|négoci/i, 'Diplomacy'],
+  [/election|vote|ballot|انتخاب|اقتراع|élection|scrutin/i, 'Elections'],
+  [/economy|economic|gdp|trade|sanction|اقتصاد|اقتصادي|économi|commerce/i, 'Economy'],
+  [/energy|oil|gas|pipeline|طاقة|نفط|غاز|énergie|pétrole/i, 'Energy'],
+  [/migrat|refugee|asylum|هجرة|لاجئ|مهاجر|migrat|réfugié/i, 'Migration'],
+  [/democra|governance|civil society|ديمقراط|حوكمة|مجتمع مدني|démocratie/i, 'Democracy'],
+  [/islam|jihad|islamist|إسلام|جهاد|إسلامي|islamisme/i, 'Islamism'],
+  [/human rights|droits|حقوق الإنسان|freedom|liberté/i, 'Human Rights'],
+  [/climate|environment|drought|مناخ|بيئة|جفاف|climat|environnement/i, 'Climate'],
+  [/russia|wagner|روسيا|فاغنر|russie/i, 'Russia'],
+  [/china|beijing|الصين|بكين|chine/i, 'China'],
+  [/united states|america|washington|أمريكا|واشنطن|états.unis/i, 'US'],
+  [/coup|military.*power|انقلاب|coup d'état/i, 'Coup'],
+  [/terrorism|extremism|إرهاب|تطرف|terrorisme/i, 'Security'],
+];
 
-// ============================================================
-//  UTILS
-// ============================================================
-const strip=h=>{const d=document.createElement('div');d.innerHTML=h||'';return d.textContent||''};
-const fav=d=>`https://www.google.com/s2/favicons?sz=32&domain=${d}`;
-const expired=d=>(Date.now()-new Date(d).getTime())>C.MAX_DAYS*864e5;
-const expiring=d=>(Date.now()-new Date(d).getTime())>6*864e5;
-const dk=d=>new Date(d).toISOString().split('T')[0];
-const uid=(t,s)=>btoa(unescape(encodeURIComponent((t+s).slice(0,80)))).slice(0,26);
+// ═══ HELPERS ═══
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
 
-function ago(d){
-    const ms=Date.now()-new Date(d).getTime();
-    const m=ms/6e4|0, h=ms/36e5|0, dy=ms/864e5|0;
-    if(m<60)return`منذ ${m} د`;
-    if(h<24)return`منذ ${h} س`;
-    return`منذ ${dy} يوم`;
+function esc(s){
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
 }
-function fmtDate(d){return new Date(d).toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}
-function detect(title,desc,fb){
-    const t=((title||'')+' '+(desc||'')).toLowerCase();
-    for(const c of ['arab-world','africa','energy','defense','geopolitics','diplomacy','economy','politics','analysis']){
-        if(CK[c]?.some(k=>t.includes(k)))return c;
+function escAttr(s){ return esc(s).replace(/"/g, '&quot;'); }
+function stripHTML(html){
+  const d = document.createElement('div');
+  d.innerHTML = html || '';
+  return d.textContent || d.innerText || '';
+}
+
+function fmtDate(str){
+  if (!str) return '';
+  try{
+    const d = new Date(str);
+    if (isNaN(d.getTime())) return '';
+    const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${d.getDate()} ${mo[d.getMonth()]} ${d.getFullYear()}`;
+  }catch(e){ return ''; }
+}
+
+function fmtDateTime(){
+  const d = new Date();
+  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${d.getDate()} ${mo[d.getMonth()]} ${d.getFullYear()}, ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+function daysAgo(str){
+  if (!str) return '';
+  const pub = new Date(str);
+  if (isNaN(pub.getTime())) return '';
+  const diff = Math.floor((Date.now() - pub.getTime()) / (1000 * 60 * 60 * 24));
+  const h = Math.floor((Date.now() - pub.getTime()) / (1000 * 60 * 60));
+  if (h < 1) return 'منذ قليل';
+  if (h < 6) return `منذ ${h} ساعات`;
+  if (h < 24) return 'اليوم';
+  if (diff === 1) return 'أمس';
+  if (diff < 7) return `منذ ${diff} أيام`;
+  return fmtDate(str);
+}
+
+function daysDiff(str){
+  if (!str) return 999;
+  const pub = new Date(str);
+  if (isNaN(pub.getTime())) return 999;
+  return Math.floor((Date.now() - pub.getTime()) / (1000 * 60 * 60 * 24));
+}
+
+function hoursAgo(str){
+  if (!str) return 9999;
+  const pub = new Date(str);
+  if (isNaN(pub.getTime())) return 9999;
+  return Math.floor((Date.now() - pub.getTime()) / (1000 * 60 * 60));
+}
+
+function isWithinWeek(str){
+  if (!str) return false;
+  const pub = new Date(str);
+  if (isNaN(pub.getTime())) return false;
+  return (Date.now() - pub.getTime()) <= CFG.maxAgeMs;
+}
+
+function detectLang(text){
+  if (!text) return 'en';
+  if (/[\u0600-\u06FF]/.test(text)) return 'ar';
+  if (/[àâéèêëïîôùûüÿçœæ]/i.test(text) ||
+      /\b(le|la|les|du|des|une?|et|ou|dans|pour|analyse|afrique|monde)\b/i.test(text)) return 'fr';
+  return 'en';
+}
+
+function detectGeoFromText(title, desc){
+  const t = ((title||'') + ' ' + (desc||'')).toLowerCase();
+  const regions = [];
+  for (const [region, kws] of Object.entries(GEO_MAP)){
+    if (kws.some(kw => t.includes(kw.toLowerCase()))) regions.push(region);
+  }
+  return [...new Set(regions)];
+}
+
+function detectTopics(title, desc){
+  const t = ((title||'') + ' ' + (desc||'')).toLowerCase();
+  const topics = [];
+  for (const [rx, label] of TOPIC_MAP){
+    if (rx.test(t) && !topics.includes(label)) topics.push(label);
+  }
+  return topics.slice(0, 4);
+}
+
+function qualityScore(article, sourceScore){
+  const text = ((article.title||'') + ' ' + (article.description||'')).toLowerCase();
+  let score = sourceScore || 0;
+
+  // Exclude signals
+  if (EXCLUDE_SIGNALS.some(s => text.includes(s))) return -99;
+  // Breaking news penalty
+  if (NEWS_SIGNALS.some(s => text.includes(s))) score -= 3;
+
+  // Analysis signals boost
+  const allAnalysis = [...ANALYSIS_SIGNALS_EN, ...ANALYSIS_SIGNALS_FR, ...ANALYSIS_SIGNALS_AR];
+  const hits = allAnalysis.filter(s => text.includes(s)).length;
+  score += Math.min(hits * 1.5, 4);
+
+  // Geo relevance required
+  const geoMatches = detectGeoFromText(article.title, article.description);
+  if (geoMatches.length === 0) score -= 2;
+  else score += 1;
+
+  // Description length bonus
+  if ((article.description||'').length > 200) score += 1;
+  if ((article.description||'').length < CFG.minDescLen) score -= 2;
+
+  return score;
+}
+
+function extractImageFromHTML(html){
+  if (!html) return '';
+  const m = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return m ? m[1] : '';
+}
+
+function extractLink(item, isAtom){
+  // atom: <link href="..."/> or <link rel="alternate" href="..."/>
+  if (isAtom){
+    const altLink = item.querySelector('link[rel="alternate"]');
+    if (altLink) return altLink.getAttribute('href') || '';
+    const anyLink = item.querySelector('link');
+    if (anyLink) return anyLink.getAttribute('href') || anyLink.textContent.trim();
+    return item.querySelector('id')?.textContent.trim() || '';
+  }
+  // RSS: <link> is tricky — text node
+  const linkEl = item.querySelector('link');
+  if (linkEl){
+    const text = linkEl.textContent.trim();
+    if (text.startsWith('http')) return text;
+    // Try next sibling text node
+    const next = linkEl.nextSibling;
+    if (next && next.nodeType === 3) return next.textContent.trim();
+  }
+  return item.querySelector('guid')?.textContent.trim() || '';
+}
+
+// ═══ RSS PARSER ═══
+function parseRSSXML(xmlText){
+  try{
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(xmlText, 'text/xml');
+    if (doc.querySelector('parsererror')){
+      // Try as HTML
+      const hdoc = parser.parseFromString(xmlText, 'text/html');
+      return [];
     }
-    return fb||'politics';
-}
-
-const DOM_MAP={};
-FEEDS.forEach(f=>{
-    try{const u=new URL(f.u);DOM_MAP[f.n]=u.hostname;}catch(e){DOM_MAP[f.n]='google.com';}
-});
-
-function addLog(type,msg){
-    logs.push({type,msg,time:new Date().toLocaleTimeString('ar-EG')});
-    if(type==='er')errCount++;
-}
-
-// ============================================================
-//  RSS PARSE
-// ============================================================
-function parse(xml,src){
-    const out=[];
-    try{
-        const doc=new DOMParser().parseFromString(xml,'text/xml');
-        if(doc.querySelector('parsererror'))return out;
-        let items=doc.querySelectorAll('item');
-        if(!items.length)items=doc.querySelectorAll('entry');
-        items.forEach(el=>{
-            const title=el.querySelector('title')?.textContent?.trim()||'';
-            if(!title)return;
-            let link=el.querySelector('link')?.textContent?.trim()||el.querySelector('link')?.getAttribute('href')||'';
-            const raw=el.querySelector('pubDate')?.textContent||el.querySelector('published')?.textContent||el.querySelector('updated')?.textContent||el.querySelector('dc\\:date')?.textContent||'';
-            const pd=new Date(raw);
-            if(isNaN(pd))return;
-            if(expired(pd.toISOString()))return;
-            const desc=strip(el.querySelector('description')?.textContent||el.querySelector('summary')?.textContent||el.querySelector('content')?.textContent||'').slice(0,350);
-            out.push({
-                id:uid(title,src.n),title,link,
-                pubDate:pd.toISOString(),description:desc,
-                source:src.n,domain:DOM_MAP[src.n]||'google.com',
-                category:detect(title,desc,src.cat),lang:src.l
-            });
-        });
-    }catch(e){}
-    return out;
-}
-
-// ============================================================
-//  FETCH WITH MULTI-PROXY FALLBACK
-// ============================================================
-async function grab(src){
-    for(let i=0;i<PROXIES.length;i++){
-        try{
-            const url=PROXIES[i](src.u);
-            const r=await fetch(url,{signal:AbortSignal.timeout(C.TIMEOUT)});
-            if(!r.ok)throw new Error(`HTTP ${r.status}`);
-            const txt=await r.text();
-            if(!txt||txt.length<100)throw new Error('Empty response');
-            const arts=parse(txt,src);
-            if(arts.length>0){
-                addLog('ok',`✓ ${src.n} → ${arts.length} مقال (proxy ${i+1})`);
-                return arts;
-            }
-            // parsed 0 articles — might be wrong content, try next proxy
-            if(i<PROXIES.length-1)continue;
-            addLog('wr',`⚠ ${src.n} → 0 مقال`);
-            return [];
-        }catch(e){
-            if(i===PROXIES.length-1){
-                addLog('er',`✗ ${src.n}: ${e.message}`);
-                return [];
-            }
-            // try next proxy silently
+    const isAtom = !!doc.querySelector('feed');
+    const items = [...doc.querySelectorAll(isAtom ? 'entry' : 'item')];
+    return items.map(item => {
+      const gT = (...sels) => {
+        for (const s of sels){
+          try{
+            const el = item.querySelector(s);
+            if (el?.textContent?.trim()) return el.textContent.trim();
+          }catch(e){}
         }
-    }
-    return [];
+        return '';
+      };
+      const gA = (sel, attr) => {
+        try{ return item.querySelector(sel)?.getAttribute(attr) || ''; }catch(e){ return ''; }
+      };
+
+      const title = gT('title');
+      const link = extractLink(item, isAtom);
+      const rawDesc = gT('description','summary','content','content\\:encoded');
+      const description = stripHTML(rawDesc).substring(0, 500);
+      const pubDate = gT('pubDate','published','updated','dc\\:date','date');
+      const author = gT('author name','dc\\:creator','author','creator');
+      const image = gA('media\\:content','url') || gA('media\\:thumbnail','url') ||
+                    gA('enclosure','url') || extractImageFromHTML(rawDesc) || '';
+
+      return { title, link, description, pubDate, author, image };
+    }).filter(a => a.title && a.link);
+  }catch(e){ return []; }
 }
 
+// ═══ FETCH VIA rss2json.com ═══
+async function fetchViaRSS2JSON(source){
+  try{
+    const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=20`;
+    const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!resp.ok) throw new Error('rss2json HTTP error');
+    const data = await resp.json();
+    if (data.status !== 'ok') throw new Error('rss2json status: ' + data.status);
+    return (data.items || []).map(item => ({
+      title: item.title || '',
+      link:  item.link  || item.guid || '',
+      description: stripHTML(item.description || item.content || '').substring(0, 500),
+      pubDate: item.pubDate || '',
+      author:  item.author || '',
+      image:   item.thumbnail || extractImageFromHTML(item.description || '') || '',
+    })).filter(a => a.title && a.link);
+  }catch(e){ return null; /* signal fallback */ }
+}
+
+// ═══ FETCH VIA allorigins.win (raw RSS) ═══
+async function fetchViaAllOrigins(source){
+  try{
+    const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(source.url)}`;
+    const resp = await fetch(url, { signal: AbortSignal.timeout(12000) });
+    if (!resp.ok) throw new Error('allorigins HTTP error');
+    const text = await resp.text();
+    return parseRSSXML(text);
+  }catch(e){ return null; }
+}
+
+// ═══ FETCH SOURCE (with fallback) ═══
+async function fetchSource(source){
+  let items = await fetchViaRSS2JSON(source);
+  if (!items) items = await fetchViaAllOrigins(source);
+  if (!items || items.length === 0) return [];
+
+  const articles = [];
+  for (const item of items){
+    if (!item.title || !item.link) continue;
+    if (!isWithinWeek(item.pubDate)) continue;
+
+    const lang = source.lang || detectLang(item.title);
+    const geos = detectGeoFromText(item.title, item.description);
+    const topics = detectTopics(item.title, item.description);
+    const qScore = qualityScore(item, source.score || 1);
+
+    if (qScore < CFG.minQuality) continue;
+
+    articles.push({
+      id: item.link,
+      title: item.title,
+      link: item.link,
+      description: item.description || '',
+      pubDate: item.pubDate || new Date().toISOString(),
+      author: item.author || '',
+      image: item.image || '',
+      language: lang,
+      sourceName: source.name,
+      sourceType: source.type || 'media',
+      sourceGeo: source.geo || [],
+      geos,
+      topics,
+      qualityScore: qScore,
+      fetchedAt: Date.now(),
+    });
+  }
+  return articles;
+}
+
+// ═══ GDELT FETCH ═══
+async function fetchGDELT(queryObj){
+  try{
+    const sevenDaysAgo = new Date(Date.now() - 7*24*60*60*1000);
+    const startDate = sevenDaysAgo.toISOString().slice(0,10).replace(/-/g,'') + '000000';
+    const params = new URLSearchParams({
+      query: queryObj.q,
+      timespan: '7d',
+      mode: 'artlist',
+      maxrecords: '30',
+      format: 'json',
+      STARTDATETIME: startDate,
+    });
+    const url = `https://api.gdeltproject.org/api/v2/doc/doc?${params}`;
+    const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!resp.ok) return [];
+    const data = await resp.json();
+    const articles = [];
+
+    for (const item of (data.articles || [])){
+      const domain = (item.domain || '').toLowerCase();
+      // Only include quality domains
+      if (!QUALITY_DOMAINS.has(domain)) continue;
+      if (!item.title) continue;
+
+      // Parse GDELT date: "20240115T120000Z"
+      let pubDate = '';
+      if (item.seendate){
+        const s = item.seendate;
+        pubDate = `${s.substr(0,4)}-${s.substr(4,2)}-${s.substr(6,2)}T${s.substr(9,2)}:${s.substr(11,2)}:00Z`;
+      }
+      if (!isWithinWeek(pubDate)) continue;
+
+      const lang = queryObj.lang || detectLang(item.title || '');
+      const geos = [...(queryObj.geo || []), ...detectGeoFromText(item.title, '')];
+      const topics = detectTopics(item.title, '');
+
+      articles.push({
+        id: item.url,
+        title: item.title,
+        link: item.url,
+        description: '',
+        pubDate,
+        author: '',
+        image: item.socialimage || '',
+        language: lang,
+        sourceName: domain.replace('www.',''),
+        sourceType: QUALITY_DOMAINS.has(domain) ? 'media' : 'media',
+        sourceGeo: queryObj.geo || ['Global'],
+        geos: [...new Set(geos)],
+        topics,
+        qualityScore: 2,
+        fetchedAt: Date.now(),
+      });
+    }
+    return articles;
+  }catch(e){ return []; }
+}
+
+// ═══ DEDUPLICATION ═══
+function dedup(articles){
+  const seenUrls = new Set();
+  const seenTitles = [];
+  const out = [];
+
+  for (const a of articles){
+    const url = (a.link||'').split('?')[0]; // normalize URL
+    if (seenUrls.has(url)) continue;
+
+    const normTitle = (a.title||'').toLowerCase()
+      .replace(/[^\w\s\u0600-\u06FF]/g,' ').replace(/\s+/g,' ').trim().substring(0,60);
+    if (!normTitle || normTitle.length < 5) continue;
+
+    // Check title similarity
+    let dup = false;
+    for (const et of seenTitles){
+      const w1 = new Set(normTitle.split(' ').filter(w=>w.length>3));
+      const w2 = new Set(et.split(' ').filter(w=>w.length>3));
+      if (w1.size >= 3 && w2.size >= 3){
+        const inter = [...w1].filter(x=>w2.has(x)).length;
+        if (inter / new Set([...w1,...w2]).size > 0.7){ dup=true; break; }
+      }
+    }
+    if (dup) continue;
+
+    seenUrls.add(url);
+    seenTitles.push(normTitle);
+    out.push(a);
+  }
+  return out;
+}
+
+// ═══ MAIN FETCH ENGINE ═══
 async function fetchAll(){
-    showLoading();
-    logs=[]; errCount=0;
-    const bar=document.getElementById('progressBar');
-    const total=FEEDS.length;
-    let done=0, all=[];
+  if (isUpdating) return;
+  isUpdating = true;
+  activeSources.clear();
 
-    for(let i=0;i<total;i+=C.BATCH){
-        const chunk=FEEDS.slice(i,i+C.BATCH);
-        const res=await Promise.allSettled(chunk.map(s=>grab(s)));
-        res.forEach(r=>{if(r.status==='fulfilled')all=all.concat(r.value);});
-        done+=chunk.length;
-        bar.style.width=Math.round(done/total*100)+'%';
+  const prevCount = ALL_ARTICLES.length;
+  document.getElementById('pbar').style.display = 'block';
+  document.getElementById('rBtn').disabled = true;
+
+  if (ALL_ARTICLES.length === 0){
+    document.getElementById('grid').innerHTML = `
+      <div class="loader">
+        <div class="spinner-ring"></div>
+        <p>جاري جلب التحاليل الجيوسياسية...</p>
+        <small>نبحث في ${SOURCES.length} مصدر + GDELT</small>
+      </div>`;
+  }
+
+  const newArticles = [];
+  const allTasks = [
+    ...SOURCES.map(s => ({ type:'rss', source:s })),
+    ...GDELT_QUERIES.map(q => ({ type:'gdelt', query:q })),
+  ];
+
+  const total = allTasks.length;
+  let done = 0;
+
+  for (const task of allTasks){
+    done++;
+    const pct = Math.round((done/total)*100);
+    document.getElementById('pfill').style.width = pct+'%';
+
+    try{
+      if (task.type === 'rss'){
+        document.getElementById('ptxt').textContent = `${pct}% — RSS: ${task.source.name}`;
+        const results = await fetchSource(task.source);
+        if (results.length > 0){ newArticles.push(...results); activeSources.add(task.source.name); }
+        await sleep(400);
+      } else {
+        document.getElementById('ptxt').textContent = `${pct}% — GDELT: "${task.query.q.substring(0,35)}..."`;
+        const results = await fetchGDELT(task.query);
+        if (results.length > 0){ newArticles.push(...results); activeSources.add('GDELT'); }
+        await sleep(800);
+      }
+    }catch(e){}
+  }
+
+  // Purge old articles from cache + merge
+  const now = Date.now();
+  const freshOld = ALL_ARTICLES.filter(a => (now - new Date(a.pubDate).getTime()) <= CFG.maxAgeMs);
+  const combined = [...freshOld, ...newArticles];
+  ALL_ARTICLES = dedup(combined);
+  ALL_ARTICLES.sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+  saveCache();
+
+  document.getElementById('pbar').style.display = 'none';
+  document.getElementById('rBtn').disabled = false;
+  isUpdating = false;
+
+  const added = ALL_ARTICLES.length - prevCount;
+  updateStats();
+  filterArticles();
+  updateTime();
+  updateFreshnessBar();
+
+  if (added > 0 && prevCount > 0) showNotif(`✓ تمت إضافة ${added} تحليل جديد`);
+}
+
+// ═══ CACHE ═══
+function saveCache(){
+  try{
+    localStorage.setItem(CFG.cacheKey, JSON.stringify({
+      articles: ALL_ARTICLES,
+      timestamp: Date.now(),
+      sources: [...activeSources],
+    }));
+  }catch(e){}
+}
+
+function loadCache(){
+  try{
+    const raw = localStorage.getItem(CFG.cacheKey);
+    if (!raw) return null;
+    const cache = JSON.parse(raw);
+    if (!cache?.articles?.length) return null;
+    // Purge old
+    const now = Date.now();
+    cache.articles = cache.articles.filter(a =>
+      (now - new Date(a.pubDate).getTime()) <= CFG.maxAgeMs
+    );
+    if (cache.sources) cache.sources.forEach(s => activeSources.add(s));
+    return cache;
+  }catch(e){ return null; }
+}
+
+// ═══ FRESHNESS BAR ═══
+function updateFreshnessBar(){
+  const count = ALL_ARTICLES.length;
+  document.getElementById('weekCount').textContent = count ? `${count} تحليل متاح` : '';
+}
+
+// ═══ FILTERS ═══
+let currentDayFilter2 = null;
+
+function setDayFilter(day, btn){
+  currentDayFilter2 = day;
+  document.querySelectorAll('.day-marker').forEach(b => b.className = 'day-marker');
+  if (btn) btn.classList.add('active');
+  if (day === 0 && btn) btn.classList.add('today');
+  filterArticles();
+}
+
+function setLang(lang, btn){
+  currentLang = lang;
+  document.querySelectorAll('.fbtn').forEach(b => b.className = 'fbtn');
+  if (lang === 'all') btn.classList.add('active');
+  else btn.classList.add('a-'+lang);
+  filterArticles();
+}
+
+function filterArticles(){
+  const search   = document.getElementById('searchInput').value.toLowerCase();
+  const region   = document.getElementById('regionSel').value;
+  const topic    = document.getElementById('topicSel').value;
+  const sort     = document.getElementById('sortSel').value;
+
+  let list = ALL_ARTICLES.filter(a => {
+    if (!isWithinWeek(a.pubDate)) return false;
+    if (currentLang !== 'all' && a.language !== currentLang) return false;
+
+    if (currentDayFilter2 !== null){
+      const d = daysDiff(a.pubDate);
+      if (d !== currentDayFilter2) return false;
     }
 
-    // Deduplicate
-    const seen=new Set();
-    all=all.filter(a=>{if(seen.has(a.id))return false;seen.add(a.id);return true});
-    all.sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate));
+    if (region){
+      const aGeos = [...(a.geos||[]), ...(a.sourceGeo||[])];
+      if (!aGeos.some(g => g === region || (region === 'Africa' && ['Sub-Saharan','North Africa','Sahel','Horn','West Africa','Africa'].includes(g)) || (region === 'Arab' && ['Maghreb','Gulf','Levant','North Africa','Arab'].includes(g)))) return false;
+    }
 
-    articles=all;
-    save();render();counts();footer();renderLog();
-    setTimeout(()=>{bar.style.width='0%'},1500);
+    if (topic && !(a.topics||[]).includes(topic)) return false;
+
+    if (search){
+      const hay = ((a.title||'') + ' ' + (a.description||'') + ' ' + (a.sourceName||'')).toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+
+    return true;
+  });
+
+  switch(sort){
+    case 'newest':  list.sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate)); break;
+    case 'oldest':  list.sort((a,b) => new Date(a.pubDate) - new Date(b.pubDate)); break;
+    case 'quality': list.sort((a,b) => (b.qualityScore||0) - (a.qualityScore||0)); break;
+    case 'source':  list.sort((a,b) => (a.sourceName||'').localeCompare(b.sourceName||'')); break;
+  }
+
+  const ri = document.getElementById('resultsInfo');
+  ri.innerHTML = list.length
+    ? `عرض <span>${list.length}</span> من أصل <span>${ALL_ARTICLES.length}</span> تحليل (آخر 7 أيام)`
+    : '';
+
+  renderArticles(list);
 }
 
-// ============================================================
-//  CACHE
-// ============================================================
-function save(){
-    try{
-        localStorage.setItem(C.SK,JSON.stringify(articles));
-        localStorage.setItem(C.TK,Date.now()+'');
-    }catch(e){}
-}
-function loadCache(){
-    try{
-        const d=localStorage.getItem(C.SK);
-        const t=+(localStorage.getItem(C.TK)||0);
-        if(d&&Date.now()-t<C.REFRESH){
-            articles=JSON.parse(d).filter(a=>!expired(a.pubDate));
-            render();counts();footer();
-            return true;
-        }
-    }catch(e){}
-    return false;
-}
+// ═══ IMAGE ERROR HANDLER ═══
+window.handleImgError = function(img){
+  img.parentElement.innerHTML = '<div class="art-img-placeholder">[ no image ]</div>';
+};
 
-// ============================================================
-//  RENDER
-// ============================================================
-const catL={geopolitics:'جيوبوليتيك',diplomacy:'دبلوماسية',politics:'سياسة',economy:'اقتصاد','arab-world':'العالم العربي',africa:'أفريقيا',defense:'دفاع وأمن',energy:'طاقة',analysis:'تحليل'};
+// ═══ RENDER ═══
+function renderArticles(articles){
+  const grid = document.getElementById('grid');
 
-function render(){
-    const box=document.getElementById('mainBox');
-    let list=[...articles];
-    if(filter!=='all') list=list.filter(a=>a.category===filter);
-    if(lang!=='all')   list=list.filter(a=>a.lang===lang);
-    if(srcF!=='all')   list=list.filter(a=>a.source===srcF);
-    if(query){const q=query.toLowerCase();list=list.filter(a=>a.title.toLowerCase().includes(q)||a.description.toLowerCase().includes(q)||a.source.toLowerCase().includes(q));}
-    if(sort==='oldest') list.sort((a,b)=>new Date(a.pubDate)-new Date(b.pubDate));
-    if(sort==='source') list.sort((a,b)=>a.source.localeCompare(b.source));
+  if (!articles.length && ALL_ARTICLES.length === 0){
+    grid.innerHTML = `
+      <div class="loader">
+        <div class="spinner-ring"></div>
+        <p>جاري جلب التحاليل...</p>
+        <small>يرجى الانتظار بينما نفحص المصادر</small>
+      </div>`;
+    return;
+  }
 
-    if(!list.length){box.innerHTML='<div class="empty"><div class="ic">🔍</div><h3>لا توجد مقالات مطابقة</h3><p style="color:var(--text-muted)">جرّب تغيير الفلاتر</p></div>';return}
+  if (!articles.length){
+    grid.innerHTML = `
+      <div class="no-res">
+        <span class="big">◯</span>
+        <p style="color:var(--text);font-size:1.05em;font-weight:700">لا توجد تحاليل مطابقة</p>
+        <p style="margin-top:8px;font-size:.85em">جرب تغيير الفلاتر أو كلمة البحث</p>
+      </div>`;
+    return;
+  }
 
-    const g={};
-    list.forEach(a=>{const k=dk(a.pubDate);(g[k]=g[k]||[]).push(a)});
-    const keys=Object.keys(g).sort((a,b)=>b.localeCompare(a));
+  const typeClass = { think:'src-think', media:'src-media', indie:'src-indie', inst:'src-inst' };
+  const typeDot   = { think:'think', media:'media', indie:'indie', inst:'inst' };
+  const geoTopics = ['العالم العربي','أفريقيا','Maghreb','Gulf','Sahel','Africa','Arab'];
 
-    let h='';
-    keys.forEach(k=>{
-        const arts=g[k];
-        h+=`<section class="ds"><div class="dh"><h2>📅 ${fmtDate(k+'T12:00:00')}</h2><span class="cb">${arts.length} مقال</span></div><div class="grid">`;
-        arts.forEach(a=>{
-            const ex=expiring(a.pubDate);
-            h+=`<article class="card" data-cat="${a.category}">
-                <div class="card-top">
-                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-                        <span class="src"><img src="${fav(a.domain)}" alt="" onerror="this.style.display='none'">${a.source}</span>
-                        <span class="lf ${a.lang}">${a.lang==='fr'?'FR':'EN'}</span>
-                    </div>
-                    <span class="ts${ex?' exp':''}">${ex?'⚠️ ':''}${ago(a.pubDate)}</span>
-                </div>
-                <h3 class="card-title"><a href="${a.link}" target="_blank" rel="noopener">${a.title}</a></h3>
-                ${a.description?`<p class="card-desc">${a.description}</p>`:''}
-                <div class="card-bot">
-                    <span class="pill ${a.category}">${catL[a.category]||a.category}</span>
-                    <a href="${a.link}" target="_blank" rel="noopener" class="rlink">اقرأ المقال ←</a>
-                </div>
-            </article>`;
-        });
-        h+=`</div></section>`;
-    });
-    box.innerHTML=h;
-}
+  grid.innerHTML = articles.map(a => {
+    const d  = daysDiff(a.pubDate);
+    const h  = hoursAgo(a.pubDate);
+    const freshClass = h < 24 ? 'fresh-0' : d <= 2 ? 'fresh-1' : d <= 4 ? 'fresh-2' : 'fresh-old';
+    const freshnessLabel = daysAgo(a.pubDate);
+    const ll = a.language === 'ar' ? 'عربي' : a.language === 'fr' ? 'Français' : 'English';
+    const srcClass = typeClass[a.sourceType] || 'src-media';
+    const dotClass = typeDot[a.sourceType] || 'media';
 
-function showLoading(){
-    document.getElementById('mainBox').innerHTML=`<div class="state"><div class="spin"></div><p style="color:var(--text-muted)">جاري جلب المقالات من ${FEEDS.length} مصدر عالمي مرموق...</p></div>`;
-}
+    const geoTags = [...new Set([...(a.geos||[]),...(a.sourceGeo||[])])].slice(0,3);
+    const topicTags = (a.topics||[]).slice(0,3);
+    const tagsHTML = [
+      ...geoTags.map(t => `<span class="tag tag-geo">${esc(t)}</span>`),
+      ...topicTags.map(t => `<span class="tag tag-topic">${esc(t)}</span>`),
+    ].join('');
 
-// ============================================================
-//  COUNTS
-// ============================================================
-function counts(){
-    document.getElementById('cntAll').textContent=articles.length;
-    const s=new Set(articles.map(a=>a.source));
-    document.getElementById('cntSrc').textContent=s.size;
+    const imgHTML = a.image
+      ? `<img class="art-img" src="${escAttr(a.image)}" alt="${escAttr(a.title)}" loading="lazy" onerror="handleImgError(this)">`
+      : '';
 
-    const m={};
-    articles.forEach(a=>{m[a.category]=(m[a.category]||0)+1});
-    document.getElementById('c-all').textContent=articles.length;
-    ['geopolitics','diplomacy','politics','economy','arab-world','africa','defense','energy','analysis'].forEach(c=>{
-        const el=document.getElementById('c-'+c);if(el)el.textContent=m[c]||0;
-    });
-
-    // Source dropdown
-    const sel=document.getElementById('srcFilter');
-    const cur=sel.value;
-    sel.innerHTML=`<option value="all">كل المصادر (${s.size})</option>`;
-    [...s].sort().forEach(n=>{sel.innerHTML+=`<option value="${n}">${n}</option>`});
-    sel.value=cur;
+    return `<article class="art-card ${srcClass}">
+      ${imgHTML}
+      <div class="art-header">
+        <div class="art-source">
+          <span class="src-dot ${dotClass}"></span>
+          ${esc(a.sourceName)}
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span class="lang-badge l-${a.language}">${ll}</span>
+          <span class="art-freshness ${freshClass}">${freshnessLabel}</span>
+        </div>
+      </div>
+      <div class="art-body">
+        <h2 class="art-title" dir="${a.language==='ar'?'rtl':'ltr'}">${esc(a.title)}</h2>
+        ${a.description ? `<p class="art-desc" dir="${a.language==='ar'?'rtl':'ltr'}">${esc(a.description)}</p>` : ''}
+        ${tagsHTML ? `<div class="art-tags">${tagsHTML}</div>` : ''}
+        <div class="art-footer">
+          <a href="${escAttr(a.link)}" target="_blank" rel="noopener noreferrer" class="art-link">
+            ↗ اقرأ التحليل
+          </a>
+          ${fmtDate(a.pubDate) ? `<span style="font-family:var(--font-mono);font-size:.62em;color:var(--text3);white-space:nowrap">${fmtDate(a.pubDate)}</span>` : ''}
+        </div>
+      </div>
+    </article>`;
+  }).join('');
 }
 
-function footer(){
-    const t=+(localStorage.getItem(C.TK)||Date.now());
-    document.getElementById('lastUpd').textContent=new Date(t).toLocaleString('ar-EG');
-    document.getElementById('srcList').textContent=[...new Set(articles.map(a=>a.source))].sort().join(' · ');
+// ═══ STATS ═══
+function updateStats(){
+  const now = Date.now();
+  const fresh = ALL_ARTICLES.filter(a => (now - new Date(a.pubDate).getTime()) <= CFG.maxAgeMs);
+  document.getElementById('sTotal').textContent = fresh.length;
+  document.getElementById('sAr').textContent    = fresh.filter(a=>a.language==='ar').length;
+  document.getElementById('sEn').textContent    = fresh.filter(a=>a.language==='en').length;
+  document.getElementById('sFr').textContent    = fresh.filter(a=>a.language==='fr').length;
+
+  const isArab = a => {
+    const g = [...(a.geos||[]),...(a.sourceGeo||[])];
+    return g.some(x => ['Arab','Maghreb','Gulf','Levant','North Africa'].includes(x));
+  };
+  const isAfri = a => {
+    const g = [...(a.geos||[]),...(a.sourceGeo||[])];
+    return g.some(x => ['Africa','Sahel','Horn','West Africa','Sub-Saharan'].includes(x));
+  };
+
+  document.getElementById('sArab').textContent = fresh.filter(isArab).length;
+  document.getElementById('sAfri').textContent = fresh.filter(isAfri).length;
+  document.getElementById('sSrc').textContent  = activeSources.size || '-';
 }
 
-// ============================================================
-//  LOG PANEL
-// ============================================================
-function renderLog(){
-    const el=document.getElementById('logBody');
-    el.innerHTML=logs.map(l=>`<div class="${l.type}"><span style="opacity:.5">[${l.time}]</span> ${l.msg}</div>`).join('');
-    const ec=document.getElementById('errChip');
-    const en=document.getElementById('errN');
-    if(errCount>0){ec.style.display='inline-flex';en.textContent=errCount;}
-    else{ec.style.display='none'}
-}
-window.toggleLog=function(){document.getElementById('logPanel').classList.toggle('open')};
-
-// ============================================================
-//  COUNTDOWN
-// ============================================================
-function tick(){
-    const last=+(localStorage.getItem(C.TK)||Date.now());
-    const rem=last+C.REFRESH-Date.now();
-    if(rem<=0){document.getElementById('cdTimer').textContent='يُحدَّث…';fetchAll();return}
-    const h=rem/36e5|0, m=rem%36e5/6e4|0, s=rem%6e4/1e3|0;
-    document.getElementById('cdTimer').textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+function updateTime(){
+  document.getElementById('lastUp').textContent = 'آخر تحديث: ' + fmtDateTime();
 }
 
-// ============================================================
-//  EVENTS
-// ============================================================
-function bind(){
-    document.getElementById('navTabs').addEventListener('click',e=>{
-        const t=e.target.closest('.nt');if(!t)return;
-        document.querySelectorAll('.nt').forEach(x=>x.classList.remove('on'));
-        t.classList.add('on');filter=t.dataset.f;render();
-    });
-    let db;
-    document.getElementById('searchIn').addEventListener('input',e=>{clearTimeout(db);db=setTimeout(()=>{query=e.target.value.trim();render()},250)});
-    document.getElementById('sortSel').addEventListener('change',e=>{sort=e.target.value;render()});
-    document.getElementById('langSel').addEventListener('change',e=>{lang=e.target.value;render()});
-    document.getElementById('srcFilter').addEventListener('change',e=>{srcF=e.target.value;render()});
+function showNotif(msg){
+  const el = document.getElementById('notif');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(()=> el.style.display='none', 5000);
 }
 
-// ============================================================
-//  INIT
-// ============================================================
-async function init(){
-    bind();
-    if(!loadCache()) await fetchAll();
-    setInterval(tick,1000);tick();
-    setInterval(()=>{
-        const b=articles.length;
-        articles=articles.filter(a=>!expired(a.pubDate));
-        if(articles.length!==b){save();render();counts()}
-    },36e5);
-    setInterval(()=>{
-        const t=+(localStorage.getItem(C.TK)||0);
-        if(Date.now()-t>=C.REFRESH)fetchAll();
-    },6e4);
+function manualRefresh(){
+  localStorage.removeItem(CFG.cacheKey);
+  ALL_ARTICLES = [];
+  activeSources.clear();
+  fetchAll();
 }
 
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+// ═══ INIT ═══
+(async function init(){
+  const cache = loadCache();
+  if (cache && cache.articles && cache.articles.length > 0){
+    ALL_ARTICLES = cache.articles;
+    updateStats();
+    filterArticles();
+    updateTime();
+    updateFreshnessBar();
+
+    const elapsed = Date.now() - (cache.timestamp || 0);
+    if (elapsed < CFG.dailyMs){
+      setTimeout(() => fetchAll(), CFG.dailyMs - elapsed);
+      return;
+    }
+  }
+  await fetchAll();
 })();
+
+// Auto-refresh daily
+setInterval(() => fetchAll(), CFG.dailyMs);
+// Auto-purge expired articles every hour
+setInterval(() => {
+  const now = Date.now();
+  const before = ALL_ARTICLES.length;
+  ALL_ARTICLES = ALL_ARTICLES.filter(a => (now - new Date(a.pubDate).getTime()) <= CFG.maxAgeMs);
+  if (ALL_ARTICLES.length !== before){ saveCache(); updateStats(); filterArticles(); updateFreshnessBar(); }
+}, 60 * 60 * 1000);
 </script>
 </body>
 </html>

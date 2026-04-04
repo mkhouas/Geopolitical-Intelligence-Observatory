@@ -1,1 +1,1 @@
-# global-reports-MENA
+# Geopolitical-Intelligence-Observatory

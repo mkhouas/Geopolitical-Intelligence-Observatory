@@ -3,144 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مرصد التحاليل الجيوسياسية | Geopolitical Intelligence Observatory</title>
-<meta name="description" content="مرصد يومي للتحاليل الجيوسياسية حول العالم العربي وأفريقيا">
+<title>مرصد الدراسات الاستراتيجية | Strategic Research Observatory</title>
+<meta name="description" content="مرصد يومي للتقارير والدراسات الصادرة عن مراكز البحث والجامعات حول العالم العربي وأفريقيا">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cairo:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 :root {
-  --bg:       #f5f0e8;
-  --bg2:      #ede8e0;
-  --card:     #faf7f2;
-  --card2:    #f0ece4;
-  --border:   #d4c9b8;
-  --border2:  #c4b8a4;
-  --text:     #2c2416;
-  --text2:    #5c4f3a;
-  --text3:    #8c7d66;
-  --gold:     #8b5e1a;
-  --gold2:    #a67422;
-  --teal:     #1a6b5a;
-  --teal2:    #1f8470;
-  --red:      #8b2222;
-  --blue:     #1a3d7a;
-  --purple:   #4a2d7a;
-  --orange:   #b85a10;
-  --shadow:   0 4px 40px rgba(0,0,0,0.08);
-  --radius:   14px;
-  --font-h:   'Playfair Display', serif;
-  --font-ui:  'Cairo', sans-serif;
-  --font-mono:'IBM Plex Mono', monospace;
+  --bg: #f5f0e8; --bg2: #ede8e0; --card: #faf7f2; --card2: #f0ece4;
+  --border: #d4c9b8; --border2: #c4b8a4;
+  --text: #2c2416; --text2: #5c4f3a; --text3: #8c7d66;
+  --gold: #8b5e1a; --gold2: #a67422;
+  --teal: #1a6b5a; --teal2: #1f8470;
+  --red: #8b2222; --blue: #1a3d7a; --purple: #4a2d7a; --orange: #b85a10;
+  --shadow: 0 4px 40px rgba(0,0,0,.08);
+  --radius: 14px;
+  --font-h: 'Playfair Display', serif;
+  --font-ui: 'Cairo', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 }
-
-body {
-  font-family: var(--font-ui);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+body { font-family: var(--font-ui); background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
 
 /* ═══ HERO ═══ */
 .hero {
   position: relative;
-  background: linear-gradient(135deg, #f5f0e8 0%, #ede4d0 100%);
-  padding: 60px 20px 90px;
-  text-align: center;
-  overflow: hidden;
+  background: linear-gradient(135deg, #1a0f05 0%, #2c1a08 40%, #1a3d7a 100%);
+  padding: 60px 20px 90px; text-align: center; overflow: hidden;
   border-bottom: 2px solid var(--border);
 }
-.hero-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 50% -10%, rgba(139,94,26,.08) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 10% 60%, rgba(26,107,90,.05) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 90% 60%, rgba(26,61,122,.05) 0%, transparent 55%);
-  pointer-events: none;
+.hero-bg { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(139,94,26,.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 60%, rgba(26,61,122,.1) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 60%, rgba(26,107,90,.08) 0%, transparent 55%);
 }
 .hero-grid { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .hero-grid::before {
   content: ''; position: absolute; inset: -50%;
-  background-image:
-    linear-gradient(rgba(139,94,26,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139,94,26,.04) 1px, transparent 1px);
-  background-size: 80px 80px;
-  animation: gridFloat 20s linear infinite;
+  background-image: linear-gradient(rgba(212,160,23,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,160,23,.06) 1px, transparent 1px);
+  background-size: 80px 80px; animation: gridFloat 20s linear infinite;
 }
 @keyframes gridFloat { to { transform: translateY(80px); } }
-
-.hero-c { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
-
+.hero-c { position: relative; z-index: 2; max-width: 940px; margin: 0 auto; }
 .hero-kicker {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--font-mono); font-size: .7em; letter-spacing: .2em;
   color: var(--gold); text-transform: uppercase;
-  border: 1px solid rgba(139,94,26,.3);
-  padding: 5px 16px; border-radius: 4px; margin-bottom: 24px;
-  background: rgba(139,94,26,.06);
+  border: 1px solid rgba(139,94,26,.4); padding: 5px 16px;
+  border-radius: 4px; margin-bottom: 24px; background: rgba(139,94,26,.08);
 }
-.kicker-dot {
-  width: 6px; height: 6px; background: var(--gold);
-  border-radius: 50%; animation: blink 1.5s ease-in-out infinite;
-}
+.kicker-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 1.5s ease-in-out infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
-
-.hero h1 {
-  font-family: var(--font-h); font-size: 2.8em; font-weight: 900;
-  color: var(--text); line-height: 1.15; margin-bottom: 10px;
-  text-shadow: 0 1px 3px rgba(0,0,0,.1);
-}
+.hero h1 { font-family: var(--font-h); font-size: 2.8em; font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 10px; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
 .hero h1 em { font-style: italic; color: var(--gold); }
-
-.hero-en {
-  font-family: var(--font-mono); font-size: .75em;
-  color: var(--text3); letter-spacing: .25em; text-transform: uppercase;
-  margin-bottom: 24px; display: block;
-}
-.hero-rule {
-  display: flex; align-items: center; gap: 16px;
-  justify-content: center; margin: 0 auto 24px; max-width: 500px;
-}
-.hero-rule-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border2), transparent); }
+.hero-en { font-family: var(--font-mono); font-size: .72em; color: rgba(255,255,255,.6); letter-spacing: .25em; text-transform: uppercase; margin-bottom: 24px; display: block; }
+.hero-rule { display: flex; align-items: center; gap: 16px; justify-content: center; margin: 0 auto 24px; max-width: 500px; }
+.hero-rule-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,160,23,.5), transparent); }
 .hero-rule-icon { font-size: 1.2em; color: var(--gold); }
-
-.hero-desc {
-  font-size: .95em; color: var(--text2);
-  line-height: 2; max-width: 700px; margin: 0 auto 24px;
-}
+.hero-desc { font-size: .95em; color: rgba(255,255,255,.82); line-height: 2; max-width: 720px; margin: 0 auto 24px; }
+.hero-desc strong { color: var(--gold); }
 .week-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(26,107,90,.08); border: 1px solid rgba(26,107,90,.25);
-  color: var(--teal); padding: 8px 20px; border-radius: 50px;
-  font-size: .85em; font-weight: 700;
+  background: rgba(26,107,90,.15); border: 1px solid rgba(26,107,90,.35);
+  color: #4ecdc4; padding: 8px 20px; border-radius: 50px; font-size: .85em; font-weight: 700;
 }
 .week-badge i { font-style: normal; font-size: .9em; opacity: .8; }
 
+/* ═══ TYPE BADGES ═══ */
+.type-strip {
+  max-width: 1400px; margin: 0 auto; padding: 14px 24px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border); background: var(--bg2);
+  font-family: var(--font-mono); font-size: .7em; color: var(--text3);
+}
+.type-btn {
+  display: flex; align-items: center; gap: 6px; padding: 5px 14px;
+  border-radius: 4px; border: 1px solid var(--border); cursor: pointer;
+  transition: all .2s; font-weight: 700; color: var(--text2); background: var(--card);
+  font-family: var(--font-mono); font-size: 1em;
+}
+.type-btn:hover, .type-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(139,94,26,.08); }
+.type-btn.active-think { background: var(--blue); color: #fff; border-color: var(--blue); }
+.type-btn.active-report { background: var(--teal); color: #fff; border-color: var(--teal); }
+.type-btn.active-policy { background: var(--purple); color: #fff; border-color: var(--purple); }
+.type-btn.active-academic { background: var(--gold); color: #fff; border-color: var(--gold); }
+
 /* ═══ FRESHNESS BAR ═══ */
 .freshness-bar {
-  max-width: 1400px; margin: 0 auto; padding: 16px 24px;
-  display: flex; align-items: center; gap: 10px;
+  max-width: 1400px; margin: 0 auto; padding: 12px 24px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   font-family: var(--font-mono); font-size: .72em; color: var(--text3);
-  border-bottom: 1px solid var(--border); background: var(--bg2);
-  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border); background: var(--bg);
 }
 .day-marker {
-  display: flex; align-items: center; gap: 6px;
-  padding: 4px 12px; border-radius: 4px;
-  border: 1px solid var(--border); cursor: pointer;
+  display: flex; align-items: center; gap: 6px; padding: 4px 12px;
+  border-radius: 4px; border: 1px solid var(--border); cursor: pointer;
   transition: all .2s; font-weight: 600; color: var(--text2); background: var(--card);
 }
-.day-marker:hover, .day-marker.active {
-  border-color: var(--gold); color: var(--gold);
-  background: rgba(139,94,26,.08);
-}
-.day-marker.today {
-  border-color: var(--teal); color: var(--teal);
-  background: rgba(26,107,90,.08);
-}
+.day-marker:hover, .day-marker.active { border-color: var(--gold); color: var(--gold); background: rgba(139,94,26,.08); }
+.day-marker.today { border-color: var(--teal); color: var(--teal); background: rgba(26,107,90,.08); }
 .day-sep { color: var(--border2); }
 
 /* ═══ STATS BAR ═══ */
@@ -151,60 +112,41 @@ body {
 .stat-card { background: var(--bg2); padding: 20px 16px; text-align: center; transition: background .2s; }
 .stat-card:hover { background: var(--card); }
 .stat-card .icon { font-size: 1.4em; margin-bottom: 6px; display: block; }
-.stat-card .num {
-  font-family: var(--font-mono); font-size: 1.8em; font-weight: 600;
-  color: var(--gold); line-height: 1;
-}
-.stat-card .lbl {
-  font-size: .72em; color: var(--text3); margin-top: 6px;
-  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-}
+.stat-card .num { font-family: var(--font-mono); font-size: 1.8em; font-weight: 600; color: var(--gold); line-height: 1; }
+.stat-card .lbl { font-size: .72em; color: var(--text3); margin-top: 6px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 
 /* ═══ CONTROLS ═══ */
 .controls { max-width: 1400px; margin: 0 auto; padding: 20px 24px; background: var(--bg); }
-
 .search-wrap { position: relative; margin-bottom: 16px; }
 .search-box {
-  width: 100%; padding: 14px 56px 14px 24px;
-  border-radius: 8px; border: 1px solid var(--border);
-  background: var(--card); color: var(--text);
-  font-size: .95em; font-family: var(--font-ui);
-  outline: none; transition: all .25s; direction: rtl;
+  width: 100%; padding: 14px 56px 14px 24px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--card); color: var(--text);
+  font-size: .95em; font-family: var(--font-ui); outline: none; transition: all .25s; direction: rtl;
 }
 .search-box::placeholder { color: var(--text3); }
 .search-box:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(139,94,26,.12); }
-.search-icon {
-  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
-  color: var(--text3); font-size: 1.1em; pointer-events: none;
-}
-
+.search-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 1.1em; pointer-events: none; }
 .filter-strip {
   display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
   padding: 12px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
 }
 .filter-grp { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .filter-sep { width: 1px; height: 22px; background: var(--border); flex-shrink: 0; }
-.flbl {
-  font-family: var(--font-mono); font-size: .65em; font-weight: 600;
-  color: var(--text3); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
-}
+.flbl { font-family: var(--font-mono); font-size: .65em; font-weight: 600; color: var(--text3); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
 .fbtn {
   padding: 6px 16px; border-radius: 4px; border: 1px solid var(--border);
-  background: var(--card); color: var(--text2);
-  cursor: pointer; font-size: .8em; font-weight: 700;
-  font-family: var(--font-ui); transition: all .2s;
+  background: var(--card); color: var(--text2); cursor: pointer; font-size: .8em;
+  font-weight: 700; font-family: var(--font-ui); transition: all .2s;
 }
-.fbtn:hover  { border-color: var(--gold); color: var(--gold); }
+.fbtn:hover { border-color: var(--gold); color: var(--gold); }
 .fbtn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
-.fbtn.a-ar   { background: var(--teal);   color: #fff; border-color: var(--teal); }
-.fbtn.a-fr   { background: var(--blue);   color: #fff; border-color: var(--blue); }
-.fbtn.a-en   { background: var(--purple); color: #fff; border-color: var(--purple); }
-
+.fbtn.a-ar { background: var(--teal); color: #fff; border-color: var(--teal); }
+.fbtn.a-fr { background: var(--blue); color: #fff; border-color: var(--blue); }
+.fbtn.a-en { background: var(--purple); color: #fff; border-color: var(--purple); }
 .fsel {
   padding: 6px 14px; border-radius: 4px; border: 1px solid var(--border);
-  background: var(--card); color: var(--text2);
-  font-size: .8em; font-weight: 600; font-family: var(--font-ui);
-  cursor: pointer; outline: none; transition: border-color .2s;
+  background: var(--card); color: var(--text2); font-size: .8em; font-weight: 600;
+  font-family: var(--font-ui); cursor: pointer; outline: none; transition: border-color .2s;
 }
 .fsel:focus { border-color: var(--gold); }
 
@@ -212,41 +154,26 @@ body {
 .update-bar {
   max-width: 1400px; margin: 0 auto; padding: 10px 24px;
   display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 10px;
-  border-bottom: 1px solid var(--border); background: var(--bg2);
+  flex-wrap: wrap; gap: 10px; border-bottom: 1px solid var(--border); background: var(--bg2);
 }
 .live-wrap { display: flex; align-items: center; gap: 8px; }
-.pulse {
-  width: 7px; height: 7px; background: var(--teal);
-  border-radius: 50%; animation: pulse 2s ease-in-out infinite; flex-shrink: 0;
-}
-@keyframes pulse {
-  0%,100%{opacity:1;transform:scale(1);}
-  50%{opacity:.25;transform:scale(.6);}
-}
-.live-txt  { font-family: var(--font-mono); font-size: .7em; color: var(--teal); font-weight: 600; letter-spacing: .05em; }
-.last-up   { font-family: var(--font-mono); font-size: .68em; color: var(--text3); }
+.pulse { width: 7px; height: 7px; background: var(--teal); border-radius: 50%; animation: pulseAnim 2s ease-in-out infinite; flex-shrink: 0; }
+@keyframes pulseAnim { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(.6)} }
+.live-txt { font-family: var(--font-mono); font-size: .7em; color: var(--teal); font-weight: 600; letter-spacing: .05em; }
+.last-up { font-family: var(--font-mono); font-size: .68em; color: var(--text3); }
 .rbtn {
   padding: 7px 18px; border-radius: 4px; border: 1px solid var(--border);
-  background: var(--card); color: var(--text2);
-  cursor: pointer; font-size: .78em; font-weight: 700;
-  font-family: var(--font-ui); transition: all .2s;
+  background: var(--card); color: var(--text2); cursor: pointer; font-size: .78em;
+  font-weight: 700; font-family: var(--font-ui); transition: all .2s;
 }
-.rbtn:hover    { border-color: var(--teal); color: var(--teal); }
+.rbtn:hover { border-color: var(--teal); color: var(--teal); }
 .rbtn:disabled { opacity: .35; cursor: not-allowed; }
 
 /* ═══ PROGRESS ═══ */
 .pbar { max-width: 1400px; margin: 0 auto; padding: 0 24px; display: none; }
 .ptrack { height: 3px; background: var(--border); }
-.pfill {
-  height: 100%; background: linear-gradient(90deg, var(--gold), var(--teal));
-  width: 0; transition: width .3s;
-}
-.ptxt {
-  font-family: var(--font-mono); font-size: .65em; color: var(--text3);
-  padding: 6px 0; text-align: center;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
+.pfill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--teal)); width: 0; transition: width .3s; }
+.ptxt { font-family: var(--font-mono); font-size: .65em; color: var(--text3); padding: 6px 0; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ═══ RESULTS INFO ═══ */
 .results-info {
@@ -257,8 +184,6 @@ body {
   flex-wrap: wrap; gap: 8px;
 }
 .results-info span { color: var(--gold); font-weight: 700; }
-
-/* ══ MINIMUM ARTICLES WARNING ═══ */
 .min-warn {
   max-width: 1400px; margin: 0 auto; padding: 8px 24px;
   background: rgba(184,90,16,.06); border-bottom: 1px solid rgba(184,90,16,.2);
@@ -270,115 +195,104 @@ body {
 /* ═══ GRID ═══ */
 .articles-grid {
   max-width: 1400px; margin: 0 auto; padding: 20px 24px 60px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 16px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px;
 }
 
 /* ═══ ARTICLE CARD ═══ */
 .art-card {
   background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius);
-  display: flex; flex-direction: column;
+  border-radius: var(--radius); display: flex; flex-direction: column;
   transition: border-color .25s, transform .25s, box-shadow .25s;
   position: relative; overflow: hidden;
 }
 .art-card::before {
-  content: ''; position: absolute; top: 0; right: 0; left: 0; height: 3px;
+  content: ''; position: absolute; top: 0; right: 0; left: 0; height: 4px;
   background: var(--border); transition: background .25s;
 }
-.art-card:hover {
-  border-color: var(--border2); transform: translateY(-4px);
-  box-shadow: 0 16px 50px rgba(0,0,0,.1);
-}
+.art-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,.1); }
 .art-card:hover::before { background: var(--gold); }
-
 .art-card.src-think::before { background: var(--blue); }
-.art-card.src-media::before { background: var(--teal); }
-.art-card.src-indie::before { background: var(--purple); }
-.art-card.src-inst::before  { background: var(--gold); }
+.art-card.src-report::before { background: var(--teal); }
+.art-card.src-policy::before { background: var(--purple); }
+.art-card.src-academic::before { background: var(--gold); }
 
-.art-img {
-  width: 100%; height: 160px; object-fit: cover;
-  display: block; opacity: .9;
-  filter: brightness(.95) saturate(.9);
-  transition: opacity .3s, filter .3s;
-}
-.art-card:hover .art-img { opacity: 1; filter: brightness(1) saturate(1); }
-
+/* Card Image */
+.art-img-wrap { position: relative; width: 100%; height: 170px; overflow: hidden; background: linear-gradient(135deg, #1a0f05, #1a3d7a); }
+.art-img { width: 100%; height: 100%; object-fit: cover; opacity: .85; filter: brightness(.9) saturate(.9); transition: opacity .3s, filter .3s, transform .4s; }
+.art-card:hover .art-img { opacity: 1; filter: brightness(1) saturate(1); transform: scale(1.04); }
 .art-img-placeholder {
-  width: 100%; height: 60px;
-  background: linear-gradient(135deg, var(--card2), var(--card));
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text3); font-size: .7em; font-family: var(--font-mono); letter-spacing: .1em;
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  color: rgba(255,255,255,.4); font-family: var(--font-mono);
 }
+.art-img-placeholder .ph-icon { font-size: 2.5em; opacity: .5; }
+.art-img-placeholder .ph-name { font-size: .65em; letter-spacing: .08em; text-transform: uppercase; text-align: center; padding: 0 16px; max-width: 200px; line-height: 1.5; }
+.art-img-placeholder .ph-type { font-size: .6em; opacity: .6; margin-top: 4px; }
+.img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,15,5,.7) 0%, transparent 60%); pointer-events: none; }
 
+/* Card Header */
 .art-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px 0; gap: 8px; flex-wrap: wrap;
+  padding: 12px 16px 8px; gap: 8px; flex-wrap: wrap;
 }
 .art-source {
-  font-family: var(--font-mono); font-size: .65em; font-weight: 600;
+  font-family: var(--font-mono); font-size: .63em; font-weight: 700;
   color: var(--text2); letter-spacing: .06em; text-transform: uppercase;
   display: flex; align-items: center; gap: 6px;
 }
-.src-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.src-dot.think  { background: var(--blue); }
-.src-dot.media  { background: var(--teal); }
-.src-dot.indie  { background: var(--purple); }
-.src-dot.inst   { background: var(--gold); }
-
+.src-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.src-dot.think { background: var(--blue); }
+.src-dot.report { background: var(--teal); }
+.src-dot.policy { background: var(--purple); }
+.src-dot.academic { background: var(--gold); }
+.src-dot.media { background: var(--teal); }
+.src-dot.indie { background: var(--purple); }
+.src-dot.inst { background: var(--gold); }
+.meta-badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .art-freshness {
-  font-family: var(--font-mono); font-size: .65em; font-weight: 600;
+  font-family: var(--font-mono); font-size: .62em; font-weight: 600;
   padding: 3px 10px; border-radius: 4px; white-space: nowrap;
 }
-.fresh-0   { background: rgba(26,107,90,.1);  color: var(--teal2); border: 1px solid rgba(26,107,90,.25); }
-.fresh-1   { background: rgba(139,94,26,.1);  color: var(--gold2); border: 1px solid rgba(139,94,26,.25); }
-.fresh-2   { background: rgba(139,94,26,.06); color: var(--gold);  border: 1px solid rgba(139,94,26,.15); }
-.fresh-old { background: rgba(92,79,58,.08);  color: var(--text3); border: 1px solid var(--border); }
-
-.lang-badge {
-  padding: 2px 10px; border-radius: 3px;
-  font-family: var(--font-mono); font-size: .6em; font-weight: 700;
-  letter-spacing: .06em; color: #fff;
-}
+.fresh-0 { background: rgba(26,107,90,.12); color: var(--teal2); border: 1px solid rgba(26,107,90,.25); }
+.fresh-1 { background: rgba(139,94,26,.12); color: var(--gold2); border: 1px solid rgba(139,94,26,.25); }
+.fresh-2 { background: rgba(139,94,26,.07); color: var(--gold); border: 1px solid rgba(139,94,26,.15); }
+.fresh-old { background: rgba(92,79,58,.08); color: var(--text3); border: 1px solid var(--border); }
+.lang-badge { padding: 2px 9px; border-radius: 3px; font-family: var(--font-mono); font-size: .6em; font-weight: 700; letter-spacing: .06em; color: #fff; }
 .l-ar { background: var(--teal); }
 .l-fr { background: var(--blue); }
 .l-en { background: var(--purple); }
+.pub-type-badge { padding: 2px 9px; border-radius: 3px; font-family: var(--font-mono); font-size: .58em; font-weight: 700; letter-spacing: .04em; }
+.pt-think { background: rgba(26,61,122,.1); color: var(--blue); border: 1px solid rgba(26,61,122,.2); }
+.pt-report { background: rgba(26,107,90,.1); color: var(--teal); border: 1px solid rgba(26,107,90,.2); }
+.pt-policy { background: rgba(74,45,122,.1); color: var(--purple); border: 1px solid rgba(74,45,122,.2); }
+.pt-academic { background: rgba(139,94,26,.1); color: var(--gold); border: 1px solid rgba(139,94,26,.2); }
 
-.art-body { padding: 12px 16px 14px; flex: 1; display: flex; flex-direction: column; }
+/* Card Body */
+.art-body { padding: 4px 16px 14px; flex: 1; display: flex; flex-direction: column; }
 .art-title {
-  font-family: var(--font-h); font-size: 1.05em; font-weight: 700;
+  font-family: var(--font-h); font-size: 1.06em; font-weight: 700;
   line-height: 1.45; color: var(--text); margin-bottom: 8px;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
   overflow: hidden; transition: color .2s;
 }
 .art-card:hover .art-title { color: var(--gold); }
-
 .art-desc {
-  font-size: .82em; color: var(--text2); line-height: 1.65;
+  font-size: .82em; color: var(--text2); line-height: 1.7;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
   overflow: hidden; margin-bottom: 12px; font-family: var(--font-ui);
 }
-
 .art-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
-.tag {
-  padding: 2px 10px; border-radius: 3px;
-  font-size: .68em; font-weight: 700; letter-spacing: .04em; white-space: nowrap;
-}
-.tag-geo   { background: rgba(26,107,90,.08);  color: var(--teal); border: 1px solid rgba(26,107,90,.2); }
-.tag-topic { background: rgba(92,79,58,.08);   color: var(--text2); border: 1px solid var(--border); }
-.tag-hot   { background: rgba(139,34,34,.08);  color: var(--red);  border: 1px solid rgba(139,34,34,.2); }
-
-.art-footer {
-  margin-top: auto; padding-top: 12px;
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center; gap: 8px;
-}
+.tag { padding: 2px 10px; border-radius: 3px; font-size: .68em; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
+.tag-geo { background: rgba(26,107,90,.08); color: var(--teal); border: 1px solid rgba(26,107,90,.2); }
+.tag-topic { background: rgba(92,79,58,.08); color: var(--text2); border: 1px solid var(--border); }
+.tag-inst { background: rgba(26,61,122,.08); color: var(--blue); border: 1px solid rgba(26,61,122,.2); }
+.art-meta { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: .65em; color: var(--text3); margin-bottom: 10px; flex-wrap: wrap; }
+.art-meta span { display: flex; align-items: center; gap: 4px; }
+.art-footer { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
 .art-link {
-  flex: 1; text-align: center; padding: 9px 16px; border-radius: 6px;
+  flex: 1; text-align: center; padding: 10px 16px; border-radius: 8px;
   background: rgba(139,94,26,.08); border: 1px solid rgba(139,94,26,.25);
-  color: var(--gold); font-weight: 700; font-size: .8em;
+  color: var(--gold); font-weight: 700; font-size: .82em;
   text-decoration: none; transition: all .25s; font-family: var(--font-ui);
 }
 .art-link:hover { background: var(--gold); color: #fff; }
@@ -388,16 +302,13 @@ body {
 .spinner-ring {
   display: inline-block; width: 50px; height: 50px; margin-bottom: 20px;
   border: 3px solid var(--border); border-top-color: var(--gold);
-  border-right-color: var(--teal); border-radius: 50%;
-  animation: spin 1.5s linear infinite;
+  border-right-color: var(--teal); border-radius: 50%; animation: spin 1.5s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-.loader p     { font-family: var(--font-mono); font-size: .82em; color: var(--text2); }
+.loader p { font-family: var(--font-mono); font-size: .82em; color: var(--text2); }
 .loader small { font-size: .78em; color: var(--text3); display: block; margin-top: 6px; }
-
-.no-res      { text-align: center; padding: 80px 20px; grid-column: 1/-1; color: var(--text3); }
+.no-res { text-align: center; padding: 80px 20px; grid-column: 1/-1; color: var(--text3); }
 .no-res .big { font-size: 3em; display: block; margin-bottom: 12px; }
-.no-res p    { font-size: .9em; }
 
 /* ═══ NOTIF ═══ */
 .notif {
@@ -405,67 +316,41 @@ body {
   background: var(--card); border: 1px solid var(--teal);
   color: var(--teal); padding: 12px 20px; border-radius: 8px;
   font-size: .82em; font-weight: 700; font-family: var(--font-mono);
-  box-shadow: var(--shadow); z-index: 2000; display: none;
-  animation: slideUp .4s ease;
+  box-shadow: var(--shadow); z-index: 2000; display: none; animation: slideUp .4s ease;
 }
-@keyframes slideUp {
-  from { transform: translateY(60px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
-}
+@keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
 /* ═══ LEGEND ═══ */
 .legend {
   max-width: 1400px; margin: 0 auto; padding: 12px 24px;
   display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
   border-bottom: 1px solid var(--border);
-  font-family: var(--font-mono); font-size: .65em; color: var(--text3);
-  background: var(--bg2);
+  font-family: var(--font-mono); font-size: .65em; color: var(--text3); background: var(--bg2);
 }
 .legend-item { display: flex; align-items: center; gap: 6px; }
-.legend-dot  { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
 
 /* ═══ FOOTER ═══ */
-footer {
-  background: var(--bg2); border-top: 2px solid var(--border);
-  padding: 40px 24px; text-align: center;
-}
-.footer-title {
-  font-family: var(--font-h); font-size: 1.4em; color: var(--gold);
-  margin-bottom: 8px; font-weight: 700;
-}
+footer { background: var(--bg2); border-top: 2px solid var(--border); padding: 40px 24px; text-align: center; }
+.footer-title { font-family: var(--font-h); font-size: 1.4em; color: var(--gold); margin-bottom: 8px; font-weight: 700; }
 footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-height: 1.8; }
-.footer-sources {
-  display: flex; gap: 10px; flex-wrap: wrap;
-  justify-content: center; margin: 16px auto; max-width: 900px;
-}
-.f-src {
-  font-family: var(--font-mono); font-size: .62em; font-weight: 600;
-  padding: 4px 12px; border-radius: 3px;
-  border: 1px solid var(--border); color: var(--text3); background: var(--card);
-}
-.f-src.think  { border-color: rgba(26,61,122,.3);  color: var(--blue); }
-.f-src.media  { border-color: rgba(26,107,90,.3);  color: var(--teal); }
-.f-src.indie  { border-color: rgba(74,45,122,.3);  color: var(--purple); }
-
-.github-note {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(139,94,26,.06); border: 1px solid rgba(139,94,26,.2);
-  color: var(--gold); padding: 8px 20px; border-radius: 6px;
-  font-family: var(--font-mono); font-size: .7em; font-weight: 600;
-  margin-top: 20px; text-decoration: none; transition: all .25s;
-}
-.github-note:hover { background: rgba(139,94,26,.12); }
+.footer-sources { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 16px auto; max-width: 960px; }
+.f-src { font-family: var(--font-mono); font-size: .62em; font-weight: 600; padding: 4px 12px; border-radius: 3px; border: 1px solid var(--border); color: var(--text3); background: var(--card); }
+.f-src.think { border-color: rgba(26,61,122,.3); color: var(--blue); }
+.f-src.report { border-color: rgba(26,107,90,.3); color: var(--teal); }
+.f-src.policy { border-color: rgba(74,45,122,.3); color: var(--purple); }
+.f-src.academic { border-color: rgba(139,94,26,.3); color: var(--gold); }
 
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:900px) {
-  .hero h1       { font-size: 2em; }
+  .hero h1 { font-size: 2em; }
   .articles-grid { grid-template-columns: 1fr; }
-  .stats-bar     { grid-template-columns: repeat(3,1fr); }
-  .filter-sep    { display: none; }
+  .stats-bar { grid-template-columns: repeat(3,1fr); }
+  .filter-sep { display: none; }
 }
 @media(max-width:600px) {
-  .hero h1     { font-size: 1.65em; }
-  .stats-bar   { grid-template-columns: repeat(2,1fr); }
+  .hero h1 { font-size: 1.6em; }
+  .stats-bar { grid-template-columns: repeat(2,1fr); }
   .freshness-bar { display: none; }
 }
 </style>
@@ -479,30 +364,41 @@ footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-heigh
   <div class="hero-c">
     <div class="hero-kicker">
       <span class="kicker-dot"></span>
-      INTELLIGENCE · BRIEFING · DAILY
+      THINK TANKS · RESEARCH · DAILY INTELLIGENCE
     </div>
-    <h1>مرصد <em>التحاليل</em> الجيوسياسية</h1>
-    <span class="hero-en">Geopolitical Intelligence Observatory</span>
+    <h1>مرصد <em>الدراسات والتقارير</em> الاستراتيجية</h1>
+    <span class="hero-en">Strategic Research & Policy Observatory</span>
     <div class="hero-rule">
       <div class="hero-rule-line"></div>
       <div class="hero-rule-icon">◆</div>
       <div class="hero-rule-line"></div>
     </div>
     <p class="hero-desc">
-      يجمع يومياً التحاليل الجيوسياسية عميقة الأثر حول العالم العربي وأفريقيا<br>
-      من مراكز البحث ومنابر التحليل الاستراتيجي • بالعربية والإنجليزية والفرنسية<br>
-      <strong style="color:var(--gold)">يُستبعد الخبر اليومي — التحليل فقط</strong>
+      تقارير ودراسات وأوراق سياساتية صادرة حصرياً عن مراكز البحث والجامعات والمؤسسات الأكاديمية<br>
+      حول العالم العربي بكل دوله وأفريقيا بكل دولها — بالعربية والإنجليزية والفرنسية<br>
+      <strong>يُستبعد الخبر اليومي — التحليل المعمق والدراسة البحثية فقط</strong>
     </p>
     <div class="week-badge">
-      <span>🗓 نافذة أسبوع دائمة الحداثة</span>
-      <i>— تُحذف المقالات بعد 7 أيام تلقائياً</i>
+      <span>🗓 نافذة 7 أيام دائمة الحداثة</span>
+      <i>— تُحذف الدراسات القديمة تلقائياً</i>
     </div>
   </div>
 </div>
 
+<!-- ══════════ TYPE FILTER STRIP ══════════ -->
+<div class="type-strip">
+  <span style="color:var(--text2);font-weight:600;margin-left:8px">نوع المنشور:</span>
+  <button class="type-btn active" onclick="setPubType('all',this)">🔬 الكل</button>
+  <button class="type-btn" onclick="setPubType('think',this)">🏛 مراكز الفكر</button>
+  <button class="type-btn" onclick="setPubType('report',this)">📊 تقارير</button>
+  <button class="type-btn" onclick="setPubType('policy',this)">📋 أوراق سياسات</button>
+  <button class="type-btn" onclick="setPubType('academic',this)">🎓 أكاديمية</button>
+  <span style="margin-right:auto;font-size:.85em" id="weekCount"></span>
+</div>
+
 <!-- ══════════ FRESHNESS BAR ══════════ -->
 <div class="freshness-bar" id="freshnessBar">
-  <span style="color:var(--text2);margin-left:12px">المحتوى المتاح:</span>
+  <span style="color:var(--text2);font-weight:600;margin-left:12px">المحتوى المتاح:</span>
   <div class="day-marker today active" onclick="setDayFilter(0,this)">اليوم</div>
   <span class="day-sep">·</span>
   <div class="day-marker" onclick="setDayFilter(1,this)">أمس</div>
@@ -514,12 +410,11 @@ footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-heigh
   <div class="day-marker" onclick="setDayFilter(4,this)">4 أيام</div>
   <span class="day-sep">·</span>
   <div class="day-marker" onclick="setDayFilter(null,this)">الكل (7 أيام)</div>
-  <span style="margin-right:auto;color:var(--text3)" id="weekCount"></span>
 </div>
 
 <!-- ══════════ STATS BAR ══════════ -->
 <div class="stats-bar">
-  <div class="stat-card"><span class="icon">📊</span><div class="num" id="sTotal">-</div><div class="lbl">إجمالي التحاليل</div></div>
+  <div class="stat-card"><span class="icon">📚</span><div class="num" id="sTotal">-</div><div class="lbl">إجمالي الدراسات</div></div>
   <div class="stat-card"><span class="icon">🇸🇦</span><div class="num" id="sAr">-</div><div class="lbl">عربي</div></div>
   <div class="stat-card"><span class="icon">🇬🇧</span><div class="num" id="sEn">-</div><div class="lbl">English</div></div>
   <div class="stat-card"><span class="icon">🇫🇷</span><div class="num" id="sFr">-</div><div class="lbl">Français</div></div>
@@ -531,14 +426,14 @@ footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-heigh
 <!-- ══════════ LEGEND ══════════ -->
 <div class="legend">
   <span style="color:var(--text2);font-weight:600">مفتاح المصادر:</span>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>مراكز الأبحاث</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>منابر تحليلية</div>
-  <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>صحافة مستقلة</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>مراكز الأبحاث والفكر</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>تقارير استراتيجية</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>أوراق سياسات</div>
   <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>مؤسسات أكاديمية</div>
   <span style="margin-right:auto">
-    <span style="color:var(--teal2)">■</span>&nbsp;اليوم &nbsp;
-    <span style="color:var(--gold2)">■</span>&nbsp;أمس–يومان &nbsp;
-    <span style="color:var(--text3)">■</span> 3–7 أيام
+    <span style="color:var(--teal2)">■</span>&nbsp;اليوم&nbsp;
+    <span style="color:var(--gold2)">■</span>&nbsp;أمس–يومان&nbsp;
+    <span style="color:var(--text3)">■</span>&nbsp;3–7 أيام
   </span>
 </div>
 
@@ -546,7 +441,7 @@ footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-heigh
 <div class="controls">
   <div class="search-wrap">
     <input type="text" class="search-box" id="searchInput"
-      placeholder="ابحث في العناوين والمصادر والمواضيع..."
+      placeholder="🔍 ابحث في العناوين والمؤسسات والمواضيع..."
       oninput="filterArticles()">
     <span class="search-icon">⌕</span>
   </div>
@@ -568,10 +463,11 @@ footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-heigh
         <option value="Maghreb">المغرب العربي</option>
         <option value="Gulf">الخليج العربي</option>
         <option value="Levant">المشرق العربي</option>
+        <option value="North Africa">شمال أفريقيا</option>
         <option value="Sahel">الساحل الأفريقي</option>
         <option value="Horn">القرن الأفريقي</option>
-        <option value="North Africa">شمال أفريقيا</option>
         <option value="West Africa">غرب أفريقيا</option>
+        <option value="East Africa">شرق أفريقيا</option>
       </select>
     </div>
     <div class="filter-sep"></div>
@@ -611,7 +507,7 @@ footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-heigh
 <div class="update-bar">
   <div class="live-wrap">
     <div class="pulse"></div>
-    <span class="live-txt">تحديث يومي تلقائي — 7 أيام فقط</span>
+    <span class="live-txt">تحديث يومي تلقائي — مراكز بحث وجامعات فقط</span>
   </div>
   <span class="last-up" id="lastUp">جاري التحميل...</span>
   <button class="rbtn" id="rBtn" onclick="manualRefresh()">↺ تحديث الآن</button>
@@ -625,18 +521,14 @@ footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-heigh
 
 <!-- ══════════ RESULTS ══════════ -->
 <div class="results-info" id="resultsInfo"></div>
-
-<!-- تحذير الحد الأدنى -->
-<div class="min-warn" id="minWarn">
-  ⚠ عدد المقالات أقل من 50 — جاري جلب المزيد من المصادر...
-</div>
+<div class="min-warn" id="minWarn">⚠ عدد الدراسات أقل من 50 — جاري جلب المزيد من المصادر...</div>
 
 <!-- ══════════ GRID ══════════ -->
 <div class="articles-grid" id="grid">
   <div class="loader">
     <div class="spinner-ring"></div>
-    <p>جاري جلب التحاليل الجيوسياسية...</p>
-    <small>نبحث في مراكز الأبحاث ومنابر التحليل الاستراتيجي</small>
+    <p>جاري جلب الدراسات والتقارير البحثية...</p>
+    <small>نبحث في مراكز الأبحاث والجامعات والمؤسسات الاستراتيجية</small>
   </div>
 </div>
 
@@ -645,291 +537,279 @@ footer p { font-size: .78em; color: var(--text3); margin-bottom: 5px; line-heigh
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  <div class="footer-title">مرصد التحاليل الجيوسياسية</div>
-  <p style="color:var(--text2);font-size:.82em;margin-bottom:16px">Geopolitical Intelligence Observatory</p>
-  <p>يجمع تحاليل جيوسياسية عميقة الأثر يومياً — نافذة أسبوع متجددة تلقائياً</p>
-  <p>5 مقالات من كل مصدر • لا يقل عن 50 مقالاً في العرض الكلي</p>
+  <div class="footer-title">مرصد الدراسات الاستراتيجية</div>
+  <p style="color:var(--text2);font-size:.82em;margin-bottom:16px">Strategic Research & Policy Observatory</p>
+  <p>يجمع تقارير ودراسات صادرة حصراً عن مراكز الفكر والجامعات والمؤسسات البحثية يومياً</p>
+  <p>نافذة 7 أيام متجددة — يُستبعد الخبر اليومي والمقالة الصحفية العادية</p>
   <div class="footer-sources">
     <span class="f-src think">Crisis Group</span>
     <span class="f-src think">Chatham House</span>
     <span class="f-src think">Carnegie MEC</span>
-    <span class="f-src think">IFRI</span>
     <span class="f-src think">Brookings</span>
     <span class="f-src think">CSIS Africa</span>
     <span class="f-src think">Wilson Center</span>
     <span class="f-src think">ISS Africa</span>
-    <span class="f-src media">Middle East Eye</span>
-    <span class="f-src media">Al-Monitor</span>
-    <span class="f-src media">The Africa Report</span>
-    <span class="f-src media">African Arguments</span>
-    <span class="f-src media">War on the Rocks</span>
-    <span class="f-src media">Foreign Policy</span>
-    <span class="f-src media">Just Security</span>
-    <span class="f-src indie">Orient XXI</span>
-    <span class="f-src indie">Mada Masr</span>
-    <span class="f-src indie">7iber حبر</span>
-    <span class="f-src indie">MERIP</span>
-    <span class="f-src indie">Jadaliyya</span>
-    <span class="f-src indie">Le Monde Diplo</span>
-    <span class="f-src indie">Al Jazeera</span>
-    <span class="f-src indie">BBC Arabic</span>
-    <span class="f-src indie">Le Monde</span>
-    <span class="f-src indie">Jeune Afrique</span>
-    <span class="f-src indie">RFI</span>
-    <span class="f-src indie">GDELT</span>
+    <span class="f-src think">RAND Corp</span>
+    <span class="f-src think">Atlantic Council</span>
+    <span class="f-src think">IFRI</span>
+    <span class="f-src think">SIPRI</span>
+    <span class="f-src think">Stimson Center</span>
+    <span class="f-src report">Africa Confidential</span>
+    <span class="f-src report">War on the Rocks</span>
+    <span class="f-src report">African Arguments</span>
+    <span class="f-src report">The Africa Report</span>
+    <span class="f-src report">Foreign Affairs</span>
+    <span class="f-src report">Foreign Policy</span>
+    <span class="f-src policy">Just Security</span>
+    <span class="f-src policy">Responsible SC</span>
+    <span class="f-src policy">MERIP</span>
+    <span class="f-src policy">Jadaliyya</span>
+    <span class="f-src policy">Orient XXI</span>
+    <span class="f-src policy">Le Monde Diplo</span>
+    <span class="f-src academic">Mada Masr</span>
+    <span class="f-src academic">7iber</span>
+    <span class="f-src academic">GDELT</span>
+    <span class="f-src academic">Al-Monitor</span>
   </div>
-  <a class="github-note" href="https://pages.github.com" target="_blank" rel="noopener">
-    ⬡ للنشر: ضع الملف في مستودع GitHub وفعّل GitHub Pages
-  </a>
   <p style="font-size:.65em;margin-top:20px;opacity:.4;font-family:var(--font-mono)">
-    Geopolitical Intelligence Observatory © 2026 — Open Source / GitHub Pages
+    Strategic Research Observatory © 2025–2026 — Open Source / GitHub Pages
   </p>
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════════
-// مرصد التحاليل الجيوسياسية
-// Geopolitical Intelligence Observatory
-// ─────────────────────────────────────────────────────────────────────
-// القواعد الأساسية:
-//   • من كل مصدر: 5 مقالات كحد أقصى
-//   • الحد الأدنى للعرض: 50 مقالاً
-//   • نافذة زمنية: 7 أيام
-//   • تحديث تلقائي يومي
-// ═══════════════════════════════════════════════════════════════════════
+//
+// ══════════════════════════════════════════════════════════
+// مرصد الدراسات والتقارير الاستراتيجية
+// Strategic Research & Policy Observatory
+//
+// القواعد:
+// • مراكز البحث والجامعات والمؤسسات الأكاديمية فقط
+// • استبعاد الأخبار العادية والمقالات الصحفية
+// • 5 مقالات من كل مصدر • هدف: 50+ • نافذة: 7 أيام
+// ══════════════════════════════════════════════════════════
 
 const CFG = {
-  cacheKey:       'geopol_obs_v5',
-  maxAgeDays:     7,
-  maxAgeMs:       7  * 24 * 60 * 60 * 1000,
-  dailyMs:        24 * 60 * 60 * 1000,
-  maxPerSource:   5,      // ← حد أقصى لكل مصدر
-  minTotal:       50,     // ← الحد الأدنى للعرض
-  minQuality:     0,
-  minDescLen:     60,
+  cacheKey: 'strategic_obs_v2',
+  maxAgeDays: 7,
+  maxAgeMs: 7 * 24 * 60 * 60 * 1000,
+  dailyMs: 24 * 60 * 60 * 1000,
+  maxPerSource: 5,
+  minTotal: 50,
+  minQuality: 1,
+  minDescLen: 80
 };
 
-let ALL_ARTICLES    = [];
-let currentLang     = 'all';
+let ALL_ARTICLES = [];
+let currentLang = 'all';
 let currentDayFilter = null;
-let isUpdating      = false;
-let activeSources   = new Set();
+let currentPubType = 'all';
+let isUpdating = false;
+let activeSources = new Set();
 
-// ═══════════════════════════════════════════════════════════════════════
-// المصادر — مرتبة حسب الأولوية
-// كل مصدر = 5 مقالات → 34 مصدر = إمكانية 170 مقالاً
-// ═══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// المصادر — مراكز البحث والجامعات فقط
+// ══════════════════════════════════════════════════════════
 const SOURCES = [
   // ── Think Tanks (English) ──
-  { name:'Crisis Group',     url:'https://www.crisisgroup.org/rss.xml',                       lang:'en', type:'think', score:3, geo:['Arab','Africa','Global'] },
-  { name:'Chatham House',    url:'https://www.chathamhouse.org/rss.xml',                      lang:'en', type:'think', score:3, geo:['Arab','Africa','Global'] },
-  { name:'Carnegie MEC',     url:'https://carnegie-mec.org/rss/publications',                 lang:'en', type:'think', score:3, geo:['Arab'] },
-  { name:'Brookings ME',     url:'https://www.brookings.edu/topic/middle-east/feed/',          lang:'en', type:'think', score:3, geo:['Arab'] },
-  { name:'CSIS Africa',      url:'https://www.csis.org/programs/africa-program/feed',          lang:'en', type:'think', score:3, geo:['Africa'] },
-  { name:'Wilson Center',    url:'https://www.wilsoncenter.org/rss.xml',                      lang:'en', type:'think', score:2, geo:['Global'] },
-  { name:'ISS Africa',       url:'https://issafrica.org/rss.xml',                             lang:'en', type:'think', score:3, geo:['Africa'] },
-  { name:'RAND Corp',        url:'https://www.rand.org/topics/middle-east.xml',               lang:'en', type:'think', score:3, geo:['Arab','Global'] },
-  { name:'Atlantic Council', url:'https://www.atlanticcouncil.org/feed/?post_type=post',      lang:'en', type:'think', score:2, geo:['Arab','Africa','Global'] },
-  { name:'Stimson Center',   url:'https://www.stimson.org/feed/',                             lang:'en', type:'think', score:2, geo:['Global'] },
-  // ── Analysis Media (English) ──
-  { name:'Middle East Eye',  url:'https://www.middleeasteye.net/rss',                         lang:'en', type:'media', score:3, geo:['Arab'] },
-  { name:'Al-Monitor',       url:'https://www.al-monitor.com/rss',                            lang:'en', type:'media', score:3, geo:['Arab'] },
-  { name:'African Arguments',url:'https://africanarguments.org/feed/',                        lang:'en', type:'media', score:3, geo:['Africa'] },
-  { name:'The Africa Report',url:'https://www.theafricareport.com/feed/',                     lang:'en', type:'media', score:2, geo:['Africa'] },
-  { name:'War on the Rocks', url:'https://warontherocks.com/feed/',                           lang:'en', type:'media', score:3, geo:['Global'] },
-  { name:'Foreign Policy',   url:'https://foreignpolicy.com/feed/',                           lang:'en', type:'media', score:3, geo:['Global'] },
-  { name:'Just Security',    url:'https://www.justsecurity.org/feed/',                        lang:'en', type:'media', score:2, geo:['Global'] },
-  { name:'Responsible SC',   url:'https://responsiblestatecraft.org/feed/',                   lang:'en', type:'media', score:2, geo:['Global'] },
-  { name:'Africa Confidential',url:'https://www.africa-confidential.com/rss',                 lang:'en', type:'media', score:3, geo:['Africa'] },
-  // ── Indie / Academic (English) ──
-  { name:'MERIP',            url:'https://merip.org/feed/',                                   lang:'en', type:'indie', score:3, geo:['Arab'] },
-  { name:'Jadaliyya',        url:'https://www.jadaliyya.com/rss',                             lang:'en', type:'indie', score:3, geo:['Arab'] },
-  { name:'Mada Masr (EN)',   url:'https://madamasr.com/en/feed/',                             lang:'en', type:'indie', score:3, geo:['Arab'] },
-  // ── French ──
-  { name:'Orient XXI',       url:'https://orientxxi.info/rss.xml',                            lang:'fr', type:'indie', score:3, geo:['Arab'] },
-  { name:'Jeune Afrique',    url:'https://www.jeuneafrique.com/feed/',                        lang:'fr', type:'media', score:2, geo:['Africa'] },
-  { name:'Le Monde Afrique', url:'https://www.lemonde.fr/afrique/rss_full.xml',               lang:'fr', type:'inst',  score:2, geo:['Africa'] },
-  { name:'Le Monde MO',      url:'https://www.lemonde.fr/moyen-orient/rss_full.xml',          lang:'fr', type:'inst',  score:2, geo:['Arab'] },
-  { name:'RFI Afrique',      url:'https://www.rfi.fr/fr/afrique/rss',                         lang:'fr', type:'inst',  score:2, geo:['Africa'] },
-  { name:'IFRI',             url:'https://www.ifri.org/fr/rss',                               lang:'fr', type:'think', score:3, geo:['Global'] },
-  { name:'Le Monde Diplo',   url:'https://www.monde-diplomatique.fr/rss/full',                lang:'fr', type:'indie', score:3, geo:['Global'] },
-  { name:'Slate Afrique',    url:'https://www.slateafrique.com/rss.xml',                      lang:'fr', type:'media', score:2, geo:['Africa'] },
-  // ── Arabic ──
-  { name:'تحليل الجزيرة',   url:'https://www.aljazeera.net/xml/rss/all.xml',                  lang:'ar', type:'inst',  score:2, geo:['Arab'] },
-  { name:'BBC عربي',         url:'https://feeds.bbci.co.uk/arabic/rss.xml',                   lang:'ar', type:'inst',  score:2, geo:['Arab'] },
-  { name:'العربي الجديد',    url:'https://www.alaraby.co.uk/rss',                             lang:'ar', type:'media', score:2, geo:['Arab'] },
-  { name:'القدس العربي',     url:'https://www.alquds.co.uk/feed/',                            lang:'ar', type:'media', score:2, geo:['Arab'] },
-  { name:'مدى مصر',          url:'https://madamasr.com/ar/feed/',                             lang:'ar', type:'indie', score:3, geo:['Arab'] },
-  { name:'حبر',              url:'https://www.7iber.com/feed/',                               lang:'ar', type:'indie', score:3, geo:['Arab'] },
-  { name:'المجلة',           url:'https://arb.majalla.com/feed/',                             lang:'ar', type:'media', score:2, geo:['Arab'] },
-  { name:'الشرق الأوسط',    url:'https://aawsat.com/rss',                                    lang:'ar', type:'media', score:2, geo:['Arab'] },
+  { name:'Crisis Group', url:'https://www.crisisgroup.org/rss.xml', lang:'en', type:'think', score:5, geo:['Arab','Africa','Global'], pubType:'report' },
+  { name:'Chatham House', url:'https://www.chathamhouse.org/rss.xml', lang:'en', type:'think', score:5, geo:['Arab','Africa','Global'], pubType:'think' },
+  { name:'Carnegie MEC', url:'https://carnegie-mec.org/rss/publications', lang:'en', type:'think', score:5, geo:['Arab'], pubType:'think' },
+  { name:'Brookings ME', url:'https://www.brookings.edu/topic/middle-east/feed/', lang:'en', type:'think', score:5, geo:['Arab'], pubType:'policy' },
+  { name:'CSIS Africa', url:'https://www.csis.org/programs/africa-program/feed', lang:'en', type:'think', score:5, geo:['Africa'], pubType:'report' },
+  { name:'Wilson Center', url:'https://www.wilsoncenter.org/rss.xml', lang:'en', type:'think', score:4, geo:['Global'], pubType:'think' },
+  { name:'ISS Africa', url:'https://issafrica.org/rss.xml', lang:'en', type:'think', score:5, geo:['Africa'], pubType:'report' },
+  { name:'RAND Corp', url:'https://www.rand.org/topics/middle-east.xml', lang:'en', type:'think', score:5, geo:['Arab','Global'], pubType:'report' },
+  { name:'Atlantic Council', url:'https://www.atlanticcouncil.org/feed/?post_type=post', lang:'en', type:'think', score:4, geo:['Arab','Africa','Global'], pubType:'policy' },
+  { name:'Stimson Center', url:'https://www.stimson.org/feed/', lang:'en', type:'think', score:4, geo:['Global'], pubType:'policy' },
+  { name:'War on the Rocks', url:'https://warontherocks.com/feed/', lang:'en', type:'think', score:4, geo:['Global'], pubType:'report' },
+  { name:'Foreign Affairs', url:'https://www.foreignaffairs.com/rss.xml', lang:'en', type:'think', score:5, geo:['Global'], pubType:'academic' },
+  { name:'MERIP', url:'https://merip.org/feed/', lang:'en', type:'academic', score:5, geo:['Arab'], pubType:'academic' },
+  { name:'Jadaliyya', url:'https://www.jadaliyya.com/rss', lang:'en', type:'academic', score:5, geo:['Arab'], pubType:'academic' },
+  { name:'Just Security', url:'https://www.justsecurity.org/feed/', lang:'en', type:'think', score:4, geo:['Global'], pubType:'policy' },
+  { name:'Responsible SC', url:'https://responsiblestatecraft.org/feed/', lang:'en', type:'think', score:4, geo:['Global'], pubType:'policy' },
+  { name:'Africa Confidential', url:'https://www.africa-confidential.com/rss', lang:'en', type:'think', score:5, geo:['Africa'], pubType:'report' },
+  { name:'African Arguments', url:'https://africanarguments.org/feed/', lang:'en', type:'think', score:4, geo:['Africa'], pubType:'report' },
+  { name:'The Africa Report', url:'https://www.theafricareport.com/feed/', lang:'en', type:'think', score:4, geo:['Africa'], pubType:'report' },
+  { name:'Al-Monitor Analysis', url:'https://www.al-monitor.com/rss', lang:'en', type:'think', score:4, geo:['Arab'], pubType:'report' },
+  // ── French Think Tanks ──
+  { name:'IFRI', url:'https://www.ifri.org/fr/rss', lang:'fr', type:'think', score:5, geo:['Global'], pubType:'think' },
+  { name:'Orient XXI', url:'https://orientxxi.info/rss.xml', lang:'fr', type:'academic', score:5, geo:['Arab'], pubType:'academic' },
+  { name:'Le Monde Diplo', url:'https://www.monde-diplomatique.fr/rss/full', lang:'fr', type:'think', score:5, geo:['Global'], pubType:'report' },
+  { name:'Jeune Afrique', url:'https://www.jeuneafrique.com/feed/', lang:'fr', type:'think', score:3, geo:['Africa'], pubType:'report' },
+  // ── Arabic Research ──
+  { name:'مدى مصر', url:'https://madamasr.com/ar/feed/', lang:'ar', type:'academic', score:5, geo:['Arab'], pubType:'report' },
+  { name:'حبر', url:'https://www.7iber.com/feed/', lang:'ar', type:'academic', score:5, geo:['Arab'], pubType:'academic' },
+  { name:'المجلة', url:'https://arb.majalla.com/feed/', lang:'ar', type:'think', score:3, geo:['Arab'], pubType:'report' },
 ];
 
-// GDELT queries — تُستخدم لتعزيز العدد عند الحاجة
+// ══ GDELT QUERIES — للتعزيز عند الحاجة ══
 const GDELT_QUERIES = [
-  { q:'arab world geopolitics analysis security',          lang:'en', geo:['Arab'] },
-  { q:'middle east diplomacy foreign policy analysis',     lang:'en', geo:['Arab'] },
-  { q:'africa geopolitics security analysis',              lang:'en', geo:['Africa'] },
-  { q:'sahel conflict security france russia',             lang:'en', geo:['Africa','Sahel'] },
-  { q:'north africa egypt algeria morocco politics',       lang:'en', geo:['Arab','North Africa'] },
-  { q:'gulf states saudi arabia qatar diplomacy',          lang:'en', geo:['Arab','Gulf'] },
-  { q:'horn of africa ethiopia somalia sudan conflict',    lang:'en', geo:['Africa','Horn'] },
-  { q:'west africa coup military nigeria ghana',           lang:'en', geo:['Africa','West Africa'] },
-  { q:'afrique géopolitique analyse sécurité',             lang:'fr', geo:['Africa'] },
-  { q:'monde arabe géopolitique diplomatie analyse',       lang:'fr', geo:['Arab'] },
-  { q:'sahel france russie wagner analyse',                lang:'fr', geo:['Africa','Sahel'] },
-  { q:'maghreb maroc algérie tunisie politique analyse',   lang:'fr', geo:['Arab','Maghreb'] },
+  { q:'think tank report arab world security strategy', lang:'en', geo:['Arab'] },
+  { q:'policy brief middle east diplomacy analysis', lang:'en', geo:['Arab'] },
+  { q:'africa security report think tank research', lang:'en', geo:['Africa'] },
+  { q:'sahel crisis report strategic analysis', lang:'en', geo:['Africa','Sahel'] },
+  { q:'north africa policy report egypt algeria morocco', lang:'en', geo:['Arab','North Africa'] },
+  { q:'gulf foreign policy research brief saudi qatar', lang:'en', geo:['Arab','Gulf'] },
+  { q:'horn africa conflict report ethiopia somalia sudan', lang:'en', geo:['Africa','Horn'] },
+  { q:'west africa stability report governance', lang:'en', geo:['Africa','West Africa'] },
+  { q:'rapport analyse politique afrique sécurité', lang:'fr', geo:['Africa'] },
+  { q:'analyse géopolitique monde arabe rapport', lang:'fr', geo:['Arab'] },
+  { q:'sahel rapport sécurité stratégie', lang:'fr', geo:['Africa','Sahel'] },
+  { q:'maghreb analyse politique rapport recherche', lang:'fr', geo:['Arab','Maghreb'] },
 ];
 
+// ══ QUALITY DOMAINS — فقط مراكز بحثية معترف بها ══
 const QUALITY_DOMAINS = new Set([
-  'middleeasteye.net','al-monitor.com','almonitor.com',
   'crisisgroup.org','chathamhouse.org','carnegie-mec.org','carnegieendowment.org',
   'brookings.edu','wilsoncenter.org','csis.org','issafrica.org',
-  'foreignpolicy.com','foreignaffairs.com',
+  'foreignaffairs.com','rand.org','stimson.org','atlanticcouncil.org',
   'warontherocks.com','merip.org','justsecurity.org','responsiblestatecraft.org',
   'africanarguments.org','theafricareport.com','africa-confidential.com',
   'orientxxi.info','monde-diplomatique.fr','ifri.org',
-  'jeuneafrique.com','slateafrique.com','rfi.fr','lemonde.fr',
-  'madamasr.com','7iber.com','jadaliyya.com',
-  'aljazeera.net','bbc.co.uk','bbc.com',
-  'alaraby.co.uk','alquds.co.uk','majalla.com','aawsat.com',
-  'rand.org','atlanticcouncil.org','stimson.org',
+  'jeuneafrique.com','madamasr.com','7iber.com','jadaliyya.com',
+  'al-monitor.com','almonitor.com','foreignpolicy.com',
+  'majalla.com','sipri.org','ecfr.eu','iiss.org',
+  'mei.edu','arabcenterdc.org','iai.it','swp-berlin.org'
 ]);
 
-// ═══ QUALITY / TOPIC SIGNALS ═══
-const ANALYSIS_SIGNALS_EN = ['analysis','opinion','explainer','in-depth','deep dive','long read','feature','report','policy brief','geopolit','strategy','strategic','diplomatic','intelligence','assessment','perspective','review','commentary','essay'];
-const ANALYSIS_SIGNALS_FR = ['analyse','opinion','décryptage','grand angle','reportage','géopolitique','stratégie','diplomatique','perspective','commentaire','éditorial','enquête','dossier'];
-const ANALYSIS_SIGNALS_AR = ['تحليل','رأي','تقرير','دراسة','مقال','استراتيج','دبلوماسي','قراءة','تقييم','موقف','منظور','وجهة نظر','عمق','مطول'];
-const NEWS_SIGNALS        = ['breaking','عاجل','live','مباشر','urgent','آخر لحظة','last minute','flash','just in','developing'];
-const EXCLUDE_SIGNALS     = ['sport','رياضة','football','كرة','celebrity','نجوم','horoscope','météo','weather','music','موسيقى','entertainment','ترفيه'];
+// ══ إشارات التحليل العميق فقط ══
+const ANALYSIS_SIGNALS_EN = [
+  'analysis','report','study','brief','paper','assessment','review',
+  'policy brief','working paper','research','findings','implications',
+  'geopolit','strategic','diplomatic','intelligence','perspective',
+  'commentary','essay','in-depth','examination','investigation',
+  'backgrounder','explainer','white paper','monograph'
+];
+const ANALYSIS_SIGNALS_FR = [
+  'analyse','rapport','étude','note','document','évaluation','revue',
+  'géopolitique','stratégique','diplomatique','recherche','résultats',
+  'politique étrangère','commentaire','examen','enquête','dossier','décryptage'
+];
+const ANALYSIS_SIGNALS_AR = [
+  'تحليل','تقرير','دراسة','ورقة','تقييم','مراجعة','بحث','نتائج',
+  'استراتيج','دبلوماسي','قراءة','وجهة نظر','منظور','موقف','تقدير الموقف',
+  'ورقة بحثية','ورقة سياسات','تحليل معمق'
+];
 
+// ══ إشارات الاستبعاد (أخبار يومية) ══
+const NEWS_SIGNALS = [
+  'breaking','urgent','عاجل','مباشر','live','last minute','flash','just in',
+  'آخر لحظة','developing','تطورات عاجلة'
+];
+
+// ══ إشارات استبعاد المحتوى غير البحثي ══
+const EXCLUDE_SIGNALS = [
+  'sport','رياضة','football','كرة','celebrity','نجوم','music','موسيقى',
+  'horoscope','météo','weather','entertainment','ترفيه','obituary','نعي',
+  'recipe','وصفة','fashion','أزياء','gossip'
+];
+
+// ══ الخريطة الجغرافية ══
 const GEO_MAP = {
-  Arab:         ['arab','عرب','مصر','egypt','algeri','الجزائر','morocco','maroc','المغرب','tunisi','تونس','liby','ليبيا','saudi','السعودية','iraq','العراق','syria','سوريا','yemen','اليمن','jordan','الأردن','lebanon','لبنان','sudan','السودان','palestine','فلسطين','kuwait','الكويت','qatar','قطر','uae','إمارات','bahrain','البحرين','oman','عُمان','middle east','moyen.orient','مشرق','شرق أوسط','djibouti','gulf','خليج','mena','mashreq','levant','maghreb'],
-  Africa:       ['afric','أفريق','nigeria','نيجيريا','kenya','كينيا','ethiopia','إثيوبيا','tanzania','تنزانيا','ghana','angola','الكونغو','mali','مالي','cameroon','senegal','السنغال','south africa','جنوب أفريقيا','uganda','rwanda','burkina','بوركينا','niger','نيجر','chad','تشاد','guinea','غينيا','ivory coast',"côte d'ivoire",'liberia','west africa','continent africain'],
-  Maghreb:      ['algeri','algérie','الجزائر','morocco','maroc','المغرب','tunisi','تونس','liby','ليبيا','mauritani','موريتانيا','maghreb','مغرب'],
-  Gulf:         ['saudi','السعودية','qatar','قطر','uae','الإمارات','kuwait','الكويت','bahrain','البحرين','oman','عُمان','gulf','خليج'],
-  Levant:       ['syria','سوريا','lebanon','لبنان','jordan','الأردن','palestine','فلسطين','iraq','العراق','levant','مشرق'],
-  Sahel:        ['sahel','ساحل','mali','مالي','burkina','بوركينا','niger','نيجر','chad','تشاد','mauritania','موريتانيا'],
-  Horn:         ['ethiopia','إثيوبيا','somalia','الصومال','eritrea','إريتريا','djibouti','جيبوتي','sudan','السودان','south sudan','جنوب السودان','horn of africa','القرن الأفريقي'],
-  'North Africa':['egypt','مصر','libya','ليبيا','tunisia','تونس','algeria','الجزائر','morocco','المغرب','north afric','شمال أفريقيا'],
+  Arab: ['arab','عرب','مصر','egypt','algeri','الجزائر','maroc','morocco','المغرب','tunisi','تونس','liby','ليبيا','audi','السعودية','iraq','العراق','syria','سوريا','yemen','اليمن','jordan','الأردن','lebanon','لبنان','palestine','فلسطين','kuwait','الكويت','qatar','قطر','uae','إمارات','bahrain','البحرين','oman','عمان','sudan','السودان','middle east','moyen.orient','mena','mashreq','levant','maghreb','خليج','gulf','أوسط'],
+  Africa: ['afric','أفريق','nigeria','نيجيريا','kenya','كينيا','ethiopia','إثيوبيا','tanzania','تنزانيا','angola','ghana','mali','مالي','congo','الكونغو','south africa','السنغال','senegal','cameroon','burkina','بوركينا','uganda','rwanda','niger','نيجر','chad','تشاد','guinea','غينيا','ivory coast',"côte d'ivoire",'liberia','west africa','continent africain'],
+  Maghreb: ['algeri','algérie','الجزائر','maroc','morocco','المغرب','tunisi','تونس','liby','ليبيا','mauritani','موريتانيا','maghreb','مغرب'],
+  Gulf: ['saudi','السعودية','qatar','قطر','uae','الإمارات','kuwait','الكويت','bahrain','البحرين','oman','عمان','gulf','خليج'],
+  Levant: ['syria','سوريا','lebanon','لبنان','jordan','الأردن','palestine','فلسطين','iraq','العراق','levant','مشرق'],
+  Sahel: ['sahel','ساحل','mali','مالي','burkina','بوركينا','niger','نيجر','chad','تشاد','mauritania','موريتانيا'],
+  Horn: ['ethiopia','إثيوبيا','somalia','الصومال','eritrea','إريتريا','djibouti','جيبوتي','sudan','السودان','south sudan','القرن الأفريقي','horn of africa'],
+  'North Africa': ['egypt','مصر','algeria','الجزائر','tunisia','تونس','libya','ليبيا','morocco','المغرب','north afric','شمال أفريقيا'],
   'West Africa': ['nigeria','نيجيريا','senegal','السنغال','ghana','mali','ivory coast',"côte d'ivoire",'burkina','guinea','غينيا','liberia','west afric','غرب أفريقيا'],
+  'East Africa': ['kenya','كينيا','tanzania','تنزانيا','uganda','ethiopia','إثيوبيا','rwanda','east afric','شرق أفريقيا'],
 };
 
 const TOPIC_MAP = [
-  [/secur|conflict|war|armed|militia|حرب|صراع|أمن|جيش|guerre|conflit|armé/i,                'Security'],
-  [/diplomacy|diplomat|negoti|talks|peace|treaty|دبلوماس|مفاوض|سلام|معاهد|diplomatie|négoc/i,'Diplomacy'],
-  [/election|vote|ballot|انتخاب|اقتراع|élection|scrutin/i,                                   'Elections'],
-  [/economy|economic|gdp|trade|sanction|اقتصاد|اقتصادي|économi|commerce/i,                   'Economy'],
-  [/energy|oil|gas|pipeline|طاقة|نفط|غاز|énergie|pétrole/i,                                 'Energy'],
-  [/migrat|refugee|asylum|هجرة|لاجئ|مهاجر|réfugié/i,                                        'Migration'],
-  [/democra|governance|civil society|ديمقراط|حوكمة|مجتمع مدني|démocratie/i,                 'Democracy'],
-  [/islam|jihad|islamist|إسلام|جهاد|إسلامي|islamisme/i,                                     'Islamism'],
-  [/human rights|droits|حقوق الإنسان|freedom|liberté/i,                                      'Human Rights'],
-  [/climate|environment|drought|مناخ|بيئة|جفاف|climat|environnement/i,                       'Climate'],
-  [/russia|wagner|روسيا|فاغنر|russie/i,                                                      'Russia'],
-  [/china|beijing|الصين|بكين|chine/i,                                                        'China'],
-  [/united states|america|washington|أمريكا|واشنطن|états.unis/i,                             'US'],
+  [/secur|conflict|war|armed|militia|جيش|أمن|صراع|حرب|guerre|conflit|armé/i, 'Security'],
+  [/diplomacy|diplomat|negoti|talks|peace|treaty|دبلوماس|مفاوض|سلام|معاهد|diplomatie|négoc/i, 'Diplomacy'],
+  [/election|vote|ballot|انتخاب|اقتراع|élection|scrutin/i, 'Elections'],
+  [/economy|economic|gdp|trade|sanction|اقتصاد|اقتصادي|économi|commerce/i, 'Economy'],
+  [/energy|oil|gas|pipeline|طاقة|نفط|غاز|énergie|pétrole/i, 'Energy'],
+  [/migrat|refugee|asylum|هجرة|لاجئ|مهاجر|réfugié/i, 'Migration'],
+  [/democra|governance|civil society|ديمقراط|حوكمة|مجتمع مدني|démocratie/i, 'Democracy'],
+  [/islam|jihad|islamist|إسلام|جهاد|إسلامي|islamisme/i, 'Islamism'],
+  [/human rights|droits|حقوق الإنسان|freedom|liberté/i, 'Human Rights'],
+  [/climate|environment|drought|مناخ|بيئة|جفاف|climat|environnement/i, 'Climate'],
+  [/russia|wagner|روسيا|فاغنر|russie/i, 'Russia'],
+  [/china|beijing|الصين|بكين|chine/i, 'China'],
+  [/united states|america|washington|أمريكا|واشنطن|états.unis/i, 'US'],
 ];
 
-// ═══ HELPERS ═══
+// ══ HELPERS ══
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-
-function esc(s) {
-  const d = document.createElement('div');
-  d.textContent = s || '';
-  return d.innerHTML;
-}
+function esc(s) { const d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
 const escAttr = s => esc(s).replace(/"/g,'&quot;');
-
-function stripHTML(html) {
-  const d = document.createElement('div');
-  d.innerHTML = html || '';
-  return d.textContent || d.innerText || '';
-}
-
+function stripHTML(html) { const d = document.createElement('div'); d.innerHTML = html||''; return d.textContent || d.innerText || ''; }
 function fmtDate(str) {
   if (!str) return '';
   try {
-    const d  = new Date(str);
+    const d = new Date(str);
     if (isNaN(d.getTime())) return '';
     const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     return `${d.getDate()} ${mo[d.getMonth()]} ${d.getFullYear()}`;
   } catch(e) { return ''; }
 }
-
 function fmtDateTime() {
-  const d  = new Date();
+  const d = new Date();
   const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   return `${d.getDate()} ${mo[d.getMonth()]} ${d.getFullYear()}, ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 }
-
 function daysAgo(str) {
   if (!str) return '';
-  const pub  = new Date(str);
+  const pub = new Date(str);
   if (isNaN(pub.getTime())) return '';
-  const h    = Math.floor((Date.now() - pub.getTime()) / (1000*60*60));
+  const h = Math.floor((Date.now() - pub.getTime()) / (1000*60*60));
   const diff = Math.floor(h / 24);
-  if (h < 1)   return 'منذ قليل';
-  if (h < 6)   return `منذ ${h} ساعات`;
-  if (h < 24)  return 'اليوم';
-  if (diff===1) return 'أمس';
+  if (h < 1) return 'منذ قليل';
+  if (h < 6) return `منذ ${h} ساعات`;
+  if (h < 24) return 'اليوم';
+  if (diff === 1) return 'أمس';
   if (diff < 7) return `منذ ${diff} أيام`;
   return fmtDate(str);
 }
-
-const daysDiff = str => {
-  if (!str) return 999;
-  const p = new Date(str);
-  return isNaN(p.getTime()) ? 999 : Math.floor((Date.now()-p.getTime())/(1000*60*60*24));
-};
-const hoursAgo = str => {
-  if (!str) return 9999;
-  const p = new Date(str);
-  return isNaN(p.getTime()) ? 9999 : Math.floor((Date.now()-p.getTime())/(1000*60*60));
-};
-const isWithinWeek = str => {
-  if (!str) return false;
-  const p = new Date(str);
-  return !isNaN(p.getTime()) && (Date.now()-p.getTime()) <= CFG.maxAgeMs;
-};
+const daysDiff = str => { if (!str) return 999; const p = new Date(str); return isNaN(p.getTime()) ? 999 : Math.floor((Date.now()-p.getTime())/(1000*60*60*24)); };
+const hoursAgo = str => { if (!str) return 9999; const p = new Date(str); return isNaN(p.getTime()) ? 9999 : Math.floor((Date.now()-p.getTime())/(1000*60*60)); };
+const isWithinWeek = str => { if (!str) return false; const p = new Date(str); return !isNaN(p.getTime()) && (Date.now()-p.getTime()) <= CFG.maxAgeMs; };
 
 function detectLang(text) {
   if (!text) return 'en';
   if (/[\u0600-\u06FF]/.test(text)) return 'ar';
-  if (/[àâéèêëïîôùûüÿçœæ]/i.test(text) ||
-      /\b(le|la|les|du|des|une?|et|ou|dans|pour|analyse|afrique|monde)\b/i.test(text))
-    return 'fr';
+  if (/[àâéèêëïîôùûüÿçœæ]/i.test(text) || /\b(le|la|les|du|des|une?|et|ou|dans|pour|analyse|afrique|monde)\b/i.test(text)) return 'fr';
   return 'en';
 }
-
 function detectGeoFromText(title, desc) {
   const t = ((title||'')+' '+(desc||'')).toLowerCase();
-  return [...new Set(
-    Object.entries(GEO_MAP)
-      .filter(([,kws]) => kws.some(kw => t.includes(kw.toLowerCase())))
-      .map(([r]) => r)
-  )];
+  return [...new Set(Object.entries(GEO_MAP).filter(([,kws]) => kws.some(kw => t.includes(kw.toLowerCase()))).map(([r]) => r))];
 }
-
 function detectTopics(title, desc) {
   const t = ((title||'')+' '+(desc||'')).toLowerCase();
   const topics = [];
-  for (const [rx, label] of TOPIC_MAP)
-    if (rx.test(t) && !topics.includes(label)) topics.push(label);
+  for (const [rx, label] of TOPIC_MAP) if (rx.test(t) && !topics.includes(label)) topics.push(label);
   return topics.slice(0,4);
 }
 
+// ══ تقييم جودة البحثية — صارم جداً ══
 function qualityScore(article, sourceScore) {
   const text = ((article.title||'')+' '+(article.description||'')).toLowerCase();
-  let score  = sourceScore || 0;
-  if (EXCLUDE_SIGNALS.some(s => text.includes(s)))    return -99;
-  if (NEWS_SIGNALS.some(s => text.includes(s)))        score -= 3;
-  const allSig = [...ANALYSIS_SIGNALS_EN,...ANALYSIS_SIGNALS_FR,...ANALYSIS_SIGNALS_AR];
-  score += Math.min(allSig.filter(s=>text.includes(s)).length * 1.5, 4);
+  let score = sourceScore || 0;
+
+  // استبعاد فوري
+  if (EXCLUDE_SIGNALS.some(s => text.includes(s))) return -99;
+  if (NEWS_SIGNALS.some(s => text.includes(s))) score -= 5;
+
+  // مكافأة إشارات البحث العميق
+  const allSig = [...ANALYSIS_SIGNALS_EN, ...ANALYSIS_SIGNALS_FR, ...ANALYSIS_SIGNALS_AR];
+  score += Math.min(allSig.filter(s => text.includes(s)).length * 2, 6);
+
+  // مكافأة الوصف الطويل (يشير لعمق المحتوى)
+  const descLen = (article.description||'').length;
+  if (descLen > 300) score += 2;
+  else if (descLen > 150) score += 1;
+  else if (descLen < CFG.minDescLen) score -= 3;
+
+  // مكافأة الصلة الجغرافية
   const geos = detectGeoFromText(article.title, article.description);
   if (geos.length === 0) score -= 2; else score += 1;
-  if ((article.description||'').length > 200) score += 1;
-  if ((article.description||'').length < CFG.minDescLen) score -= 2;
+
   return score;
 }
 
@@ -938,7 +818,6 @@ function extractImageFromHTML(html) {
   const m = html.match(/<img[^>]+src=["']([^"']+)["']/i);
   return m ? m[1] : '';
 }
-
 function extractLink(item, isAtom) {
   if (isAtom) {
     const alt = item.querySelector('link[rel="alternate"]');
@@ -957,65 +836,50 @@ function extractLink(item, isAtom) {
   return item.querySelector('guid')?.textContent.trim() || '';
 }
 
-// ═══ RSS PARSER ═══
+// ══ RSS PARSER ══
 function parseRSSXML(xmlText) {
   try {
     const parser = new DOMParser();
-    const doc    = parser.parseFromString(xmlText, 'text/xml');
+    const doc = parser.parseFromString(xmlText, 'text/xml');
     if (doc.querySelector('parsererror')) return [];
     const isAtom = !!doc.querySelector('feed');
     return [...doc.querySelectorAll(isAtom?'entry':'item')].map(item => {
-      const gT = (...sels) => {
-        for (const s of sels) {
-          try { const el=item.querySelector(s); if(el?.textContent?.trim()) return el.textContent.trim(); } catch(e){}
-        }
-        return '';
-      };
-      const gA = (sel,attr) => { try{ return item.querySelector(sel)?.getAttribute(attr)||''; }catch(e){ return ''; } };
-      const rawDesc   = gT('description','summary','content','content\\:encoded');
-      const image     = gA('media\\:content','url')||gA('media\\:thumbnail','url')||gA('enclosure','url')||extractImageFromHTML(rawDesc)||'';
-      return {
-        title:       gT('title'),
-        link:        extractLink(item,isAtom),
-        description: stripHTML(rawDesc).substring(0,500),
-        pubDate:     gT('pubDate','published','updated','dc\\:date','date'),
-        author:      gT('author name','dc\\:creator','author','creator'),
-        image,
-      };
+      const gT = (...sels) => { for (const s of sels) { try { const el=item.querySelector(s); if(el?.textContent?.trim()) return el.textContent.trim(); } catch(e) {} } return ''; };
+      const gA = (sel,attr) => { try { return item.querySelector(sel)?.getAttribute(attr)||''; } catch(e) { return ''; } };
+      const rawDesc = gT('description','summary','content','content\\:encoded');
+      const image = gA('media\\:content','url')||gA('media\\:thumbnail','url')||gA('enclosure','url')||extractImageFromHTML(rawDesc);
+      return { title: gT('title'), link: extractLink(item,isAtom), description: stripHTML(rawDesc).substring(0,600), pubDate: gT('pubDate','published','updated','dc\\:date','date'), author: gT('author name','dc\\:creator','author','creator'), image };
     }).filter(a => a.title && a.link);
   } catch(e) { return []; }
 }
 
-// ═══ FETCH VIA rss2json ═══
+// ══ FETCH VIA rss2json ══
 async function fetchViaRSS2JSON(url) {
   try {
-    const u    = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&count=20`;
+    const u = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&count=20`;
     const resp = await fetch(u, { signal: AbortSignal.timeout(10000) });
     if (!resp.ok) throw new Error('HTTP');
     const data = await resp.json();
     if (data.status !== 'ok') throw new Error('status');
     return (data.items||[]).map(item => ({
-      title:       item.title||'',
-      link:        item.link||item.guid||'',
-      description: stripHTML(item.description||item.content||'').substring(0,500),
-      pubDate:     item.pubDate||'',
-      author:      item.author||'',
-      image:       item.thumbnail||extractImageFromHTML(item.description||'')||'',
+      title: item.title||'', link: item.link||item.guid||'',
+      description: stripHTML(item.description||item.content||'').substring(0,600),
+      pubDate: item.pubDate||'', author: item.author||'',
+      image: item.thumbnail||extractImageFromHTML(item.description||'')
     })).filter(a => a.title && a.link);
   } catch(e) { return null; }
 }
 
-// ═══ FETCH VIA allorigins ═══
 async function fetchViaAllOrigins(url) {
   try {
-    const u    = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+    const u = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
     const resp = await fetch(u, { signal: AbortSignal.timeout(12000) });
     if (!resp.ok) throw new Error('HTTP');
     return parseRSSXML(await resp.text());
   } catch(e) { return null; }
 }
 
-// ═══ FETCH ONE SOURCE — بحد 5 مقالات ═══
+// ══ FETCH ONE SOURCE ══
 async function fetchSource(source) {
   let items = await fetchViaRSS2JSON(source.url);
   if (!items) items = await fetchViaAllOrigins(source.url);
@@ -1024,46 +888,38 @@ async function fetchSource(source) {
   const articles = [];
   for (const item of items) {
     if (!item.title || !item.link) continue;
-    if (!isWithinWeek(item.pubDate))  continue;
-    const lang   = source.lang || detectLang(item.title);
-    const geos   = detectGeoFromText(item.title, item.description);
-    const topics = detectTopics(item.title, item.description);
+    if (!isWithinWeek(item.pubDate)) continue;
     const qScore = qualityScore(item, source.score||1);
     if (qScore < CFG.minQuality) continue;
+    const lang = source.lang || detectLang(item.title);
+    const geos = detectGeoFromText(item.title, item.description);
+    const topics = detectTopics(item.title, item.description);
     articles.push({
-      id:           item.link,
-      title:        item.title,
-      link:         item.link,
-      description:  item.description||'',
-      pubDate:      item.pubDate||new Date().toISOString(),
-      author:       item.author||'',
-      image:        item.image||'',
-      language:     lang,
-      sourceName:   source.name,
-      sourceType:   source.type||'media',
-      sourceGeo:    source.geo||[],
-      geos,
-      topics,
-      qualityScore: qScore,
-      fetchedAt:    Date.now(),
+      id: item.link, title: item.title, link: item.link,
+      description: item.description||'',
+      pubDate: item.pubDate||new Date().toISOString(),
+      author: item.author||'', image: item.image||'',
+      language: lang, sourceName: source.name,
+      sourceType: source.type||'think',
+      pubType: source.pubType||'report',
+      sourceGeo: source.geo||[], geos, topics,
+      qualityScore: qScore, fetchedAt: Date.now()
     });
-    // ← حد 5 مقالات لكل مصدر
     if (articles.length >= CFG.maxPerSource) break;
   }
   return articles;
 }
 
-// ═══ FETCH GDELT — بحد 5 نتائج لكل استعلام ═══
+// ══ GDELT FETCH ══
 async function fetchGDELT(queryObj) {
   try {
     const sevenDaysAgo = new Date(Date.now() - 7*24*60*60*1000);
-    const startDate    = sevenDaysAgo.toISOString().slice(0,10).replace(/-/g,'') + '000000';
+    const startDate = sevenDaysAgo.toISOString().slice(0,10).replace(/-/g,'') + '000000';
     const params = new URLSearchParams({
       query: queryObj.q, timespan:'7d', mode:'artlist',
-      maxrecords:'15', format:'json', STARTDATETIME: startDate,
+      maxrecords:'15', format:'json', STARTDATETIME: startDate
     });
-    const resp = await fetch(`https://api.gdeltproject.org/api/v2/doc/doc?${params}`,
-      { signal: AbortSignal.timeout(10000) });
+    const resp = await fetch(`https://api.gdeltproject.org/api/v2/doc/doc?${params}`, { signal: AbortSignal.timeout(10000) });
     if (!resp.ok) return [];
     const data = await resp.json();
     const articles = [];
@@ -1076,35 +932,31 @@ async function fetchGDELT(queryObj) {
         pubDate = `${s.substr(0,4)}-${s.substr(4,2)}-${s.substr(6,2)}T${s.substr(9,2)}:${s.substr(11,2)}:00Z`;
       }
       if (!isWithinWeek(pubDate)) continue;
-      const lang   = queryObj.lang || detectLang(item.title||'');
-      const geos   = [...new Set([...(queryObj.geo||[]),...detectGeoFromText(item.title,'')])];
+      const lang = queryObj.lang || detectLang(item.title||'');
+      const geos = [...new Set([...(queryObj.geo||[]),...detectGeoFromText(item.title,'')])];
       articles.push({
         id: item.url, title: item.title, link: item.url,
         description: '', pubDate, author: '', image: item.socialimage||'',
-        language: lang,
-        sourceName:  domain.replace('www.',''),
-        sourceType:  'media',
-        sourceGeo:   queryObj.geo||['Global'],
-        geos, topics: detectTopics(item.title,''),
-        qualityScore: 2, fetchedAt: Date.now(),
+        language: lang, sourceName: domain.replace('www.',''),
+        sourceType: 'think', pubType: 'report',
+        sourceGeo: queryObj.geo||['Global'], geos,
+        topics: detectTopics(item.title,''), qualityScore: 3, fetchedAt: Date.now()
       });
-      // ← حد 5 لكل استعلام GDELT
       if (articles.length >= CFG.maxPerSource) break;
     }
     return articles;
   } catch(e) { return []; }
 }
 
-// ═══ DEDUPLICATION ═══
+// ══ DEDUPLICATION ══
 function dedup(articles) {
-  const seenUrls   = new Set();
+  const seenUrls = new Set();
   const seenTitles = [];
-  const out        = [];
+  const out = [];
   for (const a of articles) {
     const url = (a.link||'').split('?')[0];
     if (seenUrls.has(url)) continue;
-    const norm = (a.title||'').toLowerCase()
-      .replace(/[^\w\s\u0600-\u06FF]/g,' ').replace(/\s+/g,' ').trim().substring(0,60);
+    const norm = (a.title||'').toLowerCase().replace(/[^\w\s\u0600-\u06FF]/g,' ').replace(/\s+/g,' ').trim().substring(0,60);
     if (!norm || norm.length < 5) continue;
     let dup = false;
     for (const et of seenTitles) {
@@ -1123,152 +975,74 @@ function dedup(articles) {
   return out;
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-// MAIN FETCH ENGINE
-// الاستراتيجية:
-//   1. جلب كل المصادر (5 مقالات من كل مصدر)
-//   2. إذا النتيجة < 50 → جلب GDELT لتعويض الفارق
-//   3. إذا لا تزال < 50 → توسيع نافذة البحث (لا تطبق حد الجودة)
-// ═══════════════════════════════════════════════════════════════════════
+// ══ MAIN FETCH ENGINE ══
 async function fetchAll() {
   if (isUpdating) return;
   isUpdating = true;
   activeSources.clear();
   const prevCount = ALL_ARTICLES.length;
-
   document.getElementById('pbar').style.display = 'block';
   document.getElementById('rBtn').disabled = true;
   document.getElementById('minWarn').classList.remove('show');
-
   if (ALL_ARTICLES.length === 0) {
-    document.getElementById('grid').innerHTML = `
-      <div class="loader">
-        <div class="spinner-ring"></div>
-        <p>جاري جلب التحاليل الجيوسياسية...</p>
-        <small>نبحث في ${SOURCES.length} مصدر • 5 مقالات من كل مصدر • هدف: 50+ مقالاً</small>
-      </div>`;
+    document.getElementById('grid').innerHTML = `<div class="loader"><div class="spinner-ring"></div><p>جاري جلب التقارير والدراسات البحثية...</p><small>نبحث في ${SOURCES.length} مصدر بحثي — 5 دراسات من كل مصدر — هدف: +50</small></div>`;
   }
 
   const newArticles = [];
-
-  // ── المرحلة 1: جلب جميع المصادر (5 لكل واحد) ──
-  const total1 = SOURCES.length;
   for (let i = 0; i < SOURCES.length; i++) {
     const source = SOURCES[i];
-    const pct    = Math.round(((i+1)/total1) * 60); // 0→60%
-    document.getElementById('pfill').style.width = pct+'%';
-    document.getElementById('ptxt').textContent  = `${pct}% — RSS: ${source.name}`;
+    const pct = Math.round(((i+1)/SOURCES.length) * 60);
+    document.getElementById('pfill').style.width = pct + '%';
+    document.getElementById('ptxt').textContent = `${pct}% — جلب: ${source.name}`;
     try {
       const results = await fetchSource(source);
-      if (results.length > 0) {
-        newArticles.push(...results);
-        activeSources.add(source.name);
-      }
+      if (results.length > 0) { newArticles.push(...results); activeSources.add(source.name); }
     } catch(e) {}
     await sleep(300);
   }
 
-  // دمج مؤقت لقياس العدد الحالي
-  const now      = Date.now();
+  const now = Date.now();
   const freshOld = ALL_ARTICLES.filter(a => (now-new Date(a.pubDate).getTime()) <= CFG.maxAgeMs);
-  let combined   = dedup([...freshOld, ...newArticles]);
+  let combined = dedup([...freshOld, ...newArticles]);
 
-  // ── المرحلة 2: إذا < 50 → جلب GDELT ──
+  // المرحلة 2: GDELT
   if (combined.length < CFG.minTotal) {
     document.getElementById('minWarn').classList.add('show');
-    document.getElementById('ptxt').textContent = `عدد المقالات ${combined.length} < 50 — جاري جلب GDELT...`;
-
     const gdeltArticles = [];
     for (let i = 0; i < GDELT_QUERIES.length; i++) {
-      if (combined.length + gdeltArticles.length >= CFG.minTotal + 20) break; // هامش
-      const q   = GDELT_QUERIES[i];
+      if (combined.length + gdeltArticles.length >= CFG.minTotal + 20) break;
+      const q = GDELT_QUERIES[i];
       const pct = 60 + Math.round(((i+1)/GDELT_QUERIES.length)*35);
-      document.getElementById('pfill').style.width = pct+'%';
-      document.getElementById('ptxt').textContent  = `${pct}% — GDELT: "${q.q.substring(0,35)}..."`;
+      document.getElementById('pfill').style.width = pct + '%';
+      document.getElementById('ptxt').textContent = `${pct}% — GDELT: "${q.q.substring(0,35)}"...`;
       try {
         const results = await fetchGDELT(q);
-        if (results.length > 0) {
-          gdeltArticles.push(...results);
-          activeSources.add('GDELT');
-        }
+        if (results.length > 0) { gdeltArticles.push(...results); activeSources.add('GDELT'); }
       } catch(e) {}
       await sleep(700);
     }
     combined = dedup([...combined, ...gdeltArticles]);
   }
 
-  // ── المرحلة 3: إذا لا تزال < 50 → تخفيف معيار الجودة ──
-  if (combined.length < CFG.minTotal) {
-    document.getElementById('ptxt').textContent = `تخفيف معيار الجودة للوصول إلى 50...`;
-    // إعادة جلب المصادر ذات الدرجة 2 بمعيار أقل صرامة
-    const extra = [];
-    for (const source of SOURCES.filter(s => s.score >= 2)) {
-      if (combined.length + extra.length >= CFG.minTotal + 10) break;
-      try {
-        let items = await fetchViaRSS2JSON(source.url);
-        if (!items) items = await fetchViaAllOrigins(source.url);
-        if (!items) continue;
-        let added = 0;
-        for (const item of items) {
-          if (!item.title || !item.link) continue;
-          if (!isWithinWeek(item.pubDate)) continue;
-          if (EXCLUDE_SIGNALS.some(s => ((item.title||'')+(item.description||'')).toLowerCase().includes(s))) continue;
-          // لا نستبعد بناء على درجة الجودة هنا
-          const lang   = source.lang || detectLang(item.title);
-          const geos   = detectGeoFromText(item.title, item.description);
-          const topics = detectTopics(item.title, item.description);
-          extra.push({
-            id: item.link, title: item.title, link: item.link,
-            description: item.description||'', pubDate: item.pubDate||new Date().toISOString(),
-            author: item.author||'', image: item.image||'',
-            language: lang, sourceName: source.name,
-            sourceType: source.type||'media', sourceGeo: source.geo||[],
-            geos, topics, qualityScore: 0, fetchedAt: Date.now(),
-          });
-          added++;
-          if (added >= CFG.maxPerSource) break;
-        }
-      } catch(e) {}
-      await sleep(200);
-    }
-    combined = dedup([...combined, ...extra]);
-  }
-
   ALL_ARTICLES = combined;
   ALL_ARTICLES.sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate));
   saveCache();
-
   document.getElementById('pfill').style.width = '100%';
   document.getElementById('minWarn').classList.remove('show');
   await sleep(300);
   document.getElementById('pbar').style.display = 'none';
   document.getElementById('rBtn').disabled = false;
   isUpdating = false;
-
   const added = ALL_ARTICLES.length - prevCount;
-  updateStats();
-  filterArticles();
-  updateTime();
-  updateFreshnessBar();
-
-  if (ALL_ARTICLES.length < CFG.minTotal) {
-    showNotif(`⚠ تم جلب ${ALL_ARTICLES.length} مقالاً فقط — قد تكون بعض المصادر غير متاحة`);
-  } else {
-    if (added > 0 && prevCount > 0) showNotif(`✓ تمت إضافة ${added} تحليل جديد`);
-  }
+  updateStats(); filterArticles(); updateTime(); updateFreshnessBar();
+  if (ALL_ARTICLES.length < CFG.minTotal) showNotif(`⚠ تم جلب ${ALL_ARTICLES.length} دراسة فقط — قد تكون بعض المصادر غير متاحة`);
+  else if (added > 0 && prevCount > 0) showNotif(`✓ تمت إضافة ${added} دراسة جديدة`);
 }
 
-// ═══ CACHE ═══
+// ══ CACHE ══
 function saveCache() {
-  try {
-    localStorage.setItem(CFG.cacheKey, JSON.stringify({
-      articles:  ALL_ARTICLES,
-      timestamp: Date.now(),
-      sources:   [...activeSources],
-    }));
-  } catch(e) {}
+  try { localStorage.setItem(CFG.cacheKey, JSON.stringify({ articles: ALL_ARTICLES, timestamp: Date.now(), sources: [...activeSources] })); } catch(e) {}
 }
-
 function loadCache() {
   try {
     const raw = localStorage.getItem(CFG.cacheKey);
@@ -1276,22 +1050,19 @@ function loadCache() {
     const cache = JSON.parse(raw);
     if (!cache?.articles?.length) return null;
     const now = Date.now();
-    cache.articles = cache.articles.filter(a =>
-      (now-new Date(a.pubDate).getTime()) <= CFG.maxAgeMs
-    );
+    cache.articles = cache.articles.filter(a => (now-new Date(a.pubDate).getTime()) <= CFG.maxAgeMs);
     if (cache.sources) cache.sources.forEach(s => activeSources.add(s));
     return cache;
   } catch(e) { return null; }
 }
 
-// ═══ FRESHNESS BAR ═══
+// ══ FRESHNESS BAR ══
 function updateFreshnessBar() {
   const count = ALL_ARTICLES.length;
-  document.getElementById('weekCount').textContent =
-    count ? `${count} تحليل متاح ${count >= CFG.minTotal ? '✓' : '⚠ أقل من 50'}` : '';
+  document.getElementById('weekCount').textContent = count ? `${count >= CFG.minTotal ? '✓' : '⚠'} ${count} دراسة متاحة` : '';
 }
 
-// ═══ FILTERS ═══
+// ══ FILTERS ══
 function setDayFilter(day, btn) {
   currentDayFilter = day;
   document.querySelectorAll('.day-marker').forEach(b => b.className='day-marker');
@@ -1299,7 +1070,13 @@ function setDayFilter(day, btn) {
   if (day===0 && btn) btn.classList.add('today');
   filterArticles();
 }
-
+function setPubType(type, btn) {
+  currentPubType = type;
+  document.querySelectorAll('.type-btn').forEach(b => b.className='type-btn');
+  if (type==='all') btn.classList.add('active');
+  else btn.classList.add('active-'+type);
+  filterArticles();
+}
 function setLang(lang, btn) {
   currentLang = lang;
   document.querySelectorAll('.fbtn').forEach(b => b.className='fbtn');
@@ -1311,180 +1088,163 @@ function setLang(lang, btn) {
 function filterArticles() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   const region = document.getElementById('regionSel').value;
-  const topic  = document.getElementById('topicSel').value;
-  const sort   = document.getElementById('sortSel').value;
+  const topic = document.getElementById('topicSel').value;
+  const sort = document.getElementById('sortSel').value;
 
   let list = ALL_ARTICLES.filter(a => {
     if (!isWithinWeek(a.pubDate)) return false;
     if (currentLang !== 'all' && a.language !== currentLang) return false;
     if (currentDayFilter !== null && daysDiff(a.pubDate) !== currentDayFilter) return false;
+    if (currentPubType !== 'all' && a.pubType !== currentPubType) return false;
     if (region) {
       const g = [...(a.geos||[]),...(a.sourceGeo||[])];
-      if (!g.some(x =>
-        x===region ||
-        (region==='Africa' && ['Sub-Saharan','North Africa','Sahel','Horn','West Africa','Africa'].includes(x)) ||
-        (region==='Arab'   && ['Maghreb','Gulf','Levant','North Africa','Arab'].includes(x))
-      )) return false;
+      if (!g.some(x => x===region || (region==='Africa' && ['Sub-Saharan','North Africa','Sahel','Horn','West Africa','East Africa','Africa'].includes(x)) || (region==='Arab' && ['Maghreb','Gulf','Levant','North Africa','Arab'].includes(x)))) return false;
     }
     if (topic && !(a.topics||[]).includes(topic)) return false;
     if (search) {
-      const hay = ((a.title||'')+' '+(a.description||'')+' '+(a.sourceName||'')).toLowerCase();
+      const hay = ((a.title||'')+' '+(a.description||'')+' '+(a.sourceName||'')+' '+(a.author||'')).toLowerCase();
       if (!hay.includes(search)) return false;
     }
     return true;
   });
 
   switch(sort) {
-    case 'newest':  list.sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate)); break;
-    case 'oldest':  list.sort((a,b)=>new Date(a.pubDate)-new Date(b.pubDate)); break;
+    case 'newest': list.sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate)); break;
+    case 'oldest': list.sort((a,b)=>new Date(a.pubDate)-new Date(b.pubDate)); break;
     case 'quality': list.sort((a,b)=>(b.qualityScore||0)-(a.qualityScore||0)); break;
-    case 'source':  list.sort((a,b)=>(a.sourceName||'').localeCompare(b.sourceName||'')); break;
+    case 'source': list.sort((a,b)=>(a.sourceName||'').localeCompare(b.sourceName||'')); break;
   }
 
   const ri = document.getElementById('resultsInfo');
   const below50 = list.length < CFG.minTotal && ALL_ARTICLES.length > 0;
-  ri.innerHTML = list.length
-    ? `عرض <span>${list.length}</span> من أصل <span>${ALL_ARTICLES.length}</span> تحليل (آخر 7 أيام)
-       ${below50 ? ' — <span style="color:var(--orange)">⚠ أقل من 50 بسبب الفلاتر المطبقة</span>' : ''}`
-    : '';
-
+  ri.innerHTML = list.length ? `عرض <span>${list.length}</span> من أصل <span>${ALL_ARTICLES.length}</span> دراسة (آخر 7 أيام)${below50 ? ' — <span style="color:var(--orange)">⚠ أقل من 50 بسبب الفلاتر المطبقة</span>' : ''}` : '';
   renderArticles(list);
 }
 
-// ═══ IMAGE ERROR ═══
+// ══ RENDER ══
 window.handleImgError = img => {
-  img.parentElement.innerHTML = '<div class="art-img-placeholder">[ no image ]</div>';
+  const ph = img.closest('.art-img-wrap');
+  if (ph) ph.innerHTML = buildPlaceholderHTML(img.dataset.name||'', img.dataset.type||'');
 };
 
-// ═══ RENDER ═══
+function buildPlaceholderHTML(name, type) {
+  const icons = { think:'🏛', report:'📊', policy:'📋', academic:'🎓', media:'📰', indie:'✍️', inst:'🏢' };
+  const icon = icons[type] || '📄';
+  const labels = { think:'مركز أبحاث', report:'تقرير', policy:'ورقة سياسات', academic:'دراسة أكاديمية', media:'منبر تحليلي', indie:'صحافة مستقلة', inst:'مؤسسة بحثية' };
+  const label = labels[type] || 'دراسة';
+  return `<div class="art-img-placeholder"><div class="ph-icon">${icon}</div><div class="ph-name">${esc(name)}</div><div class="ph-type">${label}</div></div>`;
+}
+
+function getPubTypeLabel(type) {
+  const labels = { think:'مركز فكر', report:'تقرير', policy:'ورقة سياسات', academic:'أكاديمي', media:'تحليلي', indie:'مستقل', inst:'مؤسسي' };
+  return labels[type] || 'دراسة';
+}
+
 function renderArticles(articles) {
   const grid = document.getElementById('grid');
-
   if (!articles.length && ALL_ARTICLES.length===0) {
     grid.innerHTML = `<div class="loader"><div class="spinner-ring"></div><p>جاري جلب التحاليل...</p><small>يرجى الانتظار</small></div>`;
     return;
   }
   if (!articles.length) {
-    grid.innerHTML = `
-      <div class="no-res">
-        <span class="big">◯</span>
-        <p style="color:var(--text);font-size:1.05em;font-weight:700">لا توجد تحاليل مطابقة</p>
-        <p style="margin-top:8px;font-size:.85em">جرب تغيير الفلاتر أو كلمة البحث</p>
-      </div>`;
+    grid.innerHTML = `<div class="no-res"><span class="big">◯</span><p style="color:var(--text);font-size:1.05em;font-weight:700">لا توجد دراسات مطابقة</p><p style="margin-top:8px;font-size:.85em">جرب تغيير الفلاتر أو كلمة البحث</p></div>`;
     return;
   }
 
-  const typeClass = { think:'src-think', media:'src-media', indie:'src-indie', inst:'src-inst' };
-  const typeDot   = { think:'think',     media:'media',     indie:'indie',     inst:'inst'     };
+  const typeClass = { think:'src-think', report:'src-report', policy:'src-policy', academic:'src-academic', media:'src-report', indie:'src-policy', inst:'src-academic' };
+  const typeDot = { think:'think', report:'report', policy:'policy', academic:'academic', media:'report', indie:'policy', inst:'academic' };
 
   grid.innerHTML = articles.map(a => {
-    const d          = daysDiff(a.pubDate);
-    const h          = hoursAgo(a.pubDate);
+    const d = daysDiff(a.pubDate);
+    const h = hoursAgo(a.pubDate);
     const freshClass = h<24 ? 'fresh-0' : d<=2 ? 'fresh-1' : d<=4 ? 'fresh-2' : 'fresh-old';
-    const ll         = a.language==='ar' ? 'عربي' : a.language==='fr' ? 'Français' : 'English';
-    const srcClass   = typeClass[a.sourceType]||'src-media';
-    const dotClass   = typeDot[a.sourceType]||'media';
-    const geoTags    = [...new Set([...(a.geos||[]),...(a.sourceGeo||[])])].slice(0,3);
-    const topicTags  = (a.topics||[]).slice(0,3);
-    const tagsHTML   = [
+    const ll = a.language==='ar' ? 'عربي' : a.language==='fr' ? 'Français' : 'English';
+    const srcClass = typeClass[a.pubType||a.sourceType] || 'src-report';
+    const dotClass = typeDot[a.pubType||a.sourceType] || 'report';
+    const geoTags = [...new Set([...(a.geos||[]),...(a.sourceGeo||[])])].slice(0,3);
+    const topicTags = (a.topics||[]).slice(0,2);
+    const ptLabel = getPubTypeLabel(a.pubType||a.sourceType);
+    const ptClass = { think:'pt-think', report:'pt-report', policy:'pt-policy', academic:'pt-academic' }[a.pubType||'report'] || 'pt-report';
+
+    const tagsHTML = [
       ...geoTags.map(t=>`<span class="tag tag-geo">${esc(t)}</span>`),
       ...topicTags.map(t=>`<span class="tag tag-topic">${esc(t)}</span>`),
     ].join('');
+
     const imgHTML = a.image
-      ? `<img class="art-img" src="${escAttr(a.image)}" alt="${escAttr(a.title)}" loading="lazy" onerror="handleImgError(this)">`
-      : '';
+      ? `<img class="art-img" src="${escAttr(a.image)}" alt="${escAttr(a.title)}" loading="lazy" data-name="${escAttr(a.sourceName)}" data-type="${escAttr(a.pubType||a.sourceType)}" onerror="handleImgError(this)"><div class="img-overlay"></div>`
+      : buildPlaceholderHTML(a.sourceName, a.pubType||a.sourceType);
+
+    const authorHTML = a.author ? `<span>✍️ ${esc(a.author.substring(0,40))}</span>` : '';
+
     return `<article class="art-card ${srcClass}">
-      ${imgHTML}
+      <div class="art-img-wrap">${imgHTML}</div>
       <div class="art-header">
         <div class="art-source">
           <span class="src-dot ${dotClass}"></span>
           ${esc(a.sourceName)}
         </div>
-        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+        <div class="meta-badges">
+          <span class="pub-type-badge ${ptClass}">${ptLabel}</span>
           <span class="lang-badge l-${a.language}">${ll}</span>
           <span class="art-freshness ${freshClass}">${daysAgo(a.pubDate)}</span>
         </div>
       </div>
       <div class="art-body">
         <h2 class="art-title" dir="${a.language==='ar'?'rtl':'ltr'}">${esc(a.title)}</h2>
-        ${a.description?`<p class="art-desc" dir="${a.language==='ar'?'rtl':'ltr'}">${esc(a.description)}</p>`:''}
-        ${tagsHTML?`<div class="art-tags">${tagsHTML}</div>`:''}
+        ${a.description ? `<p class="art-desc" dir="${a.language==='ar'?'rtl':'ltr'}">${esc(a.description)}</p>` : ''}
+        ${tagsHTML ? `<div class="art-tags">${tagsHTML}</div>` : ''}
+        ${authorHTML ? `<div class="art-meta">${authorHTML}${fmtDate(a.pubDate)?`<span>📅 ${fmtDate(a.pubDate)}</span>`:''}</div>` : ''}
         <div class="art-footer">
           <a href="${escAttr(a.link)}" target="_blank" rel="noopener noreferrer" class="art-link">
-            ↗ اقرأ التحليل
+            ↗ اقرأ الدراسة كاملة
           </a>
-          ${fmtDate(a.pubDate)?`<span style="font-family:var(--font-mono);font-size:.62em;color:var(--text3);white-space:nowrap">${fmtDate(a.pubDate)}</span>`:''}
         </div>
       </div>
     </article>`;
   }).join('');
 }
 
-// ═══ STATS ═══
+// ══ STATS ══
 function updateStats() {
-  const now   = Date.now();
+  const now = Date.now();
   const fresh = ALL_ARTICLES.filter(a=>(now-new Date(a.pubDate).getTime())<=CFG.maxAgeMs);
   document.getElementById('sTotal').textContent = fresh.length;
-  document.getElementById('sAr').textContent    = fresh.filter(a=>a.language==='ar').length;
-  document.getElementById('sEn').textContent    = fresh.filter(a=>a.language==='en').length;
-  document.getElementById('sFr').textContent    = fresh.filter(a=>a.language==='fr').length;
-  const isArab = a => [...(a.geos||[]),...(a.sourceGeo||[])].some(x=>['Arab','Maghreb','Gulf','Levant','North Africa'].includes(x));
-  const isAfri = a => [...(a.geos||[]),...(a.sourceGeo||[])].some(x=>['Africa','Sahel','Horn','West Africa','Sub-Saharan'].includes(x));
-  document.getElementById('sArab').textContent  = fresh.filter(isArab).length;
-  document.getElementById('sAfri').textContent  = fresh.filter(isAfri).length;
-  document.getElementById('sSrc').textContent   = activeSources.size||'-';
+  document.getElementById('sAr').textContent = fresh.filter(a=>a.language==='ar').length;
+  document.getElementById('sEn').textContent = fresh.filter(a=>a.language==='en').length;
+  document.getElementById('sFr').textContent = fresh.filter(a=>a.language==='fr').length;
+  const isArab = a => [...(a.geos||[]),...(a.sourceGeo||[])].some(x=>['Arab','Maghreb','Gulf','Levant','North Africa','Arab'].includes(x));
+  const isAfri = a => [...(a.geos||[]),...(a.sourceGeo||[])].some(x=>['Africa','Sahel','Horn','West Africa','East Africa','Sub-Saharan'].includes(x));
+  document.getElementById('sArab').textContent = fresh.filter(isArab).length;
+  document.getElementById('sAfri').textContent = fresh.filter(isAfri).length;
+  document.getElementById('sSrc').textContent = activeSources.size || '-';
 }
+function updateTime() { document.getElementById('lastUp').textContent = 'آخر تحديث: ' + fmtDateTime(); }
+function showNotif(msg) { const el = document.getElementById('notif'); el.textContent = msg; el.style.display = 'block'; setTimeout(()=>el.style.display='none', 6000); }
+function manualRefresh() { localStorage.removeItem(CFG.cacheKey); ALL_ARTICLES = []; activeSources.clear(); fetchAll(); }
 
-function updateTime() {
-  document.getElementById('lastUp').textContent = 'آخر تحديث: ' + fmtDateTime();
-}
-
-function showNotif(msg) {
-  const el = document.getElementById('notif');
-  el.textContent = msg;
-  el.style.display = 'block';
-  setTimeout(()=>el.style.display='none', 6000);
-}
-
-function manualRefresh() {
-  localStorage.removeItem(CFG.cacheKey);
-  ALL_ARTICLES = [];
-  activeSources.clear();
-  fetchAll();
-}
-
-// ═══ INIT ═══
-async function init() {
+// ══ INIT ══
+(async function init() {
   const cache = loadCache();
   if (cache?.articles?.length > 0) {
     ALL_ARTICLES = cache.articles;
-    updateStats();
-    filterArticles();
-    updateTime();
-    updateFreshnessBar();
+    updateStats(); filterArticles(); updateTime(); updateFreshnessBar();
     const elapsed = Date.now() - (cache.timestamp||0);
-    if (elapsed < CFG.dailyMs) {
-      setTimeout(()=>fetchAll(), CFG.dailyMs - elapsed);
-      return;
-    }
+    if (elapsed < CFG.dailyMs) { setTimeout(()=>fetchAll(), CFG.dailyMs - elapsed); return; }
   }
   await fetchAll();
-}
-
-init();
+})();
 
 // تحديث يومي
 setInterval(()=>fetchAll(), CFG.dailyMs);
 
 // حذف المنتهية كل ساعة
-setInterval(()=>{
-  const now    = Date.now();
+setInterval(() => {
+  const now = Date.now();
   const before = ALL_ARTICLES.length;
   ALL_ARTICLES = ALL_ARTICLES.filter(a=>(now-new Date(a.pubDate).getTime())<=CFG.maxAgeMs);
-  if (ALL_ARTICLES.length !== before){
-    saveCache(); updateStats(); filterArticles(); updateFreshnessBar();
-  }
-}, 1000*60*60);
+  if (ALL_ARTICLES.length !== before) { saveCache(); updateStats(); filterArticles(); updateFreshnessBar(); }
+}, 60*60*1000);
 </script>
 </body>
 </html>
